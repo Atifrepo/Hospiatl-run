@@ -9,6 +9,10 @@ import Input from '@material-ui/core/Input';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
+import Cookies from 'universal-cookie';
+import { func } from 'prop-types';
+
+const cookies=new Cookies();
 const styles =  ({
   root: {
     display: 'flex',
@@ -22,6 +26,7 @@ const styles =  ({
     // marginTop: theme.spacing.unit * 2,
   },
 })
+
 export default class Login extends Component {
   constructor() {
     super();
@@ -34,36 +39,8 @@ export default class Login extends Component {
       }
 
     }
-  }
-
-  handleClick() {
-    console.log('handle click login')
-    console.log('user', this.state.Details)
-console.log('type',this.state.Details.type)
-    if(this.state.Details.type === 'Nurse'){
-    this.props.history.push('/AddVitals')
-    console.log(this.state.Details.type)
-  }
-  if(this.state.Details.type === 'Admin'){
-    this.props.history.push('/AddEmployee')
-    console.log(this.state.Details.type)
-  }
-  if(this.state.Details.type === 'Receptionist'){
-    this.props.history.push('/Register')
-    console.log(this.state.Details.type)
-  }
-  if(this.state.Details.type === 'Doctor'){
-    this.props.history.push('/AddVitals')
-    console.log(this.state.Details.type)
-  }
-  
-  
-  
     
   }
-    // this.props.history.push('/Register')
-  
-
   handleChange(changeValue, event) {
     this.state.Details[changeValue] = event.target.value;
     this.setState = ({
@@ -81,20 +58,7 @@ console.log('type',this.state.Details.type)
 
     
   };
-// handleSubmit=(e)=>{
-//   e.preventDefault();
-//   const url="http://primespecialistclinics.com:40001/loginuser"
-//   const Details={
-//     username:'Muhammad Obaid',
-//     password:'admin',
-//     role:'Admin',
-//   }
-// Axios.post(url,Details).then((res)=>{
 
-// }).catch((e)=>{
-//   console.log('errors')
-// })
-// }
 handleSubmit=(event)=>{
   var details = {
     username: this.state.Details.username,
@@ -108,17 +72,45 @@ for (var property in details) {
   var encodedValue = encodeURIComponent(details[property]);
   formBody.push(encodedKey + "=" + encodedValue);
 }
+var token;
+var username;
+
 formBody = formBody.join("&");
 
-fetch('http://primespecialistclinics.com:40001/loginuser', {
+fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/loginuser', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
   },
   body: formBody
-  
-})
+   }).then(function(resp){
+     if(resp.ok){
+     return resp.json()
+     }
+   }).then(function(data){
+     cookies.set('token', data.token, { path: '/' });
+     console.log(cookies.get('token'));
+     cookies.set('username', data.username, { path: '/' });
+     console.log(cookies.get('username')); 
+     cookies.set('roles', data.roles, { path: '/' });
+     console.log(cookies.get('roles'));
+     if(data.roles=='Receptionist'){
+      window.location.href = '/addvitals';
+      console.log('login role',data.roles)
+     }
+    })
+   
+   
+   .catch(function(error){
+    console.log("Error");
+
+   })
+   
+
+   
+ 
 console.log('res',details)
+
 }
   render() {
     return (
@@ -187,7 +179,7 @@ console.log('res',details)
           </FormControl>
           <br></br>
           <br></br>
-          <Button variant="contained" style={{ backgroundColor: '#2699FB',width:220 }} onClick={(event) => this.handleClick (event)}><b>login</b></Button>
+          <Button variant="contained" style={{ backgroundColor: '#2699FB',width:220 }} onClick={(event) => this.handleSubmit (event)}><b>login</b></Button>
         </form>
       </div>
     )

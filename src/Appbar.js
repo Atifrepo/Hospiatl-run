@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Cookies from 'universal-cookie';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -25,6 +26,8 @@ import classNames from 'classnames';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+const cookies=new Cookies();
+
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -76,6 +79,10 @@ const styles = theme => ({
     [theme.breakpoints.up('sm')]: {
       width: theme.spacing.unit * 9 + 1,
     },
+    grow: {
+      flexGrow: 1,
+      justifyContent:'left'
+    },
   },
   toolbar: {
     display: 'flex',
@@ -93,8 +100,26 @@ const styles = theme => ({
 class MenuAppBar extends React.Component {
   state = {
     open: false,
+    anchorEl: null,
   };
+  handleMenu = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+  handleChange = event => {
+    this.setState({ auth: event.target.checked });
+  };
+  handleClose = () => {
+    this.setState({ anchorEl: null });
+  };
+logout=()=>{
+  console.log('logout')
+  localStorage.clear();
+  window.location.href = '/';
+cookies.remove('roles')
+cookies.remove('username')
+cookies.remove('token')
 
+}
   handleDrawerOpen = () => {
     this.setState({ open: true });
   };
@@ -108,6 +133,8 @@ route(){
 }
 
   render() {
+    const { auth, anchorEl } = this.state;
+    const open = Boolean(anchorEl);
     const { classes, theme } = this.props;
     return (
       <div className={classes.root}>
@@ -126,11 +153,38 @@ route(){
               })}
             >
             <MenuIcon/>
+
             </IconButton>
-            <Typography variant="h6" color="inherit" noWrap>
+            <Typography variant="h6" color="inherit" className={classes.grow} noWrap>
               Hospital Mangagement
             </Typography>
+            <IconButton
+                  aria-owns={open ? 'menu-appbar' : undefined}
+                  aria-haspopup="true"
+                  onClick={this.handleMenu}
+                  color="inherit"
+                >
+                  <AccountCircle style={{alignContent:'right'}} />
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  open={open}
+                  onClose={this.handleClose}
+                >
+                  <MenuItem onClick={this.logout}>logout</MenuItem>
+                  <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                </Menu>
                 </Toolbar>
+               
                  </AppBar>
                   <Drawer
              variant="permanent"

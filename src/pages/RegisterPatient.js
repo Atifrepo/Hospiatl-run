@@ -3,12 +3,16 @@ import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import Cookies from 'universal-cookie';
+
+const cookies=new Cookies();
+
 const styles  = ({
   root: {
     flexGrow: 0,
   },
   paper: {
-    padding:1000,
+    padding:0,
     textAlign: 'center',
     color: '#212121',
   },
@@ -27,6 +31,7 @@ export default class RegisterPatient extends Component {
         Telephone2: '',
       }
     }
+    console.log(cookies.get('token'));
 
   }
   handleClick() {
@@ -42,19 +47,21 @@ export default class RegisterPatient extends Component {
       // password:this.state.password
     })
     console.log('Register', this.state.Register)
+Cookies.get()
+
   }
 
   render() {
     return (
      <div>
       
-      <Grid container >
-        <Grid item xs={12}>
-          <h2 style={{color:'#2699FB'}}>RegisterPatient</h2>
-        </Grid>
-        <Grid  item xs={8}>
+          <Grid style={{padding:44}} item xs={24}>
+          <h2 style={{color:'#2699FB'}}>Register Patient</h2>
+  </Grid>
+          <Grid style={styles.paper} container spacing={24} >
+        <Grid  item xs={8} sm={5}>
       
-          <TextField 
+          <TextField
               label="Name"
               value={this.state.Name}
               onChange={this.handleChange.bind(this, 'Name')}
@@ -63,8 +70,9 @@ export default class RegisterPatient extends Component {
             />
             
         </Grid>
-        <Grid  item xs={4} >
+        <Grid  item xs={8} sm={5} >
        
+
        <TextField 
            label="Husband/Father Name"
            value={this.state.Name2}
@@ -75,10 +83,10 @@ export default class RegisterPatient extends Component {
          
 
      </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={8} sm={5}>
       
           <TextField
-              label="Age'"
+              label="Age"
               value={this.state.Age}
               onChange={this.handleChange.bind(this, 'Age')}
               margin="normal"
@@ -86,7 +94,7 @@ export default class RegisterPatient extends Component {
             />
             
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={8} sm={5}>
             <h4>Gender</h4>
           <div className='radioButton' onChange={this.handleChange.bind(this, 'Gender')} >
               <input type='radio' value='Male' name='user' /> Male
@@ -94,7 +102,7 @@ export default class RegisterPatient extends Component {
         </div>
         </Grid>
 
-        <Grid item xs={8}>
+        <Grid item xs={8} sm={5}>
        
       
           <TextField
@@ -106,7 +114,7 @@ export default class RegisterPatient extends Component {
             />
             
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={8} sm={5}>
        
           <TextField
               label="Telephone#1"
@@ -117,7 +125,7 @@ export default class RegisterPatient extends Component {
             />
             
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={8} sm={5}>
        
           <TextField
               label="Telephone#2"
@@ -129,13 +137,12 @@ export default class RegisterPatient extends Component {
             
         </Grid>
        
-        <Grid item xs={12}>
+        <Grid item xs={8} sm={5}>
         <Button variant="contained" style={{ backgroundColor: '#2699FB',position:'absulute' }} onClick={(event) => this.handleClick(event)}><b>Register   Patient</b></Button>
         </Grid>
       </Grid>
      
-    
-    
+      
   
       </div>
    

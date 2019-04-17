@@ -7,6 +7,8 @@ import AddVitals from './pages/AddVitals';
 import EditEmployee from './pages/EditEmployee';
 import AddEmployee from './pages/AddEmployee';
 import DeleteEmployee from './pages/DeleteEmployee';
+import Cookies from 'universal-cookie';
+// import isLoggedIn from '/helpers/is_logged_in';
 
 import './App.css';
 import {
@@ -14,15 +16,38 @@ import {
   Route,
   Link
 } from 'react-router-dom';
+const cookies=new Cookies();
+
+
 class App extends Component {
+constructor(){
+  super();
+ 
+
+}
+
+    
+
+select(){
+  var rolecookis=cookies.get('roles')
+console.log('hi',rolecookis)
+if(rolecookis=="nurse"){
+
+}
+} 
+
   render() {
+    
+    
     return (
-      <div className="App">
-     
-<MenuAppBar/>
+    
+    <div className="App">
+    
+ <MenuAppBar/>
 <Router>
   <div>
-  <Route exact path='/' component={Login} />
+    
+  <Route exact path='/' component={Login}  />
   <Route exact path='/Register' component={RegisterPatient} />
    <Route exact path='/AddVitals' component={AddVitals} />
    <Route exact path='/AddEmployee' component={AddEmployee} />
