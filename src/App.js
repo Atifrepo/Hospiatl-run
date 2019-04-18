@@ -14,27 +14,91 @@ import './App.css';
 import {
   BrowserRouter as Router,
   Route,
-  Link
+  Link,
+  Redirect,
+  withRouter
 } from 'react-router-dom';
+
+
 const cookies=new Cookies();
 
 
-class App extends Component {
-constructor(){
-  super();
- 
+// const PrivateRoute = ({ component: Component, ...rest }) => (
 
+//   <Route {...rest} render={(props) => (
+    
+//     { === 'Receptionist'
+//       ? <Component {...props} />
+//       : <Redirect to='/login' />
+//   )} />
+// )
+
+const ProtectedRouteforReceptionist = ({ component: Comp, loggedIn, path, ...rest }) => {
+  return (
+    <Route
+      path={path}
+      {...rest}
+      render={props => {
+
+        return loggedIn == "Receptionist" ? <Comp {...props} /> : <Redirect to="/" />;
+      }}
+    />
+  );
+};
+
+
+const ProtectedRouteforDoctor = ({ component: Comp, loggedIn, path, ...rest }) => {
+  return (
+    <Route
+      path={path}
+      {...rest}
+      render={props => {
+
+        return loggedIn == "Doctor" ? <Comp {...props} /> : <Redirect to="/" />;
+      }}
+    />
+  );
+};
+
+
+const ProtectedRouteforNurse = ({ component: Comp, loggedIn, path, ...rest }) => {
+  return (
+    <Route
+      path={path}
+      {...rest}
+      render={props => {
+
+        return loggedIn == "Nurse" ? <Comp {...props} /> : <Redirect to="/" />;
+      }}
+    />
+  );
+};
+
+
+
+
+class App extends Component {
+    constructor(){
+          super();
 }
+
+
+state = {
+    cookierolevalue : cookies.get('roles'),
+  };
+
 
     
 
 select(){
   var rolecookis=cookies.get('roles')
-console.log('hi',rolecookis)
-if(rolecookis=="nurse"){
+  console.log('hi',rolecookis)
+    if(rolecookis=="nurse"){
 
+      }
 }
-} 
+
+
 
   render() {
     
@@ -47,17 +111,17 @@ if(rolecookis=="nurse"){
 <Router>
   <div>
     
-  <Route exact path='/' component={Login}  />
-  <Route exact path='/Register' component={RegisterPatient} />
-   <Route exact path='/AddVitals' component={AddVitals} />
+   <Route exact path='/' component={Login}  />
+   <ProtectedRouteforReceptionist  path='/Register' loggedIn={this.state.cookierolevalue} component={RegisterPatient} />
+   <ProtectedRouteforNurse path='/AddVitals' loggedIn={this.state.cookierolevalue} component={AddVitals} />
    <Route exact path='/AddEmployee' component={AddEmployee} />
    <Route exact path='/DeleteEmployee' component={DeleteEmployee} />
    <Route exact path='/EditEmployee' component={EditEmployee} />
    <Route exact path='/Drawer' component={Drawer} />
   </div>
 </Router>
-<Drawer/>
-       {/* <Login/> */}
+// <Drawer/>
+       
       </div>
     );
   }

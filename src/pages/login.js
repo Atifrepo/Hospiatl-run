@@ -95,9 +95,15 @@ fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/loginuser', {
      cookies.set('roles', data.roles, { path: '/' });
      console.log(cookies.get('roles'));
      if(data.roles=='Receptionist'){
+      window.location.href = '/register';
+      console.log('login role',data.roles)
+     }
+
+     if(data.roles=='Nurse'){
       window.location.href = '/addvitals';
       console.log('login role',data.roles)
      }
+
     })
    
    

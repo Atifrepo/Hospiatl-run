@@ -70,7 +70,7 @@ console.log('hi',rolecookis)
     return (
       
 <div >
- {this.state.rolecookies?
+ 
  <div> 
 <Grid style={{padding:45}} item xs={12}>
          
@@ -148,9 +148,7 @@ console.log('hi',rolecookis)
       
                   <Button variant="contained" style={{ backgroundColor: '#2699FB',position:'absulute' }} onClick={(event) => this.handleClick(event)}><b>Add Vitals</b></Button>
                   </div>
-                  :
-                  alert('login first')
-                }
+                  
                   </div>
    
    )
