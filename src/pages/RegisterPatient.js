@@ -24,7 +24,7 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit *15  ,
     marginRight: theme.spacing.unit*10,
     
-    width:'30%'
+   
   },
   dense: {
     marginTop: 16,

@@ -14,6 +14,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
 import classNames from 'classnames';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -122,9 +123,9 @@ cookies.remove('token')
   handleDrawerClose = () => {
     this.setState({ open: false });
   };
-route(){
-  console.log('in route')
-  window.location.href = '/addvitals';
+route(path){
+  console.log('in route');
+  window.location.href = path;
 }
 
   render() {
@@ -159,7 +160,7 @@ route(){
                   onClick={this.handleMenu}
                   color="inherit"
                 >
-                  <AccountCircle style={{paddingLeft:'1150'}} />
+                  <AccountCircle  />
                 </IconButton>
                 <Menu
                   id="menu-appbar"
@@ -176,7 +177,7 @@ route(){
                   onClose={this.handleClose}
                 >
                   <MenuItem onClick={this.logout}>logout</MenuItem>
-                  <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                  
                 </Menu>
                 </Toolbar>
                
@@ -201,12 +202,57 @@ route(){
             </IconButton>
           </div>
           <List>
-          <ListItem button onClick={(event) => this.route(event)} style={{backgroundColor:'#2699FB',}}>
+          <ListItem button onClick={(event) => this.route('/addvitals')} style={{backgroundColor:'#2699FB',}}>
                 <ListItemIcon style={{color:'#fff'}}> 
                   Add Vitals
                    </ListItemIcon>
                 <ListItemText primary />
               </ListItem>
+<Divider/>
+              <ListItem button onClick={(event) => this.route('./Register')} style={{backgroundColor:'#2699FB',}}>
+                <ListItemIcon style={{color:'#fff'}}> 
+                Register Patient
+                   </ListItemIcon>
+                <ListItemText primary />
+              </ListItem>
+              <Divider/>
+              <ListItem button onClick={(event) => this.route('/SearchPatient')} style={{backgroundColor:'#2699FB',}}>
+                <ListItemIcon style={{color:'#fff'}}> 
+                  Search Patient
+                   </ListItemIcon>
+                <ListItemText primary />
+              </ListItem>
+              <Divider/>
+              <ListItem button onClick={(event) => this.route('/SearchExistingPatient')} style={{backgroundColor:'#2699FB',}}>
+                <ListItemIcon style={{color:'#fff'}}> 
+                  Search Existing Patient
+                   </ListItemIcon>
+                <ListItemText primary />
+              </ListItem>
+
+              <Divider/>
+              <ListItem button onClick={(event) => this.route('/AddEmployee')} style={{backgroundColor:'#2699FB',}}>
+                <ListItemIcon style={{color:'#fff'}}> 
+                  Add Employee
+                   </ListItemIcon>
+                <ListItemText primary />
+              </ListItem>
+
+              <Divider/>
+              <ListItem button onClick={(event) => this.route('/DeleteEmployee')} style={{backgroundColor:'#2699FB',}}>
+                <ListItemIcon style={{color:'#fff'}}> 
+                 Delete Employee
+                   </ListItemIcon>
+                <ListItemText primary />
+              </ListItem>
+              <Divider/>
+              <ListItem button onClick={(event) => this.route('/EditEmployee')} style={{backgroundColor:'#2699FB',}}>
+                <ListItemIcon style={{color:'#fff'}}> 
+                  Edit Employee
+                   </ListItemIcon>
+                <ListItemText primary />
+              </ListItem>
+
 
           </List>
              
