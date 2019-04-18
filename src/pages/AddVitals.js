@@ -1,28 +1,31 @@
 import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
-import Input from '@material-ui/core/Input'
-import Grid from '@material-ui/core/Grid';
-import { Button } from 'react-bootstrap';
-import Paper from '@material-ui/core/Paper';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 import './addvitals.css'
 import Cookies from 'universal-cookie';
 const cookies=new Cookies();
 
-
-const styles = ({
-  root: {
-    flexGrow: 0,
+const styles = theme => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
   },
-  paper: {
-    padding: 40,
-    textAlign: 'center',
-
-    //   color: theme.palette.text.secondary,
+  textField: {
+    marginLeft: theme.spacing.unit *15  ,
+    marginRight: theme.spacing.unit*10,
+    marginTop:theme.spacing.unit*4,
+    width:'30%'
+  },
+  dense: {
+    marginTop: 16,
+  },
+  menu: {
+    width: 200,
   },
 });
 
-
-export default class AddVitals extends Component {
+ class AddVitals extends Component {
 
   constructor() {
     super()
@@ -65,92 +68,86 @@ console.log('hi',rolecookis)
   }
 
   render() {
-
+    const { classes } = this.props;
   
     return (
       
 <div >
  
  <div> 
-<Grid style={{padding:45}} item xs={12}>
+
          
         <h2>Add Vitals of Patient</h2>
-        </Grid>
-        <Grid style={styles.paper} container spacing={24}>
-          <Grid item xs={4} sm={1}>
-
-          </Grid>
-          <Grid item xs={8} sm={3}>
-            <TextField
+          <form >
+            <TextField 
               label="Enter MR_No"
               value={this.state.MR_No}
               onChange={this.handleChange.bind(this, 'MR_No')}
               margin="normal"
               variant="outlined"
+              className={classes.textField}
             />
-
-          </Grid>
-          <Grid item xs={20} sm={8}>
-
-          </Grid>
-
-          <Grid item xs={10} sm={5}>
             <TextField
               label="Height"
               value={this.state.Height}
               onChange={this.handleChange.bind(this, 'Height')}
               variant="outlined"
+              className={classes.textField}
+              margin="normal"
               />
-              
-          </Grid>
-          <Grid item xs={6} sm={3}>
-            <TextField
+              <br></br>
+                     <TextField
               label="Weight"
               value={this.state.Weight}
               onChange={this.handleChange.bind(this, 'Weight')}
               variant="outlined"
-            />
-          </Grid>
-          <Grid item xs={10} sm={5}>
+              className={classes.textField}
+              margin="normal"
+         />
             <TextField
               label="BP(mmHg)"
               value={this.state.BP_Upper}
               onChange={this.handleChange.bind(this, 'BP_Upper')}
               variant="outlined"
+              className={classes.textField}
+              margin="normal"
             />
-          </Grid>
-
-          <Grid item xs={6} sm={3}>
+            <br></br>
             <TextField
               label="Pulse(bpm)"
               value={this.state.Pulse}
               onChange={this.handleChange.bind(this, 'Pulse')}
               variant="outlined"
+              className={classes.textField}
+              margin="normal"
             />
-          </Grid>
-          <Grid item xs={10} sm={5}>
             <TextField
               label="Tempreture"
               value={this.state.Temprature}
               onChange={this.handleChange.bind(this, 'Temprature')}
               variant="outlined"
+              className={classes.textField}
+              margin="normal"
             />
-          </Grid>
-           <Grid item xs={6} sm={3}>
+            <br></br>
           <TextField
               label="PO2"
               value={this.state.PO2}
               onChange={this.handleChange.bind(this, 'PO2')}
               variant="outlined"
-            />
-          </Grid>
-                  </Grid>
-      
-                  <Button variant="contained" style={{ backgroundColor: '#2699FB',position:'absulute' }} onClick={(event) => this.handleClick(event)}><b>Add Vitals</b></Button>
+              className={classes.textField}
+              margin="normal"
+          />
+                </form>
                   </div>
                   
                   </div>
+                
    
    )
   }
 }
+AddVitals.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+export default withStyles(styles)(AddVitals)

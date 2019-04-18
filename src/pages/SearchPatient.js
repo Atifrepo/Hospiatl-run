@@ -14,6 +14,7 @@ export default class SearchPatient extends Component{
     render(){
         return(
             <h1 style={{color:'#2699FB',position:'absolute'}}>Search patient</h1>
-        )
+        
+            )
     }
 }

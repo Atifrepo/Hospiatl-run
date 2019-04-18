@@ -13,19 +13,19 @@ import Cookies from 'universal-cookie';
 import { func } from 'prop-types';
 
 const cookies=new Cookies();
-const styles =  ({
+const styles = theme => ({
   root: {
     display: 'flex',
-    flexWrap: 'wrap', 
+    flexWrap: 'wrap',
   },
   formControl: {
-    // margin: theme.spacing.unit,
+    margin: theme.spacing.unit,
     minWidth: 120,
   },
   selectEmpty: {
-    // marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing.unit * 2,
   },
-})
+});
 
 export default class Login extends Component {
   constructor() {
@@ -36,6 +36,7 @@ export default class Login extends Component {
         username: '',
         password: '',
         role: '',
+        name: 'hai',
       }
 
     }
@@ -119,6 +120,8 @@ console.log('res',details)
 
 }
   render() {
+      
+
     return (
       <div>
       
@@ -150,7 +153,7 @@ console.log('res',details)
           />
           <br></br>
 <br></br>
-<div className={styles.root}></div>
+
           <FormControl variant="outlined" className={styles.formControl}>
             <InputLabel
               ref={ref => {

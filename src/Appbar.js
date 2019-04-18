@@ -4,7 +4,6 @@ import Cookies from 'universal-cookie';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
@@ -12,24 +11,15 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-// import Drawer from './Drawer';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-import { Button } from '@material-ui/core';
 import List from '@material-ui/core/List';
 import classNames from 'classnames';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 const cookies=new Cookies();
-
 const drawerWidth = 240;
-
 const styles = theme => ({
   root: {
     display: 'flex',
@@ -47,6 +37,7 @@ const styles = theme => ({
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
+      backgroundColor:'#2699FB'
     }),
   },
   menuButton: {
@@ -67,6 +58,7 @@ const styles = theme => ({
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
+      backgroundColor:'#2699FB'
     }),
   },
   drawerClose: {
@@ -82,6 +74,7 @@ const styles = theme => ({
     grow: {
       flexGrow: 1,
       justifyContent:'left'
+      
     },
   },
   toolbar: {
@@ -90,10 +83,12 @@ const styles = theme => ({
     justifyContent: 'flex-end',
     padding: '0 8px',
     ...theme.mixins.toolbar,
+    backgroundColor:'#2699FB'
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing.unit * 3,
+    backgroundColor:'#2699FB'
   },
 });
 
@@ -129,7 +124,7 @@ cookies.remove('token')
   };
 route(){
   console.log('in route')
-  this.props.history.push('/AddVitals')
+  window.location.href = '/addvitals';
 }
 
   render() {
@@ -186,19 +181,20 @@ route(){
                 </Toolbar>
                
                  </AppBar>
-                  <Drawer
-             variant="permanent"
-             className={classNames(classes.drawer, {
-               [classes.drawerOpen]: this.state.open,
-               [classes.drawerClose]: !this.state.open,
-             })}
+   <Drawer
+            //  variant="permanent"
+            //  className={classNames(classes.drawer, {
+            //    [classes.drawerOpen]: this.state.open,
+            //    [classes.drawerClose]: !this.state.open,
+            //  })}
              classes={{
                paper: classNames({
-                 [classes.drawerOpen]: this.state.open,
+                 [classes.drawerOpen]                  : this.state.open,
                  [classes.drawerClose]: !this.state.open,
                }),
              }}
-             open={this.state.open}>
+             open={this.state.open}
+             >
               <div className={classes.toolbar}>
             <IconButton onClick={this.handleDrawerClose}>
               {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}

@@ -1,23 +1,46 @@
 import React, { Component } from 'react';
-import Grid from '@material-ui/core/Grid'
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import Input from '@material-ui/core/Input';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+
 import Cookies from 'universal-cookie';
 
 const cookies=new Cookies();
 
-const styles  = ({
-  root: {
-    flexGrow: 0,
+const styles = theme => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
   },
-  paper: {
-    padding:0,
-    textAlign: 'center',
-    color: '#212121',
+  textField: {
+    marginLeft: theme.spacing.unit *15  ,
+    marginRight: theme.spacing.unit*10,
+    
+    width:'30%'
+  },
+  dense: {
+    marginTop: 16,
+  },
+  menu: {
+    width: 200,
+  },
+  formControl: {
+    margin: theme.spacing.unit,
+    minWidth: '40',
+  },
+  selectEmpty: {
+    marginTop: theme.spacing.unit * 2,
   },
 });
-export default class RegisterPatient extends Component {
+
+class RegisterPatient extends Component {
   constructor() {
     super()
     this.state = {
@@ -29,6 +52,8 @@ export default class RegisterPatient extends Component {
         MR_No: '',
         Telephone1: '',
         Telephone2: '',
+        labelWidth:0,
+        name:'',
       }
     }
     console.log(cookies.get('token'));
@@ -52,25 +77,22 @@ Cookies.get()
   }
 
   render() {
+    const { classes } = this.props;
     return (
-     <div>
+     <div >
       
-          <Grid style={{padding:44}} item xs={24}>
+         
           <h2 style={{color:'#2699FB'}}>Register Patient</h2>
-  </Grid>
-          <Grid style={styles.paper} container spacing={24} >
-        <Grid  item xs={8} sm={5}>
-      
+    
           <TextField
               label="Name"
               value={this.state.Name}
               onChange={this.handleChange.bind(this, 'Name')}
               margin="normal"
               variant="outlined"
+              className={classes.textField}
             />
             
-        </Grid>
-        <Grid  item xs={8} sm={5} >
        
 
        <TextField 
@@ -79,31 +101,19 @@ Cookies.get()
            onChange={this.handleChange.bind(this, 'Name2')}
            margin="normal"
            variant="outlined"
+           className={classes.textField}
          />
-         
-
-     </Grid>
-        <Grid item xs={8} sm={5}>
-      
-          <TextField
+              <TextField
               label="Age"
               value={this.state.Age}
               onChange={this.handleChange.bind(this, 'Age')}
               margin="normal"
               variant="outlined"
+              className={classes.textField}
             />
             
-        </Grid>
-        <Grid item xs={8} sm={5}>
-            <h4>Gender</h4>
-          <div className='radioButton' onChange={this.handleChange.bind(this, 'Gender')} >
-              <input type='radio' value='Male' name='user' /> Male
-  <input type='radio' value='Female' name='user' /> Female
-        </div>
-        </Grid>
-
-        <Grid item xs={8} sm={5}>
-       
+            
+                
       
           <TextField
               label="MR_No"
@@ -111,10 +121,9 @@ Cookies.get()
               onChange={this.handleChange.bind(this, 'MR_No')}
               margin="normal"
               variant="outlined"
+              className={classes.textField}
             />
             
-        </Grid>
-        <Grid item xs={8} sm={5}>
        
           <TextField
               label="Telephone#1"
@@ -122,10 +131,9 @@ Cookies.get()
               onChange={this.handleChange.bind(this, 'Telephone1')}
               margin="normal"
               variant="outlined"
+              className={classes.textField}
             />
             
-        </Grid>
-        <Grid item xs={8} sm={5}>
        
           <TextField
               label="Telephone#2"
@@ -133,14 +141,50 @@ Cookies.get()
               onChange={this.handleChange.bind(this, 'Telephone2')}
               margin="normal"
               variant="outlined"
+              className={classes.textField}
             />
             
-        </Grid>
-       
-        <Grid item xs={8} sm={5}>
-        <Button variant="contained" style={{ backgroundColor: '#2699FB',position:'absulute' }} onClick={(event) => this.handleClick(event)}><b>Register   Patient</b></Button>
-        </Grid>
-      </Grid>
+    <br></br>
+    <br></br>
+    <div>
+    <FormControl variant="outlined" className={classes.TextField}>
+            <InputLabel
+              ref={ref => {
+                this.InputLabelRef = ref;
+              }}
+              htmlFor="outlined-age-simple"
+            >
+              Role
+          </InputLabel>
+        
+            <Select style={{width:500,marginRight:"100%",paddingLeft:'50'}}
+            
+              value={this.state.Gender}
+              onChange={this.handleChange.bind(this,'Gender')}
+              input={
+                <OutlinedInput
+                  labelWidth={this.state.labelWidth}
+                  // name={this.state.Gender}
+                  id="outlined-age-simple"
+                  value={this.state.Gender}
+                />
+
+             }
+            >
+              <MenuItem value={'Male'}>Male</MenuItem>
+              <MenuItem value={'Female'}>Female</MenuItem>
+              <MenuItem value={'Other'}>Other</MenuItem>
+              
+            </Select>
+
+            
+          </FormControl>
+          </div>
+          <br></br>
+    
+        <Button variant="contained" style={{ backgroundColor: '#2699FB',position:'relative' }} onClick={(event) => this.handleClick(event)}><b>Register   Patient</b></Button>
+    
+    
      
       
   
@@ -150,3 +194,7 @@ Cookies.get()
     )
   }
 }
+RegisterPatient.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+export default withStyles(styles)(RegisterPatient)
