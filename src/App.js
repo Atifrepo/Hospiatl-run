@@ -7,6 +7,8 @@ import AddVitals from './pages/AddVitals';
 import EditEmployee from './pages/EditEmployee';
 import AddEmployee from './pages/AddEmployee';
 import DeleteEmployee from './pages/DeleteEmployee';
+import SearchPatient from './pages/SearchPatient';
+import SearchExistingPatient from './pages/SearchExistingPatient'
 import Cookies from 'universal-cookie';
 // import isLoggedIn from '/helpers/is_logged_in';
 
@@ -18,6 +20,7 @@ import {
   Redirect,
   withRouter
 } from 'react-router-dom';
+
 
 
 const cookies=new Cookies();
@@ -118,6 +121,8 @@ select(){
    <Route exact path='/DeleteEmployee' component={DeleteEmployee} />
    <Route exact path='/EditEmployee' component={EditEmployee} />
    <Route exact path='/Drawer' component={Drawer} />
+   <Route exact path='/SearchExistinPatient' component={SearchExistingPatient} />
+   <Route exact path='/SearchPatient' component={SearchPatient} />
   </div>
 </Router>
 {/* <Drawer/> */}

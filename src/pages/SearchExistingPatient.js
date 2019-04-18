@@ -11,7 +11,11 @@ export default class SearchExistingPatient extends Component{
     }
     render(){
         return(
+            <div>
             <h1 style={{color:'#2699FB',position:'absolute'}}>Search existing patient</h1>
-        )
+     
+     <p>Search</p>
+     </div>
+            )
     }
 }
