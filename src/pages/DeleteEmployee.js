@@ -1,18 +1,29 @@
 import React,{Component} from 'react'
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid'
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import MenuAppBar from '../Appbar'
+
 const styles = theme => ({
-    root: {
-      flexGrow: 1,
-    },
-    paper: {
-      padding: theme.spacing.unit * 2,
-      textAlign: 'center',
-      color: theme.palette.text.secondary,
-    },
-  });
-export default class EditEmployee extends Component{
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing.unit *15  ,
+    marginRight: theme.spacing.unit*10,
+    marginTop:theme.spacing.unit*4,
+    width:'30%'
+  },
+  dense: {
+    marginTop: 16,
+  },
+  menu: {
+    width: 200,
+  },
+});
+ class DeleteEmployee extends Component{
 constructor(){
     super()
 this.state={
@@ -33,32 +44,34 @@ handleChange(changeValue, event) {
   }
 
 render(){
+  const { classes } = this.props;
     return(
         <div>
-<Grid container spacing={24}>
-          <Grid item xs={6}>
-            <TextField className={styles.paper}
+          <h2 style={{color:'#2699FB'}}>Add Vitals of Patient</h2>
+          <MenuAppBar/>
+            <TextField 
 
-              label="Enter Employee ID"
+              label="Employee ID"
               value={this.state.EmployeeID}
               onChange={this.handleChange.bind(this, 'EmployeeID')}
               margin="normal"
               variant="outlined"
+              className={classes.textField}
             />
-          </Grid>
-<br></br>
-          <Grid item xs={6}>
-            <TextField className={styles.paper}
+            <TextField 
 
               label="Enter admin Password"
               value={this.state.Password}
               onChange={this.handleChange.bind(this, 'Password')}
               margin="normal"
               variant="outlined"
+              className={classes.textField}
             />
-          </Grid>
-          </Grid>            
         </div>
     )
 }
 }
+DeleteEmployee.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+export default withStyles(styles)(DeleteEmployee)

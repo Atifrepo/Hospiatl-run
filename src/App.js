@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Login from './pages/login'
-import MenuAppBar from './Appbar'
+import AppBar from '@material-ui/core/AppBar';
 import RegisterPatient from './pages/RegisterPatient';
 import Drawer from './Drawer';
 import AddVitals from './pages/AddVitals';
@@ -10,6 +10,8 @@ import DeleteEmployee from './pages/DeleteEmployee';
 import SearchPatient from './pages/SearchPatient';
 import SearchExistingPatient from './pages/SearchExistingPatient'
 import Cookies from 'universal-cookie';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 // import isLoggedIn from '/helpers/is_logged_in';
 
 import './App.css';
@@ -110,7 +112,13 @@ select(){
     
     <div className="App">
     
- <MenuAppBar/>
+    <AppBar position="static" style={{backgroundColor:'#2699FB',justifyContent:'center'}}>
+        <Toolbar>
+          <Typography variant="h5" color="inherit" style={{justifyContent:'right',  flexGrow: 1,}}>
+            Prime Specialist Clinic
+          </Typography>
+        </Toolbar>
+      </AppBar>
 <Router>
   <div>
     
@@ -119,7 +127,7 @@ select(){
    <ProtectedRouteforNurse path='/AddVitals' loggedIn={this.state.cookierolevalue} component={AddVitals} />
    <Route exact path='/AddEmployee' component={AddEmployee} />
    <Route exact path='/DeleteEmployee' component={DeleteEmployee} />
-   <Route exact path='/EditEmployee' component={EditEmployee} />
+   {/* <Route exact path='/EditEmployee' component={EditEmployee} /> */}
    <Route exact path='/Drawer' component={Drawer} />
    <Route exact path='/SearchExistinPatient' component={SearchExistingPatient} />
    <Route exact path='/SearchPatient' component={SearchPatient} />

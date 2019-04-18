@@ -1,24 +1,33 @@
 import React,{Component} from 'react'
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid'
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
-import Input from '@material-ui/core/Input';
+import MenuAppBar from '../Appbar'
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 const styles = theme => ({
-    root: {
-      flexGrow: 1,
-    },
-    paper: {
-      padding: theme.spacing.unit * 2,
-      textAlign: 'center',
-      color: theme.palette.text.secondary,
-    },
-  });
-export default class DeleteEmployee extends Component{
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing.unit *15  ,
+    marginRight: theme.spacing.unit*10,
+    marginTop:theme.spacing.unit*4,
+    width:'30%'
+  },
+  dense: {
+    marginTop: 16,
+  },
+  menu: {
+    width: 200,
+  },
+});
+export default class EditEmployee extends Component{
 constructor(){
     super()
 this.state={
@@ -42,10 +51,12 @@ handleChange(changeValue, event) {
   }
 
 render(){
+  const { classes } = this.props;
     return(
+      
         <div>
-            <Grid container spacing={24}>
-          <Grid item xs={6}>
+          <MenuAppBar/>
+        
             <TextField className={styles.paper}
 
               label="Enter Employee ID"
@@ -54,8 +65,6 @@ render(){
               margin="normal"
               variant="outlined"
             />
-          </Grid>
-          <Grid item xs={6}>
             <TextField className={styles.paper}
 
               label="Change Employee Name"
@@ -64,8 +73,6 @@ render(){
               margin="normal"
               variant="outlined"
             />
-          </Grid>
-          <Grid item xs={6}>
             <TextField className={styles.paper}
 
               label="Change Employee Password"
@@ -74,8 +81,6 @@ render(){
               margin="normal"
               variant="outlined"
             />
-          </Grid>
-          <Grid item xs={6}>
             <TextField className={styles.paper}
 
               label="Confirm New Password"
@@ -84,8 +89,6 @@ render(){
               margin="normal"
               variant="outlined"
             />
-          </Grid>
-          <Grid item xs={6}>
           <FormControl variant="outlined">
             <InputLabel
               ref={ref => {
@@ -115,8 +118,6 @@ render(){
               <MenuItem value={'Receptionist  '}>Receptionist</MenuItem>
             </Select>
           </FormControl>
-          </Grid>
-          </Grid>
         </div>
     )
 }

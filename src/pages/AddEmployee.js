@@ -2,22 +2,36 @@ import React,{Component} from 'react'
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid'
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
+import MenuAppBar from '../Appbar'
+
+
+
 const styles = theme => ({
-    root: {
-      flexGrow: 1,
-    },
-    paper: {
-      padding: theme.spacing.unit * 2,
-      textAlign: 'center',
-      color: theme.palette.text.secondary,
-    },
-  });
-export default class AddEmployee extends Component{
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing.unit *15  ,
+    marginRight: theme.spacing.unit*10,
+    marginTop:theme.spacing.unit*4,
+    width:'30%'
+  },
+  dense: {
+    marginTop: 16,
+  },
+  menu: {
+    width: 200,
+  },
+});
+class AddEmployee extends Component{
 constructor(){
     super()
 this.state={
@@ -41,50 +55,50 @@ handleChange(changeValue, event) {
   }
 
 render(){
+  const { classes } = this.props;
     return(
+      
         <div>
-          <Grid container spacing={24}>
-          <Grid item xs={6}>
-            <TextField className={styles.paper}
-
-              label="Name of Employee"
-              value={this.state.Name}
-              onChange={this.handleChange.bind(this, 'Name')}
+          <h2 style={{color:'#2699FB'}}>Add Employee</h2>
+          <MenuAppBar/>
+<form>
+<TextField 
+              label="Enter MR_No"
+              value={this.state.MR_No}
+              onChange={this.handleChange.bind(this, 'MR_No')}
               margin="normal"
               variant="outlined"
+              className={classes.textField}
             />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField className={styles.paper}
+            <TextField 
 
               label="Employee ID"
               value={this.state.EmployeeID}
               onChange={this.handleChange.bind(this, 'EmployeeID')}
               margin="normal"
               variant="outlined"
+              className={classes.textField}
             />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField className={styles.paper}
+            <TextField 
 
               label="Set Password"
               value={this.state.Password}
               onChange={this.handleChange.bind(this, 'Password')}
               margin="normal"
               variant="outlined"
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField className={styles.paper}
+              className={classes.textField}
+/>
+            <TextField 
 
               label="Confirm Passowrd"
               value={this.state.Password2}
               onChange={this.handleChange.bind(this, 'Password2')}
               margin="normal"
               variant="outlined"
+              className={classes.textField}
             />
-          </Grid>
-          <Grid item xs={6}>
+            <br></br>
+            <br></br>
           <FormControl variant="outlined">
             <InputLabel
               ref={ref => {
@@ -94,7 +108,7 @@ render(){
             >
               Role
           </InputLabel>
-            <Select
+            <Select style={{width:500,marginRight:"100%",paddingLeft:'50'}}
               value={this.state.type}
               onChange={this.handleChange.bind(this, 'type')}
               input={
@@ -114,9 +128,12 @@ render(){
               <MenuItem value={'Receptionist  '}>Receptionist</MenuItem>
             </Select>
           </FormControl>
-          </Grid>
-          </Grid>  
+          </form>  
         </div>
     )
 }
 }
+AddEmployee.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+export default withStyles(styles)(AddEmployee)

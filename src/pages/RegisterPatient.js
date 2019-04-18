@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
+import MenuAppBar from '../Appbar'
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
@@ -81,7 +82,7 @@ Cookies.get()
     return (
      <div >
       
-         
+      <MenuAppBar/>   
           <h2 style={{color:'#2699FB'}}>Register Patient</h2>
     
           <TextField

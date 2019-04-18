@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import MenuAppBar from '../Appbar'
 import './addvitals.css'
 import Cookies from 'universal-cookie';
 const cookies=new Cookies();
@@ -14,8 +15,8 @@ const styles = theme => ({
   textField: {
     marginLeft: theme.spacing.unit *15  ,
     marginRight: theme.spacing.unit*10,
-    marginTop:theme.spacing.unit*4,
-    width:'30%'
+    // marginTop:theme.spacing.unit*4,
+    width:'20%'
   },
   dense: {
     marginTop: 16,
@@ -77,7 +78,8 @@ console.log('hi',rolecookis)
  <div> 
 
          
-        <h2>Add Vitals of Patient</h2>
+        <h2 style={{color:'#2699FB'}}>Add Vitals of Patient</h2>
+          <MenuAppBar/>
           <form >
             <TextField 
               label="Enter MR_No"

@@ -159,7 +159,7 @@ route(){
                   onClick={this.handleMenu}
                   color="inherit"
                 >
-                  <AccountCircle style={{alignContent:'right'}} />
+                  <AccountCircle style={{paddingLeft:'1150'}} />
                 </IconButton>
                 <Menu
                   id="menu-appbar"
