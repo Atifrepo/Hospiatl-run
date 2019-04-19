@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
-import MenuAppBar from '../Appbar'
+import MenuAppBar from '../NurseAppbar'
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
@@ -15,9 +15,9 @@ const styles = theme => ({
     flexWrap: 'wrap',
   },
   textField: {
-    marginLeft: theme.spacing.unit *15  ,
-    marginRight: theme.spacing.unit*10,
-    marginTop:theme.spacing.unit*4,
+    marginLeft: theme.spacing.unit   ,
+    marginRight: theme.spacing.unit,
+    
   
   },
   dense: {
@@ -27,7 +27,7 @@ const styles = theme => ({
     width: 200,
   },
 });
-export default class EditEmployee extends Component{
+ class EditEmployee extends Component{
 constructor(){
     super()
 this.state={
@@ -57,38 +57,43 @@ render(){
         <div>
           <MenuAppBar/>
         
-            <TextField className={styles.paper}
-
+            <TextField 
               label="Enter Employee ID"
               value={this.state.EmployeeID}
               onChange={this.handleChange.bind(this, 'EmployeeID')}
               margin="normal"
               variant="outlined"
+              className={classes.textField}
             />
-            <TextField className={styles.paper}
+            <TextField 
 
               label="Change Employee Name"
               value={this.state.NewName}
               onChange={this.handleChange.bind(this, 'NewName')}
               margin="normal"
               variant="outlined"
+              className={classes.textField}
             />
-            <TextField className={styles.paper}
+            <br></br>
+            <TextField
 
               label="Change Employee Password"
               value={this.state.NewPassword}
               onChange={this.handleChange.bind(this, 'NewPassword')}
               margin="normal"
               variant="outlined"
+              className={classes.textField}
             />
-            <TextField className={styles.paper}
+            <TextField 
 
               label="Confirm New Password"
               value={this.state.NewPassword1}
               onChange={this.handleChange.bind(this, 'NewPassword1')}
               margin="normal"
               variant="outlined"
+              className={classes.textField}
             />
+            <br></br>
           <FormControl variant="outlined">
             <InputLabel
               ref={ref => {
@@ -98,7 +103,7 @@ render(){
             >
               Role
           </InputLabel>
-            <Select
+            <Select style={{width:250,marginRight:"100%",paddingLeft:'50'}}
               value={this.state.type}
               onChange={this.handleChange.bind(this, 'type')}
               input={
@@ -123,4 +128,7 @@ render(){
 }
 }
 
-
+EditEmployee.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+export default withStyles(styles)(EditEmployee)

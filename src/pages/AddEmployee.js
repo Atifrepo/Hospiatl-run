@@ -9,7 +9,7 @@ import Select from '@material-ui/core/Select';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
-import MenuAppBar from '../Appbar'
+import AdminAppbar from '../NurseAppbar'
 
 
 
@@ -19,9 +19,9 @@ const styles = theme => ({
     flexWrap: 'wrap',
   },
   textField: {
-    marginLeft: theme.spacing.unit *15  ,
-    marginRight: theme.spacing.unit*10,
-    marginTop:theme.spacing.unit*4,
+    marginLeft: theme.spacing.unit ,
+    marginRight: theme.spacing.unit,
+  
   
   },
   dense: {
@@ -60,7 +60,7 @@ render(){
       
         <div>
           <h2 style={{color:'#2699FB'}}>Add Employee</h2>
-          <MenuAppBar/>
+          <AdminAppbar/>
 <form>
 <TextField 
               label="Enter MR_No"

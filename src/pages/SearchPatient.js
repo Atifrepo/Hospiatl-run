@@ -1,9 +1,36 @@
 import React, { Component } from 'react';
-import MenuAppBar from '../Appbar'
+import DoctorAppbar from '../DoctorAppbar'
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
+
 import Button from '@material-ui/core/Button'
-export default class xSearchPatient extends Component{
+const styles = theme => ({
+    container: {
+      display: 'flex',
+      flexWrap: 'wrap',
+    },
+    textField: {
+      marginLeft: theme.spacing.unit   ,
+      marginRight: theme.spacing.unit ,
+      
+     
+    },
+    dense: {
+      marginTop: 16,
+    },
+    menu: {
+      width: 200,
+    },
+    formControl: {
+      margin: theme.spacing.unit,
+      minWidth: '40',
+    },
+    selectEmpty: {
+      marginTop: theme.spacing.unit * 2,
+    },
+  });
+ class SearchPatient extends Component{
     constructor(){
         super()
     this.state={
@@ -15,10 +42,14 @@ export default class xSearchPatient extends Component{
     render(){
         return(
             <div>
-                <MenuAppBar/>
+                <DoctorAppbar/>
             <h1 style={{color:'#2699FB',position:'absolute'}}>Search patient</h1>
-            <p>Search</p>
+            
             </div>
             )
     }
 }
+SearchPatient.propTypes = {
+    classes: PropTypes.object.isRequired,
+  };
+  export default withStyles(styles)(SearchPatient)

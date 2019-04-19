@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
-import MenuAppBar from '../Appbar'
+import NurseAppbar from '../NurseAppbar'
 const styles = theme => ({
     container: {
       display: 'flex',
@@ -32,7 +32,7 @@ export default class SearchExistingPatient extends Component{
         return(
 
 <div>
-<MenuAppBar/>
+<NurseAppbar/>
 
             <h1 style={{color:'#2699FB',position:'absolute'}}>Search existing patient</h1>
      

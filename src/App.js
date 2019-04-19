@@ -46,6 +46,7 @@ const ProtectedRouteforReceptionist = ({ component: Comp, loggedIn, path, ...res
       render={props => {
 
         return loggedIn == "Receptionist" ? <Comp {...props} /> : <Redirect to="/" />;
+        
       }}
     />
   );
@@ -79,6 +80,18 @@ const ProtectedRouteforNurse = ({ component: Comp, loggedIn, path, ...rest }) =>
   );
 };
 
+const ProtectedRouteforAdmin = ({ component: Comp, loggedIn, path, ...rest }) => {
+  return (
+    <Route
+      path={path}
+      {...rest}
+      render={props => {
+
+        return loggedIn == "Admin" ? <Comp {...props} /> : <Redirect to="/" />;
+      }}
+    />
+  );
+};
 
 
 
@@ -125,12 +138,12 @@ select(){
    <Route exact path='/' component={Login}  />
    <ProtectedRouteforReceptionist  path='/Register' loggedIn={this.state.cookierolevalue} component={RegisterPatient} />
    <ProtectedRouteforNurse path='/AddVitals' loggedIn={this.state.cookierolevalue} component={AddVitals} />
-   <Route exact path='/AddEmployee' component={AddEmployee} />
-   <Route exact path='/DeleteEmployee' component={DeleteEmployee} />
-   {/* <Route exact path='/EditEmployee' component={EditEmployee} /> */}
-   <Route exact path='/Drawer' component={Drawer} />
-   <Route exact path='/SearchExistinPatient' component={SearchExistingPatient} />
-   <Route exact path='/SearchPatient' component={SearchPatient} />
+   <ProtectedRouteforAdmin exact path='/AddEmployee' loggedIn={this.state.cookierolevalue} component={AddEmployee} />
+   <ProtectedRouteforAdmin exact path='/DeleteEmployee' loggedIn={this.state.cookierolevalue} component={DeleteEmployee} />
+   <ProtectedRouteforAdmin exact path='/EditEmployee' loggedIn={this.state.cookierolevalue} component={EditEmployee} />
+
+   <ProtectedRouteforDoctor exact path='/SearchExistinPatient' loggedIn={this.state.cookierolevalue} component={SearchExistingPatient} />
+   <ProtectedRouteforReceptionist exact path='/SearchPatient' loggedIn={this.state.cookierolevalue} component={SearchPatient} />
   </div>
 </Router>
 {/* <Drawer/> */}

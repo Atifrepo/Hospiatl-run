@@ -6,11 +6,11 @@ import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
-import MenuAppBar from '../Appbar'
+import RecAppbar from '../RecAppar'
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
-
+import axios from 'axios'
 import Cookies from 'universal-cookie';
 
 const cookies=new Cookies();
@@ -21,8 +21,8 @@ const styles = theme => ({
     flexWrap: 'wrap',
   },
   textField: {
-    marginLeft: theme.spacing.unit *15  ,
-    marginRight: theme.spacing.unit*10,
+    marginLeft: theme.spacing.unit   ,
+    marginRight: theme.spacing.unit ,
     
    
   },
@@ -50,7 +50,7 @@ class RegisterPatient extends Component {
         Name2: '',
         Age: '',
         Gender: '',
-        MR_No: '',
+        MR_No: 0,
         Telephone1: '',
         Telephone2: '',
         labelWidth:0,
@@ -64,7 +64,7 @@ class RegisterPatient extends Component {
 
     console.log('handle click login')
     console.log('user', this.state.Register)
-    this.props.history.push('/AddVitals')
+  
   }
   handleChange(changeValue, event) {
     this.state.Register[changeValue] = event.target.value;
@@ -73,16 +73,31 @@ class RegisterPatient extends Component {
       // password:this.state.password
     })
     console.log('Register', this.state.Register)
-Cookies.get()
+ }
+ MR_No(){
+  axios({
+    method:'get',
+    url:'http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/createmrnumber',
+    // responseType:'stream'
+  })
+  .then(function(json) {
+    var data = json;
+    console.log(data[0]);
+    console.log(data[0]);
+    this.setState({
+        MR_No: json
+    })    
+    })
 
-  }
+  
+ }
 
   render() {
     const { classes } = this.props;
     return (
      <div >
       
-      <MenuAppBar/>   
+      <RecAppbar/>   
           <h2 style={{color:'#2699FB'}}>Register Patient</h2>
     
           <TextField
@@ -103,7 +118,8 @@ Cookies.get()
            margin="normal"
            variant="outlined"
            className={classes.textField}
-         />
+/>
+<br></br>
               <TextField
               label="Age"
               value={this.state.Age}
@@ -113,19 +129,19 @@ Cookies.get()
               className={classes.textField}
             />
             
-            
+            {/* <h1>{this.state.MR_No}</h1> */}
                 
-      
-          <TextField
-              label="MR_No"
-              value={this.state.MR_No}
-              onChange={this.handleChange.bind(this, 'MR_No')}
-              margin="normal"
-              variant="outlined"
-              className={classes.textField}
-            />
-            
        
+           <TextField
+               label="MR_No"
+               value={this.state.MR_No}
+               onChange={this.handleChange.bind(this, 'MR_No')}
+               margin="normal"
+               variant="outlined"
+               className={classes.textField}
+             /> 
+            
+    <br></br>   
           <TextField
               label="Telephone#1"
               value={this.state.Telephone1}
@@ -135,7 +151,7 @@ Cookies.get()
               className={classes.textField}
             />
             
-       
+            
           <TextField
               label="Telephone#2"
               value={this.state.Telephone2}
@@ -158,7 +174,7 @@ Cookies.get()
               Role
           </InputLabel>
         
-            <Select style={{width:500,marginRight:"100%",paddingLeft:'50'}}
+            <Select style={{width:250,marginRight:"100%",paddingLeft:'50'}}
             
               value={this.state.Gender}
               onChange={this.handleChange.bind(this,'Gender')}
@@ -184,6 +200,7 @@ Cookies.get()
           <br></br>
     
         <Button variant="contained" style={{ backgroundColor: '#2699FB',position:'relative' }} onClick={(event) => this.handleClick(event)}><b>Register   Patient</b></Button>
+        <Button variant="contained" style={{ backgroundColor: '#2699FB',position:'relative' }} onClick={(event) => this.MR_No(event)}><b>Generate MR_No</b></Button>
     
     
      

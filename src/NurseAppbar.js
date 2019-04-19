@@ -93,7 +93,7 @@ const styles = theme => ({
   },
 });
 
-class MenuAppBar extends React.Component {
+class NurseAppbar extends React.Component {
   state = {
     open: false,
     anchorEl: null,
@@ -208,50 +208,6 @@ route(path){
                    </ListItemIcon>
                 <ListItemText primary />
               </ListItem>
-<Divider/>
-              <ListItem button onClick={(event) => this.route('./Register')} style={{backgroundColor:'#2699FB',}}>
-                <ListItemIcon style={{color:'#fff'}}> 
-                Register Patient
-                   </ListItemIcon>
-                <ListItemText primary />
-              </ListItem>
-              <Divider/>
-              <ListItem button onClick={(event) => this.route('/SearchPatient')} style={{backgroundColor:'#2699FB',}}>
-                <ListItemIcon style={{color:'#fff'}}> 
-                  Search Patient
-                   </ListItemIcon>
-                <ListItemText primary />
-              </ListItem>
-              <Divider/>
-              <ListItem button onClick={(event) => this.route('/SearchExistingPatient')} style={{backgroundColor:'#2699FB',}}>
-                <ListItemIcon style={{color:'#fff'}}> 
-                  Search Existing Patient
-                   </ListItemIcon>
-                <ListItemText primary />
-              </ListItem>
-
-              <Divider/>
-              <ListItem button onClick={(event) => this.route('/AddEmployee')} style={{backgroundColor:'#2699FB',}}>
-                <ListItemIcon style={{color:'#fff'}}> 
-                  Add Employee
-                   </ListItemIcon>
-                <ListItemText primary />
-              </ListItem>
-
-              <Divider/>
-              <ListItem button onClick={(event) => this.route('/DeleteEmployee')} style={{backgroundColor:'#2699FB',}}>
-                <ListItemIcon style={{color:'#fff'}}> 
-                 Delete Employee
-                   </ListItemIcon>
-                <ListItemText primary />
-              </ListItem>
-              <Divider/>
-              <ListItem button onClick={(event) => this.route('/EditEmployee')} style={{backgroundColor:'#2699FB',}}>
-                <ListItemIcon style={{color:'#fff'}}> 
-                  Edit Employee
-                   </ListItemIcon>
-                <ListItemText primary />
-              </ListItem>
 
 
           </List>
@@ -264,8 +220,8 @@ route(path){
   }
 }
 
-MenuAppBar.propTypes = {
+NurseAppbar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true } )(MenuAppBar);
+export default withStyles(styles, { withTheme: true } )(NurseAppbar);

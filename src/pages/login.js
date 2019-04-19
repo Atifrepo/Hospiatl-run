@@ -11,6 +11,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Cookies from 'universal-cookie';
 import { func } from 'prop-types';
+import { SnackbarProvider, withSnackbar } from 'notistack';
 
 const cookies=new Cookies();
 const styles = theme => ({
@@ -105,11 +106,18 @@ fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/loginuser', {
       console.log('login role',data.roles)
      }
 
+     if(data.roles=='Doctor'){
+      window.location.href = '/SearchExistinPatient';
+      console.log('login role',data.roles)
+     }
+
+
+
     })
    
    
    .catch(function(error){
-    console.log("Error");
+    // this.props.enqueueSnackbar('I love snacks.');
 
    })
    
@@ -120,7 +128,7 @@ console.log('res',details)
 
 }
   render() {
-      
+
 
     return (
       <div>

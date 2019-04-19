@@ -3,7 +3,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import MenuAppBar from '../Appbar'
+import NurseAppbar from '../NurseAppbar'
 
 const styles = theme => ({
   container: {
@@ -11,9 +11,9 @@ const styles = theme => ({
     flexWrap: 'wrap',
   },
   textField: {
-    marginLeft: theme.spacing.unit *15  ,
-    marginRight: theme.spacing.unit*10,
-    marginTop:theme.spacing.unit*4,
+    marginLeft: theme.spacing.unit  ,
+    marginRight: theme.spacing.unit,
+
     
   },
   dense: {
@@ -48,7 +48,7 @@ render(){
     return(
         <div>
           <h2 style={{color:'#2699FB'}}>Add Vitals of Patient</h2>
-          <MenuAppBar/>
+          <NurseAppbar/>
             <TextField 
 
               label="Employee ID"

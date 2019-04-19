@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import MenuAppBar from '../Appbar'
+import NurseAppbar from '../NurseAppbar'
 import './addvitals.css'
 import Cookies from 'universal-cookie';
 const cookies=new Cookies();
 
 const styles = theme => ({
+  
   container: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -21,9 +22,16 @@ const styles = theme => ({
   dense: {
     marginTop: 16,
   },
+  
   menu: {
     width: 200,
   },
+  textField1:{
+    marginLeft: theme.spacing.unit  ,
+    marginRight: theme.spacing.unit*9,
+  
+  }
+  
 });
 
  class AddVitals extends Component {
@@ -79,7 +87,7 @@ console.log('hi',rolecookis)
 
          
         <h2 style={{color:'#2699FB'}}>Add Vitals of Patient</h2>
-          <MenuAppBar/>
+          <NurseAppbar/>
           <form >
             <TextField 
               label="Enter MR_No"
