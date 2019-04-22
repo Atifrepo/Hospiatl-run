@@ -74,26 +74,34 @@ class RegisterPatient extends Component {
     })
     console.log('Register', this.state.Register)
  }
- MR_No=()=>{
+
+
+
+
+ MR_No(){
+
+   var self = this;
   axios({
     method:'get',
     url:'http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/createmrnumber',
-    // responseType:'stream'
+
   })
   .then(function(json) {
     var data = json;
     console.log(json.data);
-  var mr=json.data
+     var mr=json.data
     console.log(mr);
-  // this.MR_No=mr
- this.setState({
+
+ self.setState({
    MR_No:mr
  })
-  // console.log('lwd',this.state.Register.Name)  
+
+ console.log("MR Number",self.state.MR_No);
+  
     }).catch(error=>{
 console.log(error)
     })
-//console.log('MR',this.state.MR_No)
+
   
  }
 
