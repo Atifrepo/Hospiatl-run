@@ -110,6 +110,10 @@ fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/loginuser', {
       window.location.href = '/SearchExistinPatient';
       console.log('login role',data.roles)
      }
+     if(data.roles=='Admin'){
+      window.location.href = '/AddEmployee';
+      console.log('login role',data.roles)
+     }
 
 
 

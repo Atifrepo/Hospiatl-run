@@ -216,15 +216,15 @@ route(path){
                 <ListItemText primary />
               </ListItem>
 
-          </List>
-<Divider/>
-          
+         <Divider/>
           <ListItem button onClick={(event) => this.route('/DeleteEmployee')} style={{backgroundColor:'#2699FB',}}>
                 <ListItemIcon style={{color:'#fff'}}> 
                   Delete Employee
                    </ListItemIcon>
                 <ListItemText primary />
               </ListItem>
+              </List>
+
              </Drawer>
             
                 

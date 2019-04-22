@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import DoctorAppbar from '../DoctorAppbar'
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-
+import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button'
+
 const styles = theme => ({
     container: {
       display: 'flex',
@@ -39,12 +39,26 @@ const styles = theme => ({
         Phone_No:'',
     }
     }
+    handleChange(){
+      console.log('search')
+    }
     render(){
+      const { classes } = this.props;
         return(
+
             <div>
                 <DoctorAppbar/>
-            <h1 style={{color:'#2699FB',position:'absolute'}}>Search patient</h1>
+            <h2 style={{color:'#2699FB',position:'absolute'}}>Search patient</h2>
+            <TextField
+              label="Search Patient"
+              value={this.state.MR_No}
+              onChange={this.handleChange.bind(this, 'MR_No')}
+              margin="normal"
+              variant="outlined"
+              className={classes.textField}
+            />
             
+       
             </div>
             )
     }

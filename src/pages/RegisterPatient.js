@@ -47,7 +47,7 @@ class RegisterPatient extends Component {
     this.state = {
       Register: {
         Name: '',
-        Name2: '',
+        FatherName: '',
         Age: '',
         Gender: '',
         Telephone1: '',
@@ -61,13 +61,38 @@ class RegisterPatient extends Component {
 
   }
   handleClick() {
+    var Register= {
+      Name: this.state.Register.Name,
+      FatherName: this.state.Register.Name2,
+      Age: this.state.Register.Age,
+      Gender:this.state.Register.Gender,
+      Telephone1:this.state.Register.Telephone1,
+      Telephone2:this.state.Register.Telephone2,
+      MR_No:this.state.Register.MR_No
+    };
+    var formBody = [];
+for (var property in Register) {
+  var encodedKey = encodeURIComponent(property);
+  var encodedValue = encodeURIComponent(Register[property]);
+  formBody.push(encodedKey + "=" + encodedValue);
+}
+ var Authtoken= cookies.get('token')
+ fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/addpatient',{
+   method:'POST',
+   headers: {
+    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+    'Authorization': 'Bearer ' + Authtoken 
+  
+  },
+
+ })
 
     console.log('handle click login')
     console.log('user', this.state.Register)
   
   }
   handleChange(changeValue, event) {
-    this.state[changeValue] = event.target.value;
+    this.state.Register[changeValue] = event.target.value;
     this.setState = ({
       Register: this.state.Register,
       // password:this.state.password
@@ -142,8 +167,8 @@ console.log(error)
               className={classes.textField}
             />
             
-            {/* <h1>{this.state.MR_No}</h1> */}
-                
+            <h1>{this.state.MR_No}</h1>
+                x 
 {/*        
            <TextField
                label="MR_No"
