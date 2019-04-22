@@ -62,30 +62,44 @@ class RegisterPatient extends Component {
   }
   handleClick() {
     var Register= {
-      Name: this.state.Register.Name,
-      FatherName: this.state.Register.Name2,
-      Age: this.state.Register.Age,
-      Gender:this.state.Register.Gender,
-      Telephone1:this.state.Register.Telephone1,
-      Telephone2:this.state.Register.Telephone2,
-      MR_No:this.state.Register.MR_No
+      patientname: this.state.Register.Name,
+      patientfathername: this.state.Register.Name2,
+      age: this.state.Register.Age,
+      gender:this.state.Register.Gender,
+      telephone1:this.state.Register.Telephone1,
+      telephone2:this.state.Register.Telephone2,
+      mrnumber:this.state.MR_No
     };
     var formBody = [];
+    console.log("Register values",Register);
 for (var property in Register) {
   var encodedKey = encodeURIComponent(property);
   var encodedValue = encodeURIComponent(Register[property]);
   formBody.push(encodedKey + "=" + encodedValue);
 }
+
+formBody = formBody.join("&");
+
+ console.log("Form Body",formBody);
  var Authtoken= cookies.get('token')
+ var finalAuthtoken = 'Bearer '+Authtoken
+
  fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/addpatient',{
    method:'POST',
+   withCredentials: true,
+   
    headers: {
     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-    'Authorization': 'Bearer ' + Authtoken 
+    'Authorization': finalAuthtoken
   
   },
+   body: formBody
 
- })
+ }).then(function(resp){
+     if(resp.ok){
+     console.log("User added");
+     }
+   })  
 
     console.log('handle click login')
     console.log('user', this.state.Register)
