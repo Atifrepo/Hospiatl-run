@@ -50,14 +50,14 @@ class RegisterPatient extends Component {
         Name2: '',
         Age: '',
         Gender: '',
-        MR_No: 0,
         Telephone1: '',
         Telephone2: '',
         labelWidth:0,
         name:'',
-      }
+      },
+      MR_No: '',
     }
-    console.log(cookies.get('token'));
+    // console.log(cookies.get('token'));
 
   }
   handleClick() {
@@ -67,14 +67,14 @@ class RegisterPatient extends Component {
   
   }
   handleChange(changeValue, event) {
-    this.state.Register[changeValue] = event.target.value;
+    this.state[changeValue] = event.target.value;
     this.setState = ({
       Register: this.state.Register,
       // password:this.state.password
     })
     console.log('Register', this.state.Register)
  }
- MR_No(){
+ MR_No=()=>{
   axios({
     method:'get',
     url:'http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/createmrnumber',
@@ -82,13 +82,18 @@ class RegisterPatient extends Component {
   })
   .then(function(json) {
     var data = json;
-    console.log(data[0]);
-    console.log(data[0]);
-    this.setState({
-        MR_No: json
-    })    
+    console.log(json.data);
+  var mr=json.data
+    console.log(mr);
+  // this.MR_No=mr
+ this.setState({
+   MR_No:mr
+ })
+  // console.log('lwd',this.state.Register.Name)  
+    }).catch(error=>{
+console.log(error)
     })
-
+//console.log('MR',this.state.MR_No)
   
  }
 
@@ -131,7 +136,7 @@ class RegisterPatient extends Component {
             
             {/* <h1>{this.state.MR_No}</h1> */}
                 
-       
+{/*        
            <TextField
                label="MR_No"
                value={this.state.MR_No}
@@ -139,7 +144,7 @@ class RegisterPatient extends Component {
                margin="normal"
                variant="outlined"
                className={classes.textField}
-             /> 
+             />  */}
             
     <br></br>   
           <TextField
