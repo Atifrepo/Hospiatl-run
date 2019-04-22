@@ -182,16 +182,8 @@ console.log(error)
             />
             
             <h1>{this.state.MR_No}</h1>
-                x 
-{/*        
-           <TextField
-               label="MR_No"
-               value={this.state.MR_No}
-               onChange={this.handleChange.bind(this, 'MR_No')}
-               margin="normal"
-               variant="outlined"
-               className={classes.textField}
-             />  */}
+               
+           
             
     <br></br>   
           <TextField
