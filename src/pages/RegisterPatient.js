@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import ReactDOM from 'react-dom';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -36,7 +37,7 @@ const styles = theme => ({
   },
   formControl: {
     margin: theme.spacing.unit,
-    minWidth: '40',
+    minWidth: 120,
   },
   selectEmpty: {
     marginTop: theme.spacing.unit * 2,
@@ -49,18 +50,24 @@ class RegisterPatient extends Component {
     this.state = {
       Register: {
         Name: '',
+
         FatherName: '',
         Age: '',
         Gender: '',
         Telephone1: '',
         Telephone2: '',
         labelWidth: 0,
-        name: '',
+        name: 'hai',
       },
       MR_No: '',
     }
     // console.log(cookies.get('token'));
 
+  }
+  componentDidMount() {
+    this.setState({
+      labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
+    });
   }
   handleClick() {
 
@@ -134,7 +141,7 @@ class RegisterPatient extends Component {
       url: 'http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/createmrnumber',
 
     })
-      .then(function (json) {
+      .then(function (json) { 
         var data = json;
         console.log(json.data);
         var mr = json.data
@@ -169,6 +176,7 @@ class RegisterPatient extends Component {
           className={classes.textField}
           margin="normal"
           variant="outlined"
+          style={{backgroundColor:'#fff'}}
         />
          <Button variant="outlined" style={{ backgroundColor: '#2699FB',marginTop:'2%' }} onClick={(event) => this.MR_No(event)}><b>Generate MR_No</b></Button>
          </div>
@@ -230,7 +238,7 @@ class RegisterPatient extends Component {
         />
 
         
-          <FormControl variant="outlined" className={classes.TextField}>
+          <FormControl variant="outlined" className={classes.formControl}>
             <InputLabel style={{marginTop:'7%'}}
               ref={ref => {
                 this.InputLabelRef = ref;
@@ -248,9 +256,9 @@ class RegisterPatient extends Component {
               input={
                 <OutlinedInput
                   labelWidth={this.state.labelWidth}
-                  // name={this.state.Gender}
+                  name='name'
                   id="outlined-age-simple"
-                  value={this.state.Gender}
+                  // value={this.state.Gender}
                 />
 
               }
