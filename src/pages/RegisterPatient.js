@@ -26,9 +26,7 @@ const styles = theme => ({
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
-
-
-  },
+},
   dense: {
     marginTop: 16,
   },
@@ -50,7 +48,6 @@ class RegisterPatient extends Component {
     this.state = {
       Register: {
         Name: '',
-
         FatherName: '',
         Age: '',
         Gender: '',
@@ -61,73 +58,84 @@ class RegisterPatient extends Component {
       },
       MR_No: '',
     }
-    // console.log(cookies.get('token'));
-
-  }
+    
+}
+  
   componentDidMount() {
     this.setState({
       labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
     });
   }
+
+
+
   handleClick() {
 
-    var Register = {
-      patientname: this.state.Register.Name,
-      patientfathername: this.state.Register.Name2,
-      age: this.state.Register.Age,
-      gender: this.state.Register.Gender,
-      telephone1: this.state.Register.Telephone1,
-      telephone2: this.state.Register.Telephone2,
-      mrnumber: this.state.MR_No
-    };
-    var formBody = [];
-    console.log("Register values", Register);
-    for (var property in Register) {
-      var encodedKey = encodeURIComponent(property);
-      var encodedValue = encodeURIComponent(Register[property]);
-      formBody.push(encodedKey + "=" + encodedValue);
-    }
+            var Register = {
+                    patientname: this.state.Register.Name,
+                    patientfathername: this.state.Register.Name2,
+                    age: this.state.Register.Age,
+                    gender: this.state.Register.Gender,
+                    telephone1: this.state.Register.Telephone1,
+                    telephone2: this.state.Register.Telephone2,
+                    mrnumber: this.state.MR_No
+            };
 
-    formBody = formBody.join("&");
 
-    console.log("Form Body", formBody);
-    var Authtoken = cookies.get('token')
-    var finalAuthtoken = 'Bearer ' + Authtoken
+            var formBody = [];
+            console.log("Register values", Register);
+            
 
-    fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/addpatient', {
-      method: 'POST',
-      withCredentials: true,
+            for (var property in Register) {
+                    var encodedKey = encodeURIComponent(property);
+                    var encodedValue = encodeURIComponent(Register[property]);
+                    formBody.push(encodedKey + "=" + encodedValue);
+            }
 
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-        'Authorization': finalAuthtoken
+            formBody = formBody.join("&");
 
-      },
-      body: formBody
+            console.log("Form Body", formBody);
+            var Authtoken = cookies.get('token')
+            var finalAuthtoken = 'Bearer ' + Authtoken
 
-    }).then(function (resp) {
-      if (resp.ok) {
-        toastr.options = {
-          positionClass: 'toast-top-right',
-          hideDuration: 3000,
-          timeOut: 100
-        }
-        toastr.clear()
-        setTimeout(() => toastr.success(`Patient registered`), 300)
-      }
-    })
+            fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/addpatient', {
+                    method: 'POST',
+                    withCredentials: true,
 
-    console.log('handle click login')
-    console.log('user', this.state.Register)
+                    headers: {
+                      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+                      'Authorization': finalAuthtoken
+
+                            },
+                    body: formBody
+
+            })
+            .then(function (resp) {
+                    if (resp.ok) {
+                          toastr.options = {
+                                positionClass: 'toast-top-right',
+                                hideDuration: 3000,
+                                timeOut: 100
+                }
+                          toastr.clear()
+                          setTimeout(() => toastr.success(`Patient registered`), 300)
+                }
+
+              })
+
+            console.log('handle click login')
+            console.log('user', this.state.Register)
 
   }
+
+
   handleChange(changeValue, event) {
-    this.state.Register[changeValue] = event.target.value;
-    this.setState = ({
-      Register: this.state.Register,
-      // password:this.state.password
-    })
-    console.log('Register', this.state.Register)
+              this.state.Register[changeValue] = event.target.value;
+              this.setState = ({
+                    Register: this.state.Register,
+                // password:this.state.password
+              })
+              console.log('Register', this.state.Register)
   }
 
 
@@ -135,33 +143,35 @@ class RegisterPatient extends Component {
 
   MR_No() {
 
-    var self = this;
-    axios({
-      method: 'get',
-      url: 'http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/createmrnumber',
+            var self = this;
+            axios({
+                    method: 'get',
+                    url: 'http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/createmrnumber',
 
-    })
-      .then(function (json) { 
-        var data = json;
-        console.log(json.data);
-        var mr = json.data
-        console.log(mr);
+            })
+            .then(function (json) { 
+                        var data = json;
+                        console.log(json.data);
+                        var mr = json.data
+                        console.log(mr);
 
-        self.setState({
-          MR_No: mr
-        })
+                        self.setState({
+                                MR_No: mr
+                        })
 
-        console.log("MR Number", self.state.MR_No);
+                        console.log("MR Number", self.state.MR_No);
 
-      }).catch(error => {
-        console.log(error)
-      })
+              })
+            .catch(error => {
+                        console.log(error)
+              })
 
 
   }
 
   render() {
     const { classes } = this.props;
+    
     return (
       <div >
 
@@ -287,7 +297,12 @@ class RegisterPatient extends Component {
     )
   }
 }
+
+
+
 RegisterPatient.propTypes = {
   classes: PropTypes.object.isRequired,
 };
+
+
 export default withStyles(styles)(RegisterPatient)

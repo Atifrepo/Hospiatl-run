@@ -55,43 +55,55 @@ const styles = theme => ({
   
 handleSearch(){
   
-  var Search = {
-    searchmrnumber: this.state.Search.MR_No
-  };
-  var formBody = [];
-  console.log("Register values", Search);
-  for (var property in Search) {
-    var encodedKey = encodeURIComponent(property);
-    var encodedValue = encodeURIComponent(Search[property]);
-    formBody.push(encodedKey + "=" + encodedValue);
-  }
+      var Search = {
+            searchmrnumber: this.state.Search.MR_No
+      };
 
-  formBody = formBody.join("&");
+      var formBody = [];
+      console.log("Register values", Search);
+      for (var property in Search) {
+            var encodedKey = encodeURIComponent(property);
+            var encodedValue = encodeURIComponent(Search[property]);
+            formBody.push(encodedKey + "=" + encodedValue);
+      }
 
-  console.log("Form Body", formBody);
-  var Authtoken = cookies.get('token')
-  var finalAuthtoken = 'Bearer ' + Authtoken
+      formBody = formBody.join("&");
 
-  fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/searchmrnumber', {
-    method: 'POST',
-    withCredentials: true,
+      console.log("Form Body", formBody);
+      var Authtoken = cookies.get('token')
+      var finalAuthtoken = 'Bearer ' + Authtoken
 
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-      'Authorization': finalAuthtoken
+      fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/searchmrnumber', {
+            method: 'POST',
+            withCredentials: true,
 
-    },
-    body: formBody
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+              'Authorization': finalAuthtoken
 
-  }).then(function (resp) {
-    if (resp.ok) {
-     var data = resp.json(); 
-    console.log('search',data) 
-    }
-  })
+            },
+            body: formBody
 
-  // console.log('handle click login') 
-  // console.log('user', this.state.Register)
+        })
+      .then(function (resp) {
+        
+        if (resp.status !== 200) {
+            throw new Error("Not 200 response")
+        }
+
+        if (resp.ok) {
+             var data = resp.json(); 
+             return data;
+        }
+      })
+      .then(function(result){
+        console.log("Result",result.patientname);
+      })
+      .catch(function(error){
+        console.log("Error");
+      })
+
+  
 
 }
   render() {
