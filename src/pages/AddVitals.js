@@ -51,7 +51,9 @@ class AddVitals extends Component {
         Temprature: '',
         PO2: '',
         Allergies: '',
-        rolecookies: ''
+        DateTime:'',
+        rolecookies: '',
+        Allergy:'',
       }
     }
 
@@ -66,15 +68,15 @@ class AddVitals extends Component {
   patientvital() {
 
     var Vitals = {
-      heights:this.state.Vitals.Height,
+      heights: this.state.Vitals.Height,
       weight: this.state.Vitals.weight,
       bloodpressure: this.state.Vitals.BP_Upper,
       pulse: this.state.Vitals.Pulse,
-      temperature: this.state.Vitals.Temprature,
+      temperature: this.state.Vitals.Temprature,                
       po2: this.state.Vitals.PO2,
-      datetimes:'12-jan-2019',
-      allergiid:'1',
-      patientid:'5',
+      datetimes: this.state.Vitals.DateTime,
+      allergiid: this.state.Vitals.Allergy,
+      patientid: '5',
     };
     var formBody = [];
     console.log("vitals values", Vitals);
@@ -82,7 +84,7 @@ class AddVitals extends Component {
       var encodedKey = encodeURIComponent(property);
       var encodedValue = encodeURIComponent(Vitals[property]);
       formBody.push(encodedKey + "=" + encodedValue);
-    } 
+    }
 
     formBody = formBody.join("&");
 
@@ -120,7 +122,9 @@ class AddVitals extends Component {
 
   }
 
-
+GetAllergy(){
+  
+}
 
   handleChange(changeValue, event) {
     this.state.Vitals[changeValue] = event.target.value;
@@ -130,7 +134,7 @@ class AddVitals extends Component {
     })
     console.log('Register', this.state.Vitals)
   }
-  
+
 
   Search() {
     console.log('searching')
@@ -148,76 +152,96 @@ class AddVitals extends Component {
 
           <h2 style={{ color: '#2699FB' }}>Add Vitals of Patient</h2>
           <NurseAppbar />
-        
-            <div>
-              <TextField
-                label="Enter MR_No"
-                value={this.state.MR_No}
-                onChange={this.handleChange.bind(this, 'MR_No')}
-                margin="normal"
-                variant="outlined"
-                className={classes.textField}
-              />
-              <Button variant="outlined" style={{ backgroundColor: '#2699FB', marginTop: '2%' }} onClick={(event) => this.Search(event)}><b>Search</b></Button>
-            </div>
-            <br></br>
-            <TextField
-              label="Height"
-              value={this.state.Height}
-              onChange={this.handleChange.bind(this, 'Height')}
-              variant="outlined"
-              className={classes.textField}
-              margin="normal"
-            />
 
+          <div>
             <TextField
-              label="Weight"
-              value={this.state.weight}
-              onChange={this.handleChange.bind(this, 'weight')}
+              label="Enter MR_No"
+              value={this.state.MR_No}
+              onChange={this.handleChange.bind(this, 'MR_No')}
+              margin="normal"
               variant="outlined"
               className={classes.textField}
-              margin="normal"
             />
-            <br></br>
+            <Button variant="outlined" style={{ backgroundColor: '#2699FB', marginTop: '2%' }} onClick={(event) => this.Search(event)}><b>Search</b></Button>
+          </div>
+          <br></br>
+          <TextField
+            label="Height"
+            value={this.state.Height}
+            onChange={this.handleChange.bind(this, 'Height')}
+            variant="outlined"
+            className={classes.textField}
+            margin="normal"
+          />
 
-            <TextField
-              label="BP(mmHg)"
-              value={this.state.BP_Upper}
-              onChange={this.handleChange.bind(this, 'BP_Upper')}
-              variant="outlined"
-              className={classes.textField}
-              margin="normal"
-            />
-            <TextField
-              label="Pulse(bpm)"
-              value={this.state.Pulse}
-              onChange={this.handleChange.bind(this, 'Pulse')}
-              variant="outlined"
-              className={classes.textField}
-              margin="normal"
-            />
-            <br></br>
+          <TextField
+            label="Weight"
+            value={this.state.weight}
+            onChange={this.handleChange.bind(this, 'weight')}
+            variant="outlined"
+            className={classes.textField}
+            margin="normal"
+          />
+          <br></br>
 
-            <TextField
-              label="Tempreture"
-              value={this.state.Temprature}
-              onChange={this.handleChange.bind(this, 'Temprature')}
-              variant="outlined"
-              className={classes.textField}
-              margin="normal"
-            />
+          <TextField
+            label="BP(mmHg)"
+            value={this.state.BP_Upper}
+            onChange={this.handleChange.bind(this, 'BP_Upper')}
+            variant="outlined"
+            className={classes.textField}
+            margin="normal"
+          />
+          <TextField
+            label="Pulse(bpm)"
+            value={this.state.Pulse}
+            onChange={this.handleChange.bind(this, 'Pulse')}
+            variant="outlined"
+            className={classes.textField}
+            margin="normal"
+          />
+          <br></br>
 
-            <TextField
-              label="PO2"
-              value={this.state.PO2}
-              onChange={this.handleChange.bind(this, 'PO2')}
-              variant="outlined"
-              className={classes.textField}
-              margin="normal"
-            />
-           <br></br>
-            <Button type="submit" variant="outlined" style={{ backgroundColor: '#2699FB', position: 'relative' }} onClick={(event) => this.patientvital(event)}><b>Add Vitals</b></Button>
-          
+          <TextField
+            label="Tempreture"
+            value={this.state.Temprature}
+            onChange={this.handleChange.bind(this, 'Temprature')}
+            variant="outlined"
+            className={classes.textField}
+            margin="normal"
+          />
+
+          <TextField
+            label="PO2"
+            value={this.state.PO2}
+            onChange={this.handleChange.bind(this, 'PO2')}
+            variant="outlined"
+            className={classes.textField}
+            margin="normal"
+          />
+
+          <br></br>
+          <TextField style={{width:'15%',paddingTop:'1%'}}
+        id="date"
+        variant="outlined"
+        label="Birthday"
+        type="date"
+        defaultValue="2017-05-24"
+        className={classes.textField}
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />        <TextField 
+            label="Allergy"
+            value={this.state.PO2}
+            onChange={this.handleChange.bind(this, 'PO2')}
+            variant="outlined"
+            className={classes.textField}
+            margin="normal"
+          />
+      <br></br>
+          <Button type="submit" variant="outlined" style={{ backgroundColor: '#2699FB', position: 'relative' }} onClick={(event) => this.patientvital(event)}><b>Add Vitals</b></Button>
+
         </div>
 
       </div>
