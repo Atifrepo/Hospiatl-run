@@ -63,14 +63,14 @@ class AddVitals extends Component {
   //     rolecookies: rolecookis
   //   })
   // }
-  handleClick() {
+  patientvital() {
 
     var Vitals = {
       heights:this.state.Vitals.Height,
       weight: this.state.Vitals.weight,
       bloodpressure: this.state.Vitals.BP_Upper,
       pulse: this.state.Vitals.Pulse,
-      tempreture: this.state.Vitals.Temprature,
+      temperature: this.state.Vitals.Temprature,
       po2: this.state.Vitals.PO2,
       datetimes:'12-jan-2019',
       allergiid:'1',
@@ -109,14 +109,19 @@ class AddVitals extends Component {
           timeOut: 100
         }
         toastr.clear()
-        setTimeout(() => toastr.success(`Patient registered`), 300)
+        setTimeout(() => toastr.success(`Patient Vitals Added`), 300)
       }
     })
 
     console.log('handle click login')
     console.log('user', this.state.Vitals)
 
+    console.log("Hello");
+
   }
+
+
+
   handleChange(changeValue, event) {
     this.state.Vitals[changeValue] = event.target.value;
     this.setState = ({
@@ -125,6 +130,8 @@ class AddVitals extends Component {
     })
     console.log('Register', this.state.Vitals)
   }
+  
+
   Search() {
     console.log('searching')
   }
@@ -141,7 +148,7 @@ class AddVitals extends Component {
 
           <h2 style={{ color: '#2699FB' }}>Add Vitals of Patient</h2>
           <NurseAppbar />
-          <form >
+        
             <div>
               <TextField
                 label="Enter MR_No"
@@ -165,13 +172,14 @@ class AddVitals extends Component {
 
             <TextField
               label="Weight"
-              value={this.state.Weight}
-              onChange={this.handleChange.bind(this, 'Weight')}
+              value={this.state.weight}
+              onChange={this.handleChange.bind(this, 'weight')}
               variant="outlined"
               className={classes.textField}
               margin="normal"
             />
             <br></br>
+
             <TextField
               label="BP(mmHg)"
               value={this.state.BP_Upper}
@@ -207,9 +215,9 @@ class AddVitals extends Component {
               className={classes.textField}
               margin="normal"
             />
-            <br></br>
-            <Button type="submit" variant="outlined" style={{ backgroundColor: '#2699FB', position: 'relative' }} onClick={(event) => this.handleClick(event)}><b>Add Vitals</b></Button>
-          </form>
+           <br></br>
+            <Button type="submit" variant="outlined" style={{ backgroundColor: '#2699FB', position: 'relative' }} onClick={(event) => this.patientvital(event)}><b>Add Vitals</b></Button>
+          
         </div>
 
       </div>
