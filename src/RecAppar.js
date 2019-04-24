@@ -19,7 +19,7 @@ import classNames from 'classnames';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-const cookies=new Cookies();
+const cookies = new Cookies();
 const drawerWidth = 240;
 const styles = theme => ({
   root: {
@@ -38,7 +38,7 @@ const styles = theme => ({
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
-      backgroundColor:'#2699FB'
+      backgroundColor: '#2699FB'
     }),
   },
   menuButton: {
@@ -52,14 +52,14 @@ const styles = theme => ({
     width: drawerWidth,
     flexShrink: 0,
     whiteSpace: 'nowrap',
-  backgroundColor:'#2699FB'
+    backgroundColor: '#2699FB'
   },
   drawerOpen: {
     width: drawerWidth,
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
-      backgroundColor:'#2699FB'
+      backgroundColor: '#2699FB'
     }),
   },
   drawerClose: {
@@ -74,8 +74,8 @@ const styles = theme => ({
     },
     grow: {
       flexGrow: 1,
-      justifyContent:'left'
-      
+      justifyContent: 'left'
+
     },
   },
   toolbar: {
@@ -84,12 +84,12 @@ const styles = theme => ({
     justifyContent: 'flex-end',
     padding: '0 8px',
     ...theme.mixins.toolbar,
-    backgroundColor:'#2699FB'
+    backgroundColor: '#2699FB'
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing.unit * 3,
-    backgroundColor:'#2699FB'
+    backgroundColor: '#2699FB'
   },
 });
 
@@ -107,15 +107,15 @@ class RecAppbar extends React.Component {
   handleClose = () => {
     this.setState({ anchorEl: null });
   };
-logout=()=>{
-  console.log('logout')
-  localStorage.clear();
-  window.location.href = '/';
-cookies.remove('roles')
-cookies.remove('username')
-cookies.remove('token')
+  logout = () => {
+    console.log('logout')
+    localStorage.clear();
+    window.location.href = '/';
+    cookies.remove('roles')
+    cookies.remove('username')
+    cookies.remove('token')
 
-}
+  }
   handleDrawerOpen = () => {
     this.setState({ open: true });
   };
@@ -123,10 +123,10 @@ cookies.remove('token')
   handleDrawerClose = () => {
     this.setState({ open: false });
   };
-route(path){
-  console.log('in route');
-  window.location.href = path;
-}
+  route(path) {
+    console.log('in route');
+    window.location.href = path;
+  }
 
   render() {
     const { auth, anchorEl } = this.state;
@@ -134,12 +134,13 @@ route(path){
     const { classes, theme } = this.props;
     return (
       <div className={classes.root}>
-    
-        <AppBar position="fixed" style={{backgroundColor:'#2699FB'}}
-        className={classNames(classes.appBar,{[classes.appBarShift]:this.state.open,
-        })}
+
+        <AppBar position="fixed" style={{ backgroundColor: '#2699FB' }}
+          className={classNames(classes.appBar, {
+            [classes.appBarShift]: this.state.open,
+          })}
         >
-<Toolbar disableGutters={!this.state.open}>
+          <Toolbar disableGutters={!this.state.open}>
             <IconButton
               color="inherit"
               aria-label="Open drawer"
@@ -148,80 +149,80 @@ route(path){
                 [classes.hide]: this.state.open,
               })}
             >
-            <MenuIcon/>
+              <MenuIcon />
 
             </IconButton>
             <Typography variant="h6" color="inherit" className={classes.grow} noWrap>
               Hospital Mangagement
             </Typography>
             <IconButton
-                  aria-owns={open ? 'menu-appbar' : undefined}
-                  aria-haspopup="true"
-                  onClick={this.handleMenu}
-                  color="inherit"
-                >
-                  <AccountCircle  />
-                </IconButton>
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  open={open}
-                  onClose={this.handleClose}
-                >
-                  <MenuItem onClick={this.logout}>logout</MenuItem>
-                  
-                </Menu>
-                </Toolbar>
-               
-                 </AppBar>
-   <Drawer
-            //  variant="permanent"
-            //  className={classNames(classes.drawer, {
-            //    [classes.drawerOpen]: this.state.open,
-            //    [classes.drawerClose]: !this.state.open,
-            //  })}
-             classes={{
-               paper: classNames({
-                 [classes.drawerOpen]                  : this.state.open,
-                 [classes.drawerClose]: !this.state.open,
-               }),
-             }}
-             open={this.state.open}
-             >
-              <div className={classes.toolbar}>
+              aria-owns={open ? 'menu-appbar' : undefined}
+              aria-haspopup="true"
+              onClick={this.handleMenu}
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={open}
+              onClose={this.handleClose}
+            >
+              <MenuItem onClick={this.logout}>logout</MenuItem>
+
+            </Menu>
+          </Toolbar>
+
+        </AppBar>
+        <Drawer
+          //  variant="permanent"
+          //  className={classNames(classes.drawer, {
+          //    [classes.drawerOpen]: this.state.open,
+          //    [classes.drawerClose]: !this.state.open,
+          //  })}
+          classes={{
+            paper: classNames({
+              [classes.drawerOpen]: this.state.open,
+              [classes.drawerClose]: !this.state.open,
+            }),
+          }}
+          open={this.state.open}
+        >
+          <div className={classes.toolbar}>
             <IconButton onClick={this.handleDrawerClose}>
               {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
             </IconButton>
           </div>
           <List>
-          <ListItem button onClick={(event) => this.route('/Register')} style={{backgroundColor:'#2699FB',}}>
-                <ListItemIcon style={{color:'#fff'}}> 
-                 Register Patient
+            <ListItem button onClick={(event) => this.route('/Register')} style={{ backgroundColor: '#2699FB', }}>
+              <ListItemIcon style={{ color: '#fff' }}>
+                Register Patient
                    </ListItemIcon>
-                <ListItemText primary />
-              </ListItem>
-<Divider/>
-<ListItem button onClick={(event) => this.route('/SearchPatient')} style={{backgroundColor:'#2699FB',}}>
-                <ListItemIcon style={{color:'#fff'}}> 
-                 Search Patient
+              <ListItemText primary />
+            </ListItem>
+            <Divider />
+            <ListItem button onClick={(event) => this.route('/SearchPatient')} style={{ backgroundColor: '#2699FB', }}>
+              <ListItemIcon style={{ color: '#fff' }}>
+                Search Patient
                    </ListItemIcon>
-                <ListItemText primary />
-              </ListItem>
+              <ListItemText primary />
+            </ListItem>
 
 
           </List>
-             
-             </Drawer>
-        
-                
+
+        </Drawer>
+
+
       </div>
     );
   }
@@ -231,4 +232,4 @@ RecAppbar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true } )(RecAppbar);
+export default withStyles(styles, { withTheme: true })(RecAppbar);

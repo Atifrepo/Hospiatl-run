@@ -51,9 +51,9 @@ class AddVitals extends Component {
         Temprature: '',
         PO2: '',
         Allergies: '',
-        DateTime:'',
+        DateTime: '',
         rolecookies: '',
-        Allergy:'',
+        Allergy: '',
       }
     }
 
@@ -72,7 +72,7 @@ class AddVitals extends Component {
       weight: this.state.Vitals.weight,
       bloodpressure: this.state.Vitals.BP_Upper,
       pulse: this.state.Vitals.Pulse,
-      temperature: this.state.Vitals.Temprature,                
+      temperature: this.state.Vitals.Temprature,
       po2: this.state.Vitals.PO2,
       datetimes: this.state.Vitals.DateTime,
       allergiid: this.state.Vitals.Allergy,
@@ -122,9 +122,9 @@ class AddVitals extends Component {
 
   }
 
-GetAllergy(){
-  
-}
+  GetAllergy() {
+
+  }
 
   handleChange(changeValue, event) {
     this.state.Vitals[changeValue] = event.target.value;
@@ -221,17 +221,17 @@ GetAllergy(){
           />
 
           <br></br>
-          <TextField style={{width:'15%',paddingTop:'1%'}}
-        id="date"
-        variant="outlined"
-        label="Birthday"
-        type="date"
-        defaultValue="2017-05-24"
-        className={classes.textField}
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />        <TextField 
+          <TextField style={{ width: '15%', paddingTop: '1%' }}
+            id="date"
+            variant="outlined"
+            label="Birthday"
+            type="date"
+            defaultValue="2017-05-24"
+            className={classes.textField}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />        <TextField
             label="Allergy"
             value={this.state.PO2}
             onChange={this.handleChange.bind(this, 'PO2')}
@@ -239,7 +239,7 @@ GetAllergy(){
             className={classes.textField}
             margin="normal"
           />
-      <br></br>
+          <br></br>
           <Button type="submit" variant="outlined" style={{ backgroundColor: '#2699FB', position: 'relative' }} onClick={(event) => this.patientvital(event)}><b>Add Vitals</b></Button>
 
         </div>

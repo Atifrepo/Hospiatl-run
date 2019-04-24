@@ -1,4 +1,4 @@
-import React,{Component} from 'react'
+import React, { Component } from 'react'
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
@@ -11,10 +11,10 @@ const styles = theme => ({
     flexWrap: 'wrap',
   },
   textField: {
-    marginLeft: theme.spacing.unit  ,
+    marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
 
-    
+
   },
   dense: {
     marginTop: 16,
@@ -23,18 +23,18 @@ const styles = theme => ({
     width: 200,
   },
 });
- class DeleteEmployee extends Component{
-constructor(){
+class DeleteEmployee extends Component {
+  constructor() {
     super()
-this.state={
-    Details:{
-        EmployeeID:'',
-        Password:'',
-    }
+    this.state = {
+      Details: {
+        EmployeeID: '',
+        Password: '',
+      }
 
-}
-}
-handleChange(changeValue, event) {
+    }
+  }
+  handleChange(changeValue, event) {
     this.state.Details[changeValue] = event.target.value;
     this.setState = ({
       Details: this.state.Details,
@@ -43,33 +43,33 @@ handleChange(changeValue, event) {
     console.log('login', this.state.Details)
   }
 
-render(){
-  const { classes } = this.props;
-    return(
-        <div>
-          <h2 style={{color:'#2699FB'}}>Add Vitals of Patient</h2>
-          <NurseAppbar/>
-            <TextField 
+  render() {
+    const { classes } = this.props;
+    return (
+      <div>
+        <h2 style={{ color: '#2699FB' }}>Add Vitals of Patient</h2>
+        <NurseAppbar />
+        <TextField
 
-              label="Employee ID"
-              value={this.state.EmployeeID}
-              onChange={this.handleChange.bind(this, 'EmployeeID')}
-              margin="normal"
-              variant="outlined"
-              className={classes.textField}
-            />
-            <TextField 
+          label="Employee ID"
+          value={this.state.EmployeeID}
+          onChange={this.handleChange.bind(this, 'EmployeeID')}
+          margin="normal"
+          variant="outlined"
+          className={classes.textField}
+        />
+        <TextField
 
-              label="Enter admin Password"
-              value={this.state.Password}
-              onChange={this.handleChange.bind(this, 'Password')}
-              margin="normal"
-              variant="outlined"
-              className={classes.textField}
-            />
-        </div>
+          label="Enter admin Password"
+          value={this.state.Password}
+          onChange={this.handleChange.bind(this, 'Password')}
+          margin="normal"
+          variant="outlined"
+          className={classes.textField}
+        />
+      </div>
     )
-}
+  }
 }
 DeleteEmployee.propTypes = {
   classes: PropTypes.object.isRequired,

@@ -11,7 +11,6 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import axios from 'axios'
-import Input from '@material-ui/core/Input';
 import toastr from 'toastr'
 import 'toastr/build/toastr.min.css'
 import Cookies from 'universal-cookie';
@@ -26,7 +25,7 @@ const styles = theme => ({
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
-},
+  },
   dense: {
     marginTop: 16,
   },
@@ -44,26 +43,26 @@ const styles = theme => ({
 
 class RegisterPatient extends Component {
   constructor() {
-    super()
+    super();
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.MRNo = this.MRNo.bind(this);
 
 
     this.state = {
-     
-        Name: '',
-        FatherName: '',
-        Age: '',
-        Gender: '',
-        Telephone1: '',
-        Telephone2: '',
-        labelWidth: 0,
-        MR_No: '',
+
+      Name: '',
+      FatherName: '',
+      Age: '',
+      Gender: '',
+      Telephone1: '',
+      Telephone2: '',
+      labelWidth: 0,
+      MR_No: '',
     }
-    
-}
-  
+
+  }
+
   componentDidMount() {
     this.setState({
       labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
@@ -74,70 +73,70 @@ class RegisterPatient extends Component {
 
   handleClick() {
 
-            var Register = {
-                    patientname: this.state.Name,
-                    patientfathername: this.state.FatherName,
-                    age: this.state.Age,
-                    gender: this.state.Gender,
-                    telephone1: this.state.Telephone1,
-                    telephone2: this.state.Telephone2,
-                    mrnumber: this.state.MR_No
-            };
+    var Register = {
+      patientname: this.state.Name,
+      patientfathername: this.state.FatherName,
+      age: this.state.Age,
+      gender: this.state.Gender,
+      telephone1: this.state.Telephone1,
+      telephone2: this.state.Telephone2,
+      mrnumber: this.state.MR_No
+    };
 
 
-            var formBody = [];
-            console.log("Register values", Register);
-            
+    var formBody = [];
+    console.log("Register values", Register);
 
-            for (var property in Register) {
-                    var encodedKey = encodeURIComponent(property);
-                    var encodedValue = encodeURIComponent(Register[property]);
-                    formBody.push(encodedKey + "=" + encodedValue);
-            }
 
-            formBody = formBody.join("&");
+    for (var property in Register) {
+      var encodedKey = encodeURIComponent(property);
+      var encodedValue = encodeURIComponent(Register[property]);
+      formBody.push(encodedKey + "=" + encodedValue);
+    }
 
-            console.log("Form Body", formBody);
-            var Authtoken = cookies.get('token')
-            var finalAuthtoken = 'Bearer ' + Authtoken
+    formBody = formBody.join("&");
 
-            fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/addpatient', {
-                    method: 'POST',
-                    withCredentials: true,
+    console.log("Form Body", formBody);
+    var Authtoken = cookies.get('token')
+    var finalAuthtoken = 'Bearer ' + Authtoken
 
-                    headers: {
-                      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-                      'Authorization': finalAuthtoken
+    fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/addpatient', {
+      method: 'POST',
+      withCredentials: true,
 
-                            },
-                    body: formBody
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+        'Authorization': finalAuthtoken
 
-            })
-            .then(function (resp) {
-                    if (resp.ok) {
-                          toastr.options = {
-                                positionClass: 'toast-top-right',
-                                hideDuration: 3000,
-                                timeOut: 100
-                }
-                          toastr.clear()
-                          setTimeout(() => toastr.success(`Patient registered`), 300)
-                }
+      },
+      body: formBody
 
-              })
+    })
+      .then(function (resp) {
+        if (resp.ok) {
+          toastr.options = {
+            positionClass: 'toast-top-right',
+            hideDuration: 3000,
+            timeOut: 100
+          }
+          toastr.clear()
+          setTimeout(() => toastr.success(`Patient registered`), 300)
+        }
 
-            console.log('handle click login')
-            console.log('user', this.state)
+      })
+
+    console.log('handle click login')
+    console.log('user', this.state)
 
   }
 
 
   handleChange({ target }) {
-             
-              this.setState({
-                   [target.name]: target.value
-                           })
-              console.log('Register', this.state)
+
+    this.setState({
+      [target.name]: target.value
+    })
+    console.log('Register', this.state)
   }
 
 
@@ -145,55 +144,55 @@ class RegisterPatient extends Component {
 
   MRNo() {
 
-           
-            axios({
-                    method: 'get',
-                    url: 'http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/createmrnumber',
 
-            })
-            .then((json) => { 
-                        var data = json;
-                        console.log(json.data);
-                        var mr = json.data
-                        console.log(mr);
+    axios({
+      method: 'get',
+      url: 'http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/createmrnumber',
 
-                        this.setState({
-                                MR_No: mr
-                        })
+    })
+      .then((json) => {
+        var data = json;
+        console.log(json.data);
+        var mr = json.data
+        console.log(mr);
 
-                        console.log("MR Number", this.state.MR_No);
+        this.setState({
+          MR_No: mr
+        })
 
-              })
-            .catch(error => {
-                        console.log(error)
-              })
+        console.log("MR Number", this.state.MR_No);
+
+      })
+      .catch(error => {
+        console.log(error)
+      })
 
 
   }
 
   render() {
     const { classes } = this.props;
-    
+
     return (
       <div >
 
         <RecAppbar />
         <h2 style={{ color: '#2699FB' }}>Register Patient</h2>
         <div>
-        <TextField
-          disabled
-          // id="outlined-disabled"
-          label={this.state.MR_No}
-          name="MR_No"
-          value={this.state.MR_No}
-          onChange={ this.handleChange } 
-          className={classes.textField}
-          margin="normal"
-          variant="outlined"
-          style={{backgroundColor:'#fff'}}
-        />
-         <Button variant="outlined" style={{ backgroundColor: '#2699FB',marginTop:'2%' }} onClick={this.MRNo}><b>Generate MR_No</b></Button>
-         </div>
+          <TextField
+            disabled
+            // id="outlined-disabled"
+            // label={this.state.MR_No}
+            name="MR_No"
+            value={this.state.MR_No}
+            onChange={this.handleChange}
+            className={classes.textField}
+            margin="normal"
+            variant="outlined"
+            style={{ backgroundColor: '#fff' }}
+          />
+          <Button variant="outlined" style={{ backgroundColor: '#2699FB', marginTop: '2%' }} onClick={this.MRNo}><b>Generate MR_No</b></Button>
+        </div>
         <br></br>
         <TextField
           label="Name"
@@ -205,7 +204,7 @@ class RegisterPatient extends Component {
           variant="outlined"
           className={classes.textField}
         />
-       
+
 
 
         <TextField
@@ -243,7 +242,7 @@ class RegisterPatient extends Component {
           className={classes.textField}
         />
 
-<br></br>
+        <br></br>
         <TextField
           label="Telephone#2"
           required
@@ -256,43 +255,43 @@ class RegisterPatient extends Component {
           className={classes.textField}
         />
 
-        
-          <FormControl variant="outlined" className={classes.formControl}>
-            <InputLabel style={{marginTop:'7%'}}
-              ref={ref => {
-                this.InputLabelRef = ref;
-              }}
-              htmlFor="outlined-age-simple"
-            >
-              Role
+
+        <FormControl variant="outlined" className={classes.formControl}>
+          <InputLabel style={{ marginTop: '7%' }}
+            ref={ref => {
+              this.InputLabelRef = ref;
+            }}
+            htmlFor="outlined-age-simple"
+          >
+            Role
           </InputLabel>
 
-            <Select style={{ width: 222, marginRight: "100%", marginTop:'7%' }}
-              required
-              name="Gender"
-              value={this.state.Gender}
-              onChange={this.handleChange}
+          <Select style={{ width: 222, marginRight: "100%", marginTop: '7%' }}
+            required
+            name="Gender"
+            value={this.state.Gender}
+            onChange={this.handleChange}
 
-              input={
-                <OutlinedInput
-                  labelWidth={this.state.labelWidth}
-                  name='name'
-                  id="outlined-age-simple"
-                  // value={this.state.Gender}
-                />
+            input={
+              <OutlinedInput
+                labelWidth={this.state.labelWidth}
+                name='name'
+                id="outlined-age-simple"
+              // value={this.state.Gender}
+              />
 
-              }
-            >
-              <MenuItem value={'Male'}>Male</MenuItem>
-              <MenuItem value={'Female'}>Female</MenuItem>
-              <MenuItem value={'Other'}>Other</MenuItem>
+            }
+          >
+            <MenuItem value={'Male'}>Male</MenuItem>
+            <MenuItem value={'Female'}>Female</MenuItem>
+            <MenuItem value={'Other'}>Other</MenuItem>
 
-            </Select>
+          </Select>
 
 
-          </FormControl>
-     
-                <br></br>
+        </FormControl>
+
+        <br></br>
 
         <Button type="submit" variant="outlined" style={{ backgroundColor: '#2699FB', position: 'relative' }} onClick={this.handleClick}><b>Register   Patient</b></Button>
 
