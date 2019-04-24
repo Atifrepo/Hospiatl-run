@@ -51,26 +51,26 @@ class AddVitals extends Component {
     this.Search = this.Search.bind(this);
 
     this.state = {
-     
-        MR_No: '',
-        Height: '',
-        Weight: '',
-        // BP_lower: '',
-        // BP_Upper: '',
-        BP: '',
-        Pulse: '',
-        Temperature: '',
-        PO2: '',
-        Allergies: '',
-        DateTime: '',
-        rolecookies: '',
-        Allergy: '',
-        PatientName: '',
-        PatientFatherName: '',
-        Age: '',
-        patientid: '',
-        labelWidth: 0,
-      
+
+      MR_No: '',
+      Height: '',
+      Weight: '',
+      // BP_lower: '',
+      // BP_Upper: '',
+      BP: '',
+      Pulse: '',
+      Temperature: '',
+      PO2: '',
+      Allergies: '',
+      DateTime: '',
+      rolecookies: '',
+      Allergy: '',
+      PatientName: '',
+      PatientFatherName: '',
+      Age: '',
+      patientid: '',
+      labelWidth: 0,
+
     }
 
   }
@@ -91,8 +91,8 @@ class AddVitals extends Component {
   // }
 
 
-   handleChange({target }) {
-    
+  handleChange({ target }) {
+
     this.setState({
       [target.name]: target.value
 
@@ -103,18 +103,18 @@ class AddVitals extends Component {
 
 
   Search() {
-    
+
     var Search = {
       searchmrnumber: this.state.MR_No
     };
 
 
     var formBody = [];
-    
+
     for (var property in Search) {
-          var encodedKey = encodeURIComponent(property);
-          var encodedValue = encodeURIComponent(Search[property]);
-          formBody.push(encodedKey + "=" + encodedValue);
+      var encodedKey = encodeURIComponent(property);
+      var encodedValue = encodeURIComponent(Search[property]);
+      formBody.push(encodedKey + "=" + encodedValue);
     }
 
     formBody = formBody.join("&");
@@ -147,7 +147,7 @@ class AddVitals extends Component {
       })
       .then((result) => {
         console.log("Response from server", result);
-        this.setState({ patientid:result[0].patientid,PatientName: result[0].patientname, PatientFatherName: result[0].fathername, Age: result[0].age });
+        this.setState({ patientid: result[0].patientid, PatientName: result[0].patientname, PatientFatherName: result[0].fathername, Age: result[0].age });
         console.log("State after setting", this.state)
       })
       .catch((error) => {
@@ -215,10 +215,6 @@ class AddVitals extends Component {
       }
     })
 
-    // console.log('handle click login')
-    // console.log('user', this.state.Vitals)
-
-    // console.log("Hello");
 
   }
 
@@ -226,9 +222,9 @@ class AddVitals extends Component {
 
   }
 
- 
 
-  
+
+
 
   render() {
     const { classes } = this.props;
@@ -332,37 +328,37 @@ class AddVitals extends Component {
               shrink: true,
             }}
           />   <FormControl variant="outlined" className={styles.formControl}>
-          <InputLabel style={{marginTop: '7%' }}
-            ref={ref => {
-              this.InputLabelRef = ref;
-            }}
-            htmlFor="outlined-age-simple"
-          >
-            Role
+            <InputLabel style={{ marginTop: '7%' }}
+              ref={ref => {
+                this.InputLabelRef = ref;
+              }}
+              htmlFor="outlined-age-simple"
+            >
+              Role
         </InputLabel>
 
-          <Select style={{ width: 220,marginTop: '7%'  }}
-            name="Allergy"
-            value={this.state.Allergy}
-            onChange={this.handleChange}
-            input={
-              <OutlinedInput
-                labelWidth={this.state.labelWidth}
-                name="Allergy"
-                id="outlined-age-simple"
-              // value={this.state.role}
-              />
+            <Select style={{ width: 220, marginTop: '7%' }}
+              name="Allergy"
+              value={this.state.Allergy}
+              onChange={this.handleChange}
+              input={
+                <OutlinedInput
+                  labelWidth={this.state.labelWidth}
+                  name="Allergy"
+                  id="outlined-age-simple"
+                // value={this.state.role}
+                />
 
-            }
-          >
-            <MenuItem value={'1'}>Allergy1</MenuItem>
-            <MenuItem value={'2'}>Allergy2</MenuItem>
-            <MenuItem value={'3'}>Allergy3</MenuItem>
-            <MenuItem value={'4'}>Allergy4</MenuItem>
-          </Select>
+              }
+            >
+              <MenuItem value={'1'}>Allergy1</MenuItem>
+              <MenuItem value={'2'}>Allergy2</MenuItem>
+              <MenuItem value={'3'}>Allergy3</MenuItem>
+              <MenuItem value={'4'}>Allergy4</MenuItem>
+            </Select>
 
 
-        </FormControl>
+          </FormControl>
           <br></br>
           <Button type="submit" variant="outlined" style={{ backgroundColor: '#2699FB', position: 'relative' }} onClick={this.patientvital}><b>Add Vitals</b></Button>
 
