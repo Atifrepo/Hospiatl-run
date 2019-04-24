@@ -40,24 +40,38 @@ class AddVitals extends Component {
 
   constructor() {
     super()
+    this.handleChange = this.handleChange.bind(this);
+    this.patientvital = this.patientvital.bind(this);
+    this.GetAllergy = this.GetAllergy.bind(this);
+    this.Search = this.Search.bind(this);
+
     this.state = {
-      Vitals: {
+     
         MR_No: '',
         Height: '',
         Weight: '',
-        BP_lower: '',
-        BP_Upper: '',
+        // BP_lower: '',
+        // BP_Upper: '',
+        BP: '',
         Pulse: '',
-        Temprature: '',
+        Temperature: '',
         PO2: '',
         Allergies: '',
         DateTime: '',
         rolecookies: '',
         Allergy: '',
-      }
+        PatientName: '',
+        PatientFatherName: '',
+        Age: '',
+        patientid: ''
+      
     }
 
   }
+
+
+
+
   // componentDidMount() {
   //   var rolecookis = cookies.get('roles')
   //   console.log('hi', rolecookis)
@@ -65,18 +79,94 @@ class AddVitals extends Component {
   //     rolecookies: rolecookis
   //   })
   // }
+
+
+   handleChange({target }) {
+    
+    this.setState({
+      [target.name]: target.value
+
+    })
+    console.log('Register', this.state.Vitals)
+  }
+
+
+
+  Search() {
+    
+    var Search = {
+      searchmrnumber: this.state.MR_No
+    };
+
+
+    var formBody = [];
+    
+    for (var property in Search) {
+          var encodedKey = encodeURIComponent(property);
+          var encodedValue = encodeURIComponent(Search[property]);
+          formBody.push(encodedKey + "=" + encodedValue);
+    }
+
+    formBody = formBody.join("&");
+
+    console.log("Form Body", formBody);
+    var Authtoken = cookies.get('token')
+    var finalAuthtoken = 'Bearer ' + Authtoken
+
+    fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/searchmrnumber', {
+      method: 'POST',
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+        'Authorization': finalAuthtoken
+
+      },
+      body: formBody
+
+    })
+      .then((resp) => {
+
+        if (resp.status !== 200) {
+          throw new Error("Not 200 response")
+        }
+
+        if (resp.ok) {
+          var data = resp.json();
+          return data;
+        }
+      })
+      .then((result) => {
+        console.log("Response from server", result);
+        this.setState({ patientid:result[0].patientid,PatientName: result[0].patientname, PatientFatherName: result[0].fathername, Age: result[0].age });
+        console.log("State after setting", this.state)
+      })
+      .catch((error) => {
+        toastr.options = {
+          positionClass: 'toast-top-right',
+          hideDuration: 300000,
+          timeOut: 100
+        }
+        toastr.clear()
+        setTimeout(() => toastr.success(`Patient Not found`), 300)
+      })
+
+  }
+
+
+
+
   patientvital() {
 
     var Vitals = {
-      heights: this.state.Vitals.Height,
-      weight: this.state.Vitals.weight,
-      bloodpressure: this.state.Vitals.BP_Upper,
-      pulse: this.state.Vitals.Pulse,
-      temperature: this.state.Vitals.Temprature,
-      po2: this.state.Vitals.PO2,
-      datetimes: this.state.Vitals.DateTime,
-      allergiid: this.state.Vitals.Allergy,
-      patientid: '5',
+      heights: this.state.Height,
+      weight: this.state.weight,
+      bloodpressure: this.state.BP,
+      pulse: this.state.Pulse,
+      temperature: this.state.Temperature,
+      po2: this.state.PO2,
+      datetimes: this.state.DateTime,
+      allergiid: '1',
+      patientid: this.state.patientid,
     };
     var formBody = [];
     console.log("vitals values", Vitals);
@@ -103,7 +193,7 @@ class AddVitals extends Component {
       },
       body: formBody
 
-    }).then(function (resp) {
+    }).then((resp) => {
       if (resp.ok) {
         toastr.options = {
           positionClass: 'toast-top-right',
@@ -115,10 +205,10 @@ class AddVitals extends Component {
       }
     })
 
-    console.log('handle click login')
-    console.log('user', this.state.Vitals)
+    // console.log('handle click login')
+    // console.log('user', this.state.Vitals)
 
-    console.log("Hello");
+    // console.log("Hello");
 
   }
 
@@ -126,19 +216,9 @@ class AddVitals extends Component {
 
   }
 
-  handleChange(changeValue, event) {
-    this.state.Vitals[changeValue] = event.target.value;
-    this.setState = ({
-      Register: this.state.Vitals,
-      // password:this.state.password
-    })
-    console.log('Register', this.state.Vitals)
-  }
+ 
 
-
-  Search() {
-    console.log('searching')
-  }
+  
 
   render() {
     const { classes } = this.props;
@@ -156,19 +236,21 @@ class AddVitals extends Component {
           <div>
             <TextField
               label="Enter MR_No"
+              name="MR_No"
               value={this.state.MR_No}
-              onChange={this.handleChange.bind(this, 'MR_No')}
+              onChange={this.handleChange}
               margin="normal"
               variant="outlined"
               className={classes.textField}
             />
-            <Button variant="outlined" style={{ backgroundColor: '#2699FB', marginTop: '2%' }} onClick={(event) => this.Search(event)}><b>Search</b></Button>
+            <Button variant="outlined" style={{ backgroundColor: '#2699FB', marginTop: '2%' }} onClick={this.Search}><b>Search</b></Button>
           </div>
           <br></br>
           <TextField
             label="Height"
+            name="Height"
             value={this.state.Height}
-            onChange={this.handleChange.bind(this, 'Height')}
+            onChange={this.handleChange}
             variant="outlined"
             className={classes.textField}
             margin="normal"
@@ -176,8 +258,9 @@ class AddVitals extends Component {
 
           <TextField
             label="Weight"
+            name="weight"
             value={this.state.weight}
-            onChange={this.handleChange.bind(this, 'weight')}
+            onChange={this.handleChange}
             variant="outlined"
             className={classes.textField}
             margin="normal"
@@ -186,16 +269,18 @@ class AddVitals extends Component {
 
           <TextField
             label="BP(mmHg)"
-            value={this.state.BP_Upper}
-            onChange={this.handleChange.bind(this, 'BP_Upper')}
+            name="BP"
+            value={this.state.BP}
+            onChange={this.handleChange}
             variant="outlined"
             className={classes.textField}
             margin="normal"
           />
           <TextField
             label="Pulse(bpm)"
+            name="Pulse"
             value={this.state.Pulse}
-            onChange={this.handleChange.bind(this, 'Pulse')}
+            onChange={this.handleChange}
             variant="outlined"
             className={classes.textField}
             margin="normal"
@@ -203,9 +288,10 @@ class AddVitals extends Component {
           <br></br>
 
           <TextField
-            label="Tempreture"
-            value={this.state.Temprature}
-            onChange={this.handleChange.bind(this, 'Temprature')}
+            label="Temperature"
+            name="Temperature"
+            value={this.state.Temperature}
+            onChange={this.handleChange}
             variant="outlined"
             className={classes.textField}
             margin="normal"
@@ -213,8 +299,9 @@ class AddVitals extends Component {
 
           <TextField
             label="PO2"
+            name="PO2"
             value={this.state.PO2}
-            onChange={this.handleChange.bind(this, 'PO2')}
+            onChange={this.handleChange}
             variant="outlined"
             className={classes.textField}
             margin="normal"
@@ -224,8 +311,11 @@ class AddVitals extends Component {
           <TextField style={{ width: '15%', paddingTop: '1%' }}
             id="date"
             variant="outlined"
-            label="Birthday"
+            label="Date"
             type="date"
+            name="DateTime"
+            value={this.state.DateTime}
+            onChange={this.handleChange}
             defaultValue="2017-05-24"
             className={classes.textField}
             InputLabelProps={{
@@ -234,13 +324,13 @@ class AddVitals extends Component {
           />        <TextField
             label="Allergy"
             value={this.state.PO2}
-            onChange={this.handleChange.bind(this, 'PO2')}
+            onChange={this.handleChange}
             variant="outlined"
             className={classes.textField}
             margin="normal"
           />
           <br></br>
-          <Button type="submit" variant="outlined" style={{ backgroundColor: '#2699FB', position: 'relative' }} onClick={(event) => this.patientvital(event)}><b>Add Vitals</b></Button>
+          <Button type="submit" variant="outlined" style={{ backgroundColor: '#2699FB', position: 'relative' }} onClick={this.patientvital}><b>Add Vitals</b></Button>
 
         </div>
 
