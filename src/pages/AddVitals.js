@@ -239,7 +239,7 @@ class AddVitals extends Component {
           <h2 style={{ color: '#2699FB' }}>Add Vitals of Patient</h2>
           <NurseAppbar />
 
-          <div>
+          <div  >
             <TextField
               label="Enter MR_No"
               name="MR_No"
@@ -250,6 +250,13 @@ class AddVitals extends Component {
               className={classes.textField}
             />
             <Button variant="outlined" style={{ backgroundColor: '#2699FB', marginTop: '2%' }} onClick={this.Search}><b>Search</b></Button>
+         
+          <div style={{paddingLeft:'80%',position:'fixed',paddingTop:1}}>
+            
+            <h4>{this.state.PatientName}</h4>
+            <h4>{this.state.PatientFatherName}</h4>
+            <h4>{this.state.Age}</h4>
+          </div>
           </div>
           <br></br>
           <TextField

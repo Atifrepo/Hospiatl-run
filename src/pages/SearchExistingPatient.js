@@ -51,6 +51,8 @@ class SearchExistingPatient extends Component {
       Name: '',
       Fathername: '',
       Age: '',
+      Gender:'',
+      Phone_No:''
     }
 
 
@@ -113,7 +115,7 @@ class SearchExistingPatient extends Component {
       })
       .then((result) => {
         console.log("Response from server", result);
-        this.setState({ Name: result[0].patientname, Fathername: result[0].fathername, Age: result[0].age });
+        this.setState({ Name: result[0].patientname, Fathername: result[0].fathername, Age: result[0].age,Gender:result[0].gender,Phone_No:result[0].telephone1 });
         console.log("State after setting", this.state)
       })
       .catch((error) => {
@@ -150,10 +152,15 @@ class SearchExistingPatient extends Component {
           variant="outlined"
           className={classes.textField}
         />
-        <h6>{this.state.Name}</h6>
-        <h6>{this.state.Fathername}</h6>
-        <h6>{this.state.Age}</h6>
-        <Button variant="outlined" style={{ backgroundColor: '#2699FB', marginTop: '2%' }} onClick={this.handleSearch}>Search</Button>
+        <Button variant="outlined" style={{ backgroundColor: '#2699FB', marginTop:'2%' }} onClick={this.handleSearch}>Search</Button>
+     
+        <div style={{position:'fixed'}}>
+        <h4>{this.state.Name}</h4>
+        <h4>{this.state.Fathername}</h4>
+        <h4>{this.state.Age}</h4>
+        <h4>{this.state.Gender}</h4>
+        <h4>{this.state.Phone_No}</h4>
+         </div>
       </div>
     )
   }

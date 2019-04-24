@@ -210,9 +210,9 @@ class RecAppbar extends React.Component {
               <ListItemText primary />
             </ListItem>
             <Divider />
-            <ListItem button onClick={(event) => this.route('/SearchPatient')} style={{ backgroundColor: '#2699FB', }}>
+            <ListItem button onClick={(event) => this.route('/SearchExistingPatient')} style={{ backgroundColor: '#2699FB', }}>
               <ListItemIcon style={{ color: '#fff' }}>
-                Search Patient
+                Search Existing Patient
                    </ListItemIcon>
               <ListItemText primary />
             </ListItem>

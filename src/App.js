@@ -140,8 +140,8 @@ class App extends Component {
             <ProtectedRouteforAdmin exact path='/AddEmployee' loggedIn={this.state.cookierolevalue} component={AddEmployee} />
             <ProtectedRouteforAdmin exact path='/DeleteEmployee' loggedIn={this.state.cookierolevalue} component={DeleteEmployee} />
             <ProtectedRouteforAdmin exact path='/EditEmployee' loggedIn={this.state.cookierolevalue} component={EditEmployee} />
-            <ProtectedRouteforDoctor exact path='/SearchExistinPatient' loggedIn={this.state.cookierolevalue} component={SearchExistingPatient} />
-            <ProtectedRouteforReceptionist exact path='/SearchPatient' loggedIn={this.state.cookierolevalue} component={SearchPatient} />
+            <ProtectedRouteforReceptionist exact path='/SearchExistingPatient' loggedIn={this.state.cookierolevalue} component={SearchExistingPatient} />
+            <ProtectedRouteforDoctor exact path='/SearchPatient' loggedIn={this.state.cookierolevalue} component={SearchPatient} />
           </div>
         </Router>
         {/* <Drawer/> */}
