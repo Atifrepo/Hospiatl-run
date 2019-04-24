@@ -45,8 +45,13 @@ const styles = theme => ({
 class RegisterPatient extends Component {
   constructor() {
     super()
+    this.handleClick = this.handleClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.MRNo = this.MRNo.bind(this);
+
+
     this.state = {
-      Register: {
+     
         Name: '',
         FatherName: '',
         Age: '',
@@ -54,9 +59,7 @@ class RegisterPatient extends Component {
         Telephone1: '',
         Telephone2: '',
         labelWidth: 0,
-        name: 'hai',
-      },
-      MR_No: '',
+        MR_No: '',
     }
     
 }
@@ -72,12 +75,12 @@ class RegisterPatient extends Component {
   handleClick() {
 
             var Register = {
-                    patientname: this.state.Register.Name,
-                    patientfathername: this.state.Register.Name2,
-                    age: this.state.Register.Age,
-                    gender: this.state.Register.Gender,
-                    telephone1: this.state.Register.Telephone1,
-                    telephone2: this.state.Register.Telephone2,
+                    patientname: this.state.Name,
+                    patientfathername: this.state.FatherName,
+                    age: this.state.Age,
+                    gender: this.state.Gender,
+                    telephone1: this.state.Telephone1,
+                    telephone2: this.state.Telephone2,
                     mrnumber: this.state.MR_No
             };
 
@@ -124,42 +127,41 @@ class RegisterPatient extends Component {
               })
 
             console.log('handle click login')
-            console.log('user', this.state.Register)
+            console.log('user', this.state)
 
   }
 
 
-  handleChange(changeValue, event) {
-              this.state.Register[changeValue] = event.target.value;
-              this.setState = ({
-                    Register: this.state.Register,
-                // password:this.state.password
-              })
-              console.log('Register', this.state.Register)
+  handleChange({ target }) {
+             
+              this.setState({
+                   [target.name]: target.value
+                           })
+              console.log('Register', this.state)
   }
 
 
 
 
-  MR_No() {
+  MRNo() {
 
-            var self = this;
+           
             axios({
                     method: 'get',
                     url: 'http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/createmrnumber',
 
             })
-            .then(function (json) { 
+            .then((json) => { 
                         var data = json;
                         console.log(json.data);
                         var mr = json.data
                         console.log(mr);
 
-                        self.setState({
+                        this.setState({
                                 MR_No: mr
                         })
 
-                        console.log("MR Number", self.state.MR_No);
+                        console.log("MR Number", this.state.MR_No);
 
               })
             .catch(error => {
@@ -182,20 +184,23 @@ class RegisterPatient extends Component {
           disabled
           // id="outlined-disabled"
           label={this.state.MR_No}
-          defaultValue={this.state.MR_No}
+          name="MR_No"
+          value={this.state.MR_No}
+          onChange={ this.handleChange } 
           className={classes.textField}
           margin="normal"
           variant="outlined"
           style={{backgroundColor:'#fff'}}
         />
-         <Button variant="outlined" style={{ backgroundColor: '#2699FB',marginTop:'2%' }} onClick={(event) => this.MR_No(event)}><b>Generate MR_No</b></Button>
+         <Button variant="outlined" style={{ backgroundColor: '#2699FB',marginTop:'2%' }} onClick={this.MRNo}><b>Generate MR_No</b></Button>
          </div>
         <br></br>
         <TextField
           label="Name"
+          name="Name"
           value={this.state.Name}
           required
-          onChange={this.handleChange.bind(this, 'Name')}
+          onChange={this.handleChange}
           margin="normal"
           variant="outlined"
           className={classes.textField}
@@ -206,8 +211,9 @@ class RegisterPatient extends Component {
         <TextField
           label="Husband/Father Name"
           required
-          value={this.state.Name2}
-          onChange={this.handleChange.bind(this, 'Name2')}
+          name="FatherName"
+          value={this.state.FatherName}
+          onChange={this.handleChange}
           margin="normal"
           variant="outlined"
           className={classes.textField}
@@ -217,8 +223,9 @@ class RegisterPatient extends Component {
         <TextField
           label="Age"
           required
+          name="Age"
           value={this.state.Age}
-          onChange={this.handleChange.bind(this, 'Age')}
+          onChange={this.handleChange}
           margin="normal"
           variant="outlined"
           className={classes.textField}
@@ -227,9 +234,10 @@ class RegisterPatient extends Component {
         <TextField
           label="Telephone#1"
           required
+          name="Telephone1"
           value={this.state.Telephone1}
 
-          onChange={this.handleChange.bind(this, 'Telephone1')}
+          onChange={this.handleChange}
           margin="normal"
           variant="outlined"
           className={classes.textField}
@@ -239,9 +247,10 @@ class RegisterPatient extends Component {
         <TextField
           label="Telephone#2"
           required
+          name="Telephone2"
           value={this.state.Telephone2}
 
-          onChange={this.handleChange.bind(this, 'Telephone2')}
+          onChange={this.handleChange}
           margin="normal"
           variant="outlined"
           className={classes.textField}
@@ -260,8 +269,9 @@ class RegisterPatient extends Component {
 
             <Select style={{ width: 222, marginRight: "100%", marginTop:'7%' }}
               required
+              name="Gender"
               value={this.state.Gender}
-              onChange={this.handleChange.bind(this, 'Gender')}
+              onChange={this.handleChange}
 
               input={
                 <OutlinedInput
@@ -284,7 +294,7 @@ class RegisterPatient extends Component {
      
                 <br></br>
 
-        <Button type="submit" variant="outlined" style={{ backgroundColor: '#2699FB', position: 'relative' }} onClick={(event) => this.handleClick(event)}><b>Register   Patient</b></Button>
+        <Button type="submit" variant="outlined" style={{ backgroundColor: '#2699FB', position: 'relative' }} onClick={this.handleClick}><b>Register   Patient</b></Button>
 
 
 
