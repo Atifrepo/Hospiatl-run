@@ -175,7 +175,7 @@ class AddVitals extends Component {
       temperature: this.state.Temperature,
       po2: this.state.PO2,
       datetimes: this.state.DateTime,
-      allergiid: '1',
+      allergiid: this.state.Allergy,
       patientid: this.state.patientid,
     };
     var formBody = [];
