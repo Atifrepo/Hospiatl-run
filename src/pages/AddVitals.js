@@ -55,8 +55,6 @@ class AddVitals extends Component {
       MR_No: '',
       Height: '',
       Weight: '',
-      // BP_lower: '',
-      // BP_Upper: '',
       BP: '',
       Pulse: '',
       Temperature: '',
@@ -70,6 +68,7 @@ class AddVitals extends Component {
       Age: '',
       patientid: '',
       labelWidth: 0,
+      AllergyArray: []
 
     }
 
@@ -80,7 +79,26 @@ class AddVitals extends Component {
     this.setState({
       labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
     });
-  }
+
+  let tempallergiearray = [];
+}
+  // fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/getallergi')
+  //       .then(response => {
+  //           console.log(response);
+  //           return response.json();
+  //       }).then(data => {
+  //         console.log(data);
+  //         var returndata = data[0];
+  //       tempallergiearray = returndata.map((result) => {
+  //           return result
+  //       });
+  //       console.log(tempallergiearray);
+  //       this.setState({
+  //           AllergyArray: tempallergiearray,
+  //       });
+  //   });
+
+  // }
 
   // componentDidMount() {
   //   var rolecookis = cookies.get('roles')
@@ -362,7 +380,9 @@ class AddVitals extends Component {
               <MenuItem value={'2'}>Allergy2</MenuItem>
               <MenuItem value={'3'}>Allergy3</MenuItem>
               <MenuItem value={'4'}>Allergy4</MenuItem>
-            </Select>
+</Select>
+        
+
 
 
           </FormControl>

@@ -53,7 +53,9 @@ class SearchExistingPatient extends Component {
       Name: '',
       Fathername: '',
       Age: '',
-      multiline: ''
+      multiline: '',
+      note:'',
+      patientid:''
     }
 
 
@@ -75,7 +77,7 @@ class SearchExistingPatient extends Component {
   handleSearch() {
 
     var Search = {
-      searchmrnumber: this.state.MR_No
+      patientmrnumber: this.state.MR_No
     };
 
 
@@ -92,7 +94,7 @@ class SearchExistingPatient extends Component {
     var Authtoken = cookies.get('token')
     var finalAuthtoken = 'Bearer ' + Authtoken
 
-    fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/searchmrnumber', {
+    fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/getpatientdetails', {
       method: 'POST',
       withCredentials: true,
       headers: {
@@ -116,7 +118,7 @@ class SearchExistingPatient extends Component {
       })
       .then((result) => {
         console.log("Response from server", result);
-        this.setState({ Name: result[0].patientname, Fathername: result[0].fathername, Age: result[0].age });
+        this.setState({ Name: result[0].patientname, Fathername: result[0].fathername, Age: result[0].age , patientid:result[0].patientid });
         console.log("State after setting", this.state)
       })
       .catch((error) => {
@@ -130,9 +132,80 @@ class SearchExistingPatient extends Component {
       })
 
   }
+  
+
+
+
   AddNotes() {
-    console.log('add notes')
+    console.log('add notes');
+        var Search = {
+            patientid: this.state.patientid,
+            note: this.state.note,
+            date: new Date()
+    };
+
+
+       var formBody = [];
+    for (var property in Search) {
+      var encodedKey = encodeURIComponent(property);
+      var encodedValue = encodeURIComponent(Search[property]);
+      formBody.push(encodedKey + "=" + encodedValue);
+    }
+
+    formBody = formBody.join("&");
+
+    console.log("Form Body", formBody);
+    var Authtoken = cookies.get('token')
+    var finalAuthtoken = 'Bearer ' + Authtoken
+
+    fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/addnote', {
+      method: 'POST',
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+        'Authorization': finalAuthtoken
+
+      },
+      body: formBody
+
+    })
+      .then((resp) => {
+
+        if (resp.status !== 200) {
+          throw new Error("Not 200 response")
+        }
+
+        if (resp.ok) {
+         toastr.options = {
+          positionClass: 'toast-top-right',
+          hideDuration: 3000,
+          timeOut: 100
+        }
+        toastr.clear()
+        setTimeout(() => toastr.success(`Note Added`), 300)
+        }
+      })
+      .catch((error) => {
+        toastr.options = {
+          positionClass: 'toast-top-right',
+          hideDuration: 300000,
+          timeOut: 100
+        }
+        toastr.clear()
+        setTimeout(() => toastr.error(`Error occured`), 300)
+      })
+
+
+
+
+
   }
+
+
+
+
+
+
   render() {
     const { classes } = this.props;
     return (
@@ -163,7 +236,9 @@ class SearchExistingPatient extends Component {
 
             multiline
             rows="10"
-
+            name="note"
+            value={this.state.note}
+            onChange={this.handleChange}
             className={classes.textField}
             margin="normal"
             variant="outlined"
