@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios'
 import toastr from 'toastr'
 import Button from '@material-ui/core/Button';
-import RecAppbar from '../RecAppar'
+import DoctorAppBar from '../DoctorAppbar'
 import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
@@ -21,6 +21,7 @@ const styles = theme => ({
     marginRight: theme.spacing.unit,
 
 
+
   },
   dense: {
     marginTop: 16,
@@ -31,6 +32,7 @@ const styles = theme => ({
   formControl: {
     margin: theme.spacing.unit,
     minWidth: '40',
+
   },
   selectEmpty: {
     marginTop: theme.spacing.unit * 2,
@@ -44,13 +46,14 @@ class SearchExistingPatient extends Component {
     super();
     this.handleSearch = this.handleSearch.bind(this);
     this.handleChange = this.handleChange.bind(this);
-
+    this.AddNotes = this.AddNotes.bind(this);
     this.state = {
 
       MR_No: '',
       Name: '',
       Fathername: '',
       Age: '',
+      multiline: ''
     }
 
 
@@ -127,34 +130,49 @@ class SearchExistingPatient extends Component {
       })
 
   }
-
-
-
-
-
-
+  AddNotes() {
+    console.log('add notes')
+  }
   render() {
     const { classes } = this.props;
     return (
-
       <div>
-        <RecAppbar />
+        <div>
+        <DoctorAppBar/>
+          <h2 style={{ color: '#2699FB', position: 'absolute' }}>Search patient</h2>
+          <TextField
+            label="Search Patient"
+            name="MR_No"
+            value={this.state.MR_No}
+            onChange={this.handleChange}
+            margin="normal"
+            variant="outlined"
+            className={classes.textField}
+          />
+          <Button variant="outlined" style={{ backgroundColor: '#2699FB', marginTop: '2%' }} onClick={this.handleSearch}>Search</Button>
+          <div style={{paddingRight:1000,paddingTop:100}}>
+         <h4>{this.state.Name}</h4>
+         <h4>{this.state.Fathername}</h4>
+             <h4>{this.state.Age}</h4>
+          </div>
+        </div>
+        <div style={{ paddingLeft: 500, paddingTop: 100,position:'fixed' }}>
+        <h3 style={{ color: '#2699FB'}}>Notes/Diagnostics Results/Prescription</h3>
+          <TextField style={{ width: '200%' }}
+            id="outlined-multiline-static"
 
-        <h1 style={{ color: '#2699FB', position: 'absolute' }}>Search existing patient</h1>
-        <TextField
-          label="Search Patient"
-          name="MR_No"
-          value={this.state.MR_No}
-          onChange={this.handleChange}
-          margin="normal"
-          variant="outlined"
-          className={classes.textField}
-        />
-        <h6>{this.state.Name}</h6>
-        <h6>{this.state.Fathername}</h6>
-        <h6>{this.state.Age}</h6>
-        <Button variant="outlined" style={{ backgroundColor: '#2699FB', marginTop: '2%' }} onClick={this.handleSearch}>Search</Button>
+            multiline
+            rows="10"
+
+            className={classes.textField}
+            margin="normal"
+            variant="outlined"
+          />
+          <br></br>
+          <Button variant="outlined" style={{ backgroundColor: '#2699FB', marginTop: '2%', }} onClick={this.AddNotes}>Add Notes</Button>
+        </div>
       </div>
+
     )
   }
 }

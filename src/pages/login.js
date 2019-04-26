@@ -102,7 +102,7 @@ export default class Login extends Component {
       }
 
       if (data.roles == 'Doctor') {
-        window.location.href = '/SearchExistinPatient';
+        window.location.href = '/SearchPatient';
         console.log('login role', data.roles)
       }
       if (data.roles == 'Admin') {

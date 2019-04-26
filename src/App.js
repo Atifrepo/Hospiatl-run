@@ -7,11 +7,12 @@ import EditEmployee from './pages/EditEmployee';
 import AddEmployee from './pages/AddEmployee';
 import DeleteEmployee from './pages/DeleteEmployee';
 import SearchPatient from './pages/SearchPatient';
+import ViewPatient from './pages/ViewPatient';
 import SearchExistingPatient from './pages/SearchExistingPatient'
 import Cookies from 'universal-cookie';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-// import isLoggedIn from '/helpers/is_logged_in';
+
 
 import './App.css';
 import {
@@ -21,6 +22,7 @@ import {
   Redirect,
   withRouter
 } from 'react-router-dom';
+
 
 
 
@@ -142,6 +144,7 @@ class App extends Component {
             <ProtectedRouteforAdmin exact path='/EditEmployee' loggedIn={this.state.cookierolevalue} component={EditEmployee} />
             <ProtectedRouteforReceptionist exact path='/SearchExistingPatient' loggedIn={this.state.cookierolevalue} component={SearchExistingPatient} />
             <ProtectedRouteforDoctor exact path='/SearchPatient' loggedIn={this.state.cookierolevalue} component={SearchPatient} />
+            <ProtectedRouteforDoctor exact path='/ViewPatient' loggedIn={this.state.cookierolevalue} component={ViewPatient} />
           </div>
         </Router>
         {/* <Drawer/> */}
