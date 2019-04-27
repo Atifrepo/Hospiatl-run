@@ -7,6 +7,11 @@ import toastr from 'toastr'
 import Button from '@material-ui/core/Button';
 import DoctorAppBar from '../DoctorAppbar'
 import Cookies from 'universal-cookie';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 
 const cookies = new Cookies();
 
@@ -41,12 +46,18 @@ const styles = theme => ({
 
 
 
+
+
+
 class SearchExistingPatient extends Component {
   constructor() {
     super();
     this.handleSearch = this.handleSearch.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.AddNotes = this.AddNotes.bind(this);
+    
+
+
     this.state = {
 
       MR_No: '',
@@ -55,11 +66,18 @@ class SearchExistingPatient extends Component {
       Age: '',
       multiline: '',
       note:'',
-      patientid:''
+      patientid:'',
+      rows:[]
     }
 
 
   }
+
+
+  
+
+
+
 
 
 
@@ -79,6 +97,9 @@ class SearchExistingPatient extends Component {
     var Search = {
       patientmrnumber: this.state.MR_No
     };
+    this.setState({
+        rows: []
+      })
 
 
     var formBody = [];
@@ -117,9 +138,20 @@ class SearchExistingPatient extends Component {
         }
       })
       .then((result) => {
+
         console.log("Response from server", result);
         this.setState({ Name: result[0].patientname, Fathername: result[0].fathername, Age: result[0].age , patientid:result[0].patientid });
         console.log("State after setting", this.state)
+ //        result.forEach((item, i) => {
+ //    this.rows.push(createData(item.paitentname, item.fathername, item.age,item.patientid,'abc'));
+ // });
+
+      this.setState({
+        rows: result
+      })
+
+      console.log("rows after result",this.state.rows);
+      
       })
       .catch((error) => {
         toastr.options = {
@@ -128,7 +160,7 @@ class SearchExistingPatient extends Component {
           timeOut: 100
         }
         toastr.clear()
-        setTimeout(() => toastr.success(`Patient Not found`), 300)
+        setTimeout(() => toastr.error(`Patient Not found`), 300)
       })
 
   }
@@ -223,12 +255,45 @@ class SearchExistingPatient extends Component {
             className={classes.textField}
           />
           <Button variant="outlined" style={{ backgroundColor: '#2699FB', marginTop: '2%' }} onClick={this.handleSearch}>Search</Button>
-          <div style={{paddingRight:1000,paddingTop:100}}>
-         <h4>{this.state.Name}</h4>
-         <h4>{this.state.Fathername}</h4>
-             <h4>{this.state.Age}</h4>
-          </div>
-        </div>
+           
+         </div>
+
+        <Table className='Patient Information'>
+        <TableHead>
+          <TableRow>
+            <TableCell>Patient Name</TableCell>
+            <TableCell align="right">Age</TableCell>
+            <TableCell align="right">Blood Pressure</TableCell>
+            <TableCell align="right">Height</TableCell>
+            <TableCell align="right">MR Number</TableCell>
+            <TableCell align="right">PO2</TableCell>
+            <TableCell align="right">Pulse</TableCell>
+            <TableCell align="right">Weight</TableCell>
+            <TableCell align="right">Date</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {this.state.rows.map(row => (
+            <TableRow key={row.id}>
+              <TableCell component="th" scope="row">
+                {row.name}
+              </TableCell>
+              <TableCell align="right">{row.patientname}</TableCell>
+              <TableCell align="right">{row.age}</TableCell>
+              <TableCell align="right">{row.bloodpressure}</TableCell>
+              <TableCell align="right">{row.height}</TableCell>
+              <TableCell align="right">{row.mr_no}</TableCell>
+              <TableCell align="right">{row.PO2}</TableCell>
+              <TableCell align="right">{row.pulse}</TableCell>
+              <TableCell align="right">{row.weight}</TableCell>
+              <TableCell align="right">{row.datetimes}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+
+
+
         <div style={{ paddingLeft: 500, paddingTop: 100,position:'fixed' }}>
         <h3 style={{ color: '#2699FB'}}>Notes/Diagnostics Results/Prescription</h3>
           <TextField style={{ width: '200%' }}
