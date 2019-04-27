@@ -116,7 +116,7 @@ class SearchExistingPatient extends Component {
       note:'',
       patientid:'',
       rows:[],
-      receivenote: ''
+      receivenote: []
     }
 
 
@@ -335,7 +335,7 @@ class SearchExistingPatient extends Component {
       .then((result)=>{
         console.log("Response from server", result);
         this.setState({
-          receivenote: result[1].notetext
+          receivenote: result
         })
         console.log(this.state.receivenote);
 
@@ -446,9 +446,12 @@ class SearchExistingPatient extends Component {
           </DialogTitle>
           <DialogContent>
             <Typography gutterBottom>
-              Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac
-              facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum
-              at eros.
+              {this.state.receivenote.map(row => (
+                  <div>
+                  {row.notetext}
+                  </div>
+
+                ))}
             </Typography>
 </DialogContent>
 </Dialog>
