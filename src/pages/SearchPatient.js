@@ -12,8 +12,55 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Dialog from '@material-ui/core/Dialog';
+import MuiDialogTitle from '@material-ui/core/DialogTitle';
+import MuiDialogContent from '@material-ui/core/DialogContent';
+import MuiDialogActions from '@material-ui/core/DialogActions';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+import Typography from '@material-ui/core/Typography';
 
 const cookies = new Cookies();
+const DialogTitle = withStyles(theme => ({
+  root: {
+    borderBottom: `1px solid ${theme.palette.divider}`,
+    margin: 0,
+    padding: theme.spacing.unit * 2,
+  },
+  closeButton: {
+    position: 'absolute',
+    right: theme.spacing.unit,
+    top: theme.spacing.unit,
+    color: theme.palette.grey[500],
+  },
+}))(props => {
+  const { children, classes, onClose } = props;
+  return (
+    <MuiDialogTitle disableTypography className={classes.root}>
+      <Typography variant="h6">{children}</Typography>
+      {onClose ? (
+        <IconButton aria-label="Close" className={classes.closeButton} onClick={onClose}>
+          <CloseIcon />
+        </IconButton>
+      ) : null}
+    </MuiDialogTitle>
+  );
+});
+
+const DialogContent = withStyles(theme => ({
+  root: {
+    margin: 0,
+    padding: theme.spacing.unit * 2,
+  },
+}))(MuiDialogContent);
+
+const DialogActions = withStyles(theme => ({
+  root: {
+    borderTop: `1px solid ${theme.palette.divider}`,
+    margin: 0,
+    padding: theme.spacing.unit,
+  },
+}))(MuiDialogActions);
 
 
 const styles = theme => ({
@@ -55,6 +102,7 @@ class SearchExistingPatient extends Component {
     this.handleSearch = this.handleSearch.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.AddNotes = this.AddNotes.bind(this);
+    this.handleClickOpen = this.handleClickOpen.bind(this);
     
 
 
@@ -67,7 +115,8 @@ class SearchExistingPatient extends Component {
       multiline: '',
       note:'',
       patientid:'',
-      rows:[]
+      rows:[],
+      receivenote: []
     }
 
 
@@ -233,14 +282,28 @@ class SearchExistingPatient extends Component {
         setTimeout(() => toastr.error(`Error occured`), 300)
       })
 
-
+// console.log('date',row.datetimes)
 
 
 
   }
 
+  handleClickOpen(ab) {
+    console.log('ab',ab.datetimes);
+    
+    this.setState({
+      open: true,
+    });
+  
+  };
 
+  handleClose = () => {
+    this.setState({ open: false });
+  };
 
+   handleClick = (name) => {
+    console.log(name);
+  }
 
 
 
@@ -276,30 +339,52 @@ class SearchExistingPatient extends Component {
             <TableCell align="right">Pulse</TableCell>
             <TableCell align="right">Weight</TableCell>
             <TableCell align="right">Date</TableCell>
+     
+
           </TableRow>
         </TableHead>
         <TableBody>
           {this.state.rows.map(row => (
             <TableRow key={row.id}>
-              <TableCell component="th" scope="row">
+              {/* <TableCell component="th" scope="row">
                 {row.name}
-              </TableCell>
+              </TableCell> */}
               <TableCell align="right">{row.patientname}</TableCell>
               <TableCell align="right">{row.age}</TableCell>
               <TableCell align="right">{row.bloodpressure}</TableCell>
               <TableCell align="right">{row.height}</TableCell>
               <TableCell align="right">{row.mr_no}</TableCell>
-              <TableCell align="right">{row.PO2}</TableCell>
+              <TableCell align="right">{row.po2}</TableCell>
               <TableCell align="right">{row.pulse}</TableCell>
               <TableCell align="right">{row.weight}</TableCell>
               <TableCell align="right">{row.datetimes}</TableCell>
+
+                <TableCell>
+                <Button variant="outlined" color="secondary" onClick={()=>{this.handleClickOpen(row)}}>
+         View Notes
+        </Button> 
+        </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
 
-
-
+      <Dialog
+          onClose={this.handleClose}
+          aria-labelledby="customized-dialog-title"
+          open={this.state.open}
+        >
+          <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>
+            Modal title
+          </DialogTitle>
+          <DialogContent>
+            <Typography gutterBottom>
+              Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac
+              facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum
+              at eros.
+            </Typography>
+</DialogContent>
+</Dialog>
         <div style={{ paddingLeft: 500, paddingTop: 100,position:'fixed' }}>
         <h3 style={{ color: '#2699FB'}}>Notes/Diagnostics Results/Prescription</h3>
           <TextField style={{ width: '200%' }}
