@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Login from './pages/login'
 import AppBar from '@material-ui/core/AppBar';
+import LoginAdmin from './pages/LoginAdmin'
 import RegisterPatient from './pages/RegisterPatient';
 import AddVitals from './pages/AddVitals';
 import EditEmployee from './pages/EditEmployee';
@@ -133,6 +134,7 @@ class App extends Component {
           </Typography>
           </Toolbar>
         </AppBar>
+      
         <Router>
           <div>
 
@@ -145,6 +147,7 @@ class App extends Component {
             <ProtectedRouteforReceptionist exact path='/SearchExistingPatient' loggedIn={this.state.cookierolevalue} component={SearchExistingPatient} />
             <ProtectedRouteforDoctor exact path='/SearchPatient' loggedIn={this.state.cookierolevalue} component={SearchPatient} />
             <ProtectedRouteforDoctor exact path='/ViewPatient' loggedIn={this.state.cookierolevalue} component={ViewPatient} />
+      <Route exact path="/LoginAdmin" component={LoginAdmin}/>
           </div>
         </Router>
         {/* <Drawer/> */}

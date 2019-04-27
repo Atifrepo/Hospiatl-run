@@ -5,10 +5,11 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
-import MenuAppBar from '../NurseAppbar'
+import AdminAppBar from '../AdminAppbar'
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
+
 const styles = theme => ({
   container: {
     display: 'flex',
@@ -49,13 +50,16 @@ handleChange(changeValue, event) {
     })
     console.log('login', this.state.Details)
   }
+  handleClick(){
+    console.log('Edit')
+  }
 
 render(){
   const { classes } = this.props;
     return(
       
         <div>
-          <MenuAppBar/>
+          <AdminAppBar/>
         
             <TextField 
               label="Enter Employee ID"
@@ -123,6 +127,7 @@ render(){
               <MenuItem value={'Receptionist  '}>Receptionist</MenuItem>
             </Select>
           </FormControl>
+          <Button type="submit" variant="outlined" style={{ backgroundColor: '#2699FB', position: 'relative' }} onClick={this.handleClick}><b>Edit Employee</b></Button>
         </div>
     )
 }

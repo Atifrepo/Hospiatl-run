@@ -3,7 +3,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import NurseAppbar from '../NurseAppbar'
+import AdminAppbar from '../AdminAppbar'
 
 const styles = theme => ({
   container: {
@@ -48,7 +48,7 @@ class DeleteEmployee extends Component {
     return (
       <div>
         <h2 style={{ color: '#2699FB' }}>Add Vitals of Patient</h2>
-        <NurseAppbar />
+        <AdminAppbar />
         <TextField
 
           label="Employee ID"
@@ -58,8 +58,8 @@ class DeleteEmployee extends Component {
           variant="outlined"
           className={classes.textField}
         />
+        <br></br>
         <TextField
-
           label="Enter admin Password"
           value={this.state.Password}
           onChange={this.handleChange.bind(this, 'Password')}
@@ -67,6 +67,8 @@ class DeleteEmployee extends Component {
           variant="outlined"
           className={classes.textField}
         />
+        <br></br>
+        <Button variant="contained" style={{ backgroundColor: 'red', width: 220 }} onClick={this.handleSubmit}><b>Delete</b></Button>
       </div>
     )
   }
@@ -74,4 +76,5 @@ class DeleteEmployee extends Component {
 DeleteEmployee.propTypes = {
   classes: PropTypes.object.isRequired,
 };
+
 export default withStyles(styles)(DeleteEmployee)

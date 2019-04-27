@@ -1,7 +1,6 @@
 import React,{Component} from 'react'
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid'
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -79,6 +78,7 @@ render(){
               variant="outlined"
               className={classes.textField}
             />
+            <br></br>
             <TextField 
 
               label="Set Password"
@@ -108,7 +108,7 @@ render(){
             >
               Role
           </InputLabel>
-            <Select style={{width:500,marginRight:"100%",paddingLeft:'50'}}
+            <Select style={{width:80,paddingLeft:100}}
               value={this.state.type}
               onChange={this.handleChange.bind(this, 'type')}
               input={
@@ -128,7 +128,12 @@ render(){
               <MenuItem value={'Receptionist  '}>Receptionist</MenuItem>
             </Select>
           </FormControl>
+          <br></br>
+          <br></br>
+          <Button variant="contained" style={{ backgroundColor: '#2699FB', width: 220 }} onClick={this.handleSubmit}><b>login</b></Button>
           </form>  
+
+          
         </div>
     )
 }

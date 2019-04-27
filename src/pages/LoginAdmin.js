@@ -2,11 +2,6 @@ import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import ReactDOM from 'react-dom';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
 import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
@@ -24,7 +19,7 @@ const styles = theme => ({
   },
 });
 
-export default class Login extends Component {
+export default class LoginAdmin extends Component {
   constructor() {
     super();
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -41,11 +36,7 @@ export default class Login extends Component {
     }
 
   }
-  componentDidMount() {
-    this.setState({
-      labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
-    });
-  }
+ 
   handleChange({ target }) {
 
     this.setState({
@@ -60,7 +51,7 @@ export default class Login extends Component {
     var details = {
       username: this.state.username,
       password: this.state.password,
-      role: this.state.role
+      role: "Admin"
     };
 
     var formBody = [];
@@ -69,9 +60,7 @@ export default class Login extends Component {
       var encodedValue = encodeURIComponent(details[property]);
       formBody.push(encodedKey + "=" + encodedValue);
     }
-    var token;
-    var username;
-
+   
     formBody = formBody.join("&");
 
     fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/loginuser', {
@@ -91,21 +80,12 @@ export default class Login extends Component {
       console.log(cookies.get('username'));
       cookies.set('roles', data.roles, { path: '/' });
       console.log(cookies.get('roles'));
-      if (data.roles == 'Receptionist') {
-        window.location.href = '/register';
+  
+      if (data.roles == 'Admin') {
+        window.location.href = '/AddEmployee';
         console.log('login role', data.roles)
       }
 
-      if (data.roles == 'Nurse') {
-        window.location.href = '/addvitals';
-        console.log('login role', data.roles)
-      }
-
-      if (data.roles == 'Doctor') {
-        window.location.href = '/SearchPatient';
-        console.log('login role', data.roles)
-      }
-     
 
 
     })
@@ -159,41 +139,8 @@ export default class Login extends Component {
           <br></br>
           <br></br>
 
-          <FormControl variant="outlined" className={styles.formControl}>
-            <InputLabel
-              ref={ref => {
-                this.InputLabelRef = ref;
-              }}
-              htmlFor="outlined-age-simple"
-            >
-              Role
-          </InputLabel>
-
-            <Select style={{ width: 220 }}
-              name="role"
-              value={this.state.role}
-              onChange={this.handleChange}
-              input={
-                <OutlinedInput
-                  labelWidth={this.state.labelWidth}
-                  name="name"
-                  id="outlined-age-simple"
-                // value={this.state.role}
-                />
-
-              }
-            >
-              
-              <MenuItem value={'Doctor'}>Doctor</MenuItem>
-              <MenuItem value={'Nurse'}>Nurse</MenuItem>
-              <MenuItem value={'Receptionist'}>Receptionist</MenuItem>
-            </Select>
-
-
-          </FormControl>
-          <br></br>
-          <br></br>
-          <Button variant="contained" style={{ backgroundColor: '#2699FB', width: 220 }} onClick={this.handleSubmit}><b>login</b></Button>
+         
+         <Button variant="contained" style={{ backgroundColor: '#2699FB', width: 220 }} onClick={this.handleSubmit}><b>login</b></Button>
         </form>
       </div>
     )
