@@ -116,7 +116,7 @@ class SearchExistingPatient extends Component {
       note:'',
       patientid:'',
       rows:[],
-      receivenote: []
+      receivenote: ''
     }
 
 
@@ -282,7 +282,6 @@ class SearchExistingPatient extends Component {
         setTimeout(() => toastr.error(`Error occured`), 300)
       })
 
-// console.log('date',row.datetimes)
 
 
 
@@ -290,12 +289,80 @@ class SearchExistingPatient extends Component {
 
   handleClickOpen(ab) {
     console.log('ab',ab.datetimes);
+            var Search = {
+            dates: ab.datetimes,
+            patientid: this.state.patientid
+    };
+
+
+       var formBody = [];
+    for (var property in Search) {
+      var encodedKey = encodeURIComponent(property);
+      var encodedValue = encodeURIComponent(Search[property]);
+      formBody.push(encodedKey + "=" + encodedValue);
+    }
+
+    formBody = formBody.join("&");
+
+    console.log("Form Body", formBody);
+    var Authtoken = cookies.get('token')
+    var finalAuthtoken = 'Bearer ' + Authtoken
+
+    fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/getnotes', {
+      method: 'POST',
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+        'Authorization': finalAuthtoken
+
+      },
+      body: formBody
+
+    })
+      .then((resp) => {
+
+        if (resp.status !== 200) {
+          throw new Error("Not 200 response")
+        }
+
+        if (resp.ok) {
+         console.log("Response",resp);
+         var data = resp.json();
+          return data;
+
+         }
+      })
+      .then((result)=>{
+        console.log("Response from server", result);
+        this.setState({
+          receivenote: result[1].notetext
+        })
+        console.log(this.state.receivenote);
+
+      })
+      .catch((error) => {
+        toastr.options = {
+          positionClass: 'toast-top-right',
+          hideDuration: 300000,
+          timeOut: 100
+        }
+        toastr.clear()
+        setTimeout(() => toastr.error(`Error occured`), 300)
+      })
+
+
+
     
     this.setState({
       open: true,
     });
   
   };
+
+
+
+
+
 
   handleClose = () => {
     this.setState({ open: false });
