@@ -184,6 +184,11 @@ class AddVitals extends Component {
 
 
   patientvital() {
+    var currentDate = new Date();
+    var date = currentDate.getDate();
+    var month = currentDate.getMonth();
+    var year = currentDate.getFullYear();
+    var dateString = date + "-" +(month + 1) + "-" + year;
 
     var Vitals = {
       heights: this.state.Height,
@@ -192,7 +197,7 @@ class AddVitals extends Component {
       pulse: this.state.Pulse,
       temperature: this.state.Temperature,
       po2: this.state.PO2,
-      datetimes: this.state.DateTime,
+      datetimes: dateString,
       allergiid: this.state.Allergy,
       patientid: this.state.patientid,
     };
@@ -339,20 +344,8 @@ class AddVitals extends Component {
           />
 
           <br></br>
-          <TextField style={{ width: '15%', paddingTop: '1%' }}
-            id="date"
-            variant="outlined"
-            label="Date"
-            type="date"
-            name="DateTime"
-            value={this.state.DateTime}
-            onChange={this.handleChange}
-            defaultValue="2017-05-24"
-            className={classes.textField}
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />   <FormControl variant="outlined" className={styles.formControl}>
+          
+            <FormControl variant="outlined" className={styles.formControl}>
             <InputLabel style={{ marginTop: '7%' }}
               ref={ref => {
                 this.InputLabelRef = ref;

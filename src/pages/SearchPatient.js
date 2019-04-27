@@ -169,11 +169,17 @@ class SearchExistingPatient extends Component {
 
 
   AddNotes() {
+
     console.log('add notes');
+    var currentDate = new Date();
+    var date = currentDate.getDate();
+    var month = currentDate.getMonth();
+    var year = currentDate.getFullYear();
+    var dateString = date + "-" +(month + 1) + "-" + year;
         var Search = {
             patientid: this.state.patientid,
             note: this.state.note,
-            date: new Date()
+            date: dateString
     };
 
 
