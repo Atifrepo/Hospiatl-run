@@ -135,6 +135,7 @@ export default class Login extends Component {
           <br></br>
           <br></br>
           <TextField
+
             name="username"
             label="Employee ID"
             value={this.state.username}
@@ -159,7 +160,7 @@ export default class Login extends Component {
           <br></br>
           <br></br>
 
-          <FormControl variant="outlined" className={styles.formControl}>
+          <FormControl variant="outlined" className={styles.formControl} required>
             <InputLabel
               ref={ref => {
                 this.InputLabelRef = ref;
@@ -170,6 +171,7 @@ export default class Login extends Component {
           </InputLabel>
 
             <Select style={{ width: 220 }}
+
               name="role"
               value={this.state.role}
               onChange={this.handleChange}
@@ -190,10 +192,11 @@ export default class Login extends Component {
             </Select>
 
 
-          </FormControl>
+          
           <br></br>
           <br></br>
           <Button variant="contained" style={{ backgroundColor: '#2699FB', width: 220 }} onClick={this.handleSubmit}><b>login</b></Button>
+       </FormControl>
         </form>
       </div>
     )

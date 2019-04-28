@@ -7,6 +7,12 @@ import toastr from 'toastr'
 import Button from '@material-ui/core/Button';
 import RecAppbar from '../RecAppar'
 import Cookies from 'universal-cookie';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+
 
 const cookies = new Cookies();
 
@@ -52,7 +58,8 @@ class SearchExistingPatient extends Component {
       Fathername: '',
       Age: '',
       Gender:'',
-      Phone_No:''
+     Phone_No:'',
+     rows:[]
     }
 
 
@@ -116,7 +123,12 @@ class SearchExistingPatient extends Component {
       .then((result) => {
         console.log("Response from server", result);
         this.setState({ Name: result[0].patientname, Fathername: result[0].fathername, Age: result[0].age,Gender:result[0].gender,Phone_No:result[0].telephone1 });
-        console.log("State after setting", this.state)
+        this.setState({
+        rows: result
+      })
+
+        console.log("Row state",this.state.row);
+
       })
       .catch((error) => {
         toastr.options = {
@@ -154,13 +166,47 @@ class SearchExistingPatient extends Component {
         />
         <Button variant="outlined" style={{ backgroundColor: '#2699FB', marginTop:'2%' }} onClick={this.handleSearch}>Search</Button>
      
-        <div style={{position:'fixed'}}>
-        <h4>{this.state.Name}</h4>
-        <h4>{this.state.Fathername}</h4>
-        <h4>{this.state.Age}</h4>
-        <h4>{this.state.Gender}</h4>
-        <h4>{this.state.Phone_No}</h4>
-         </div>
+        
+
+         <Table className='Patient Information'>
+        <TableHead>
+          <TableRow>
+            <TableCell>Patient Name</TableCell>
+            <TableCell align="right">Patient Father Name</TableCell>
+            <TableCell align="right">Patient Age</TableCell>
+             <TableCell align="right">Patient Gender</TableCell>
+            <TableCell align="right">Patient Mobile Number 1</TableCell>
+            <TableCell align="right">Patient Mobile Number 2</TableCell>
+            <TableCell align="right">Patient MR Number</TableCell>
+            
+     
+
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {this.state.rows.map(row => (
+            <TableRow key={row.id}>
+              {/* <TableCell component="th" scope="row">
+                {row.name}
+              </TableCell> */}
+              <TableCell align="right">{row.patientname}</TableCell>
+              <TableCell align="right">{row.fathername}</TableCell>
+              <TableCell align="right">{row.age}</TableCell>
+              <TableCell align="right">{row.gender}</TableCell>
+              <TableCell align="right">{row.telephone1}</TableCell>
+              <TableCell align="right">{row.telephone2}</TableCell>
+              <TableCell align="right">{row.mr_no}</TableCell>
+             
+                <TableCell>
+                
+        </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>  
+
+
+
       </div>
     )
   }

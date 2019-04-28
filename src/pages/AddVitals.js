@@ -12,6 +12,11 @@ import FormControl from '@material-ui/core/FormControl';
 import Cookies from 'universal-cookie';
 import toastr from 'toastr'
 import Button from '@material-ui/core/Button';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 const cookies = new Cookies();
 
 const styles = theme => ({
@@ -68,7 +73,8 @@ class AddVitals extends Component {
       Age: '',
       patientid: '',
       labelWidth: 0,
-      AllergyArray: []
+      AllergyArray: [],
+      rows:[]
 
     }
 
@@ -126,6 +132,10 @@ class AddVitals extends Component {
       searchmrnumber: this.state.MR_No
     };
 
+    this.setState({
+      rows:[],
+      patientid:''
+    })
 
     var formBody = [];
 
@@ -165,9 +175,13 @@ class AddVitals extends Component {
       })
       .then((result) => {
         console.log("Response from server", result);
-        this.setState({ patientid: result[0].patientid, PatientName: result[0].patientname, PatientFatherName: result[0].fathername, Age: result[0].age });
-        console.log("State after setting", this.state)
+       this.setState({
+        rows: result,
+        patientid: result[0].patientid
       })
+
+       console.log(this.state.patientid);
+             })
       .catch((error) => {
         toastr.options = {
           positionClass: 'toast-top-right',
@@ -175,7 +189,7 @@ class AddVitals extends Component {
           timeOut: 100
         }
         toastr.clear()
-        setTimeout(() => toastr.success(`Patient Not found`), 300)
+        setTimeout(() => toastr.error(`Patient Not found`), 300)
       })
 
   }
@@ -274,13 +288,47 @@ class AddVitals extends Component {
             />
             <Button variant="outlined" style={{ backgroundColor: '#2699FB', marginTop: '2%' }} onClick={this.Search}><b>Search</b></Button>
          
-          <div style={{paddingLeft:'80%',position:'fixed',paddingTop:1}}>
+          
+          </div>
+
+          <Table className='Patient Information'>
+        <TableHead>
+          <TableRow>
+            <TableCell>Patient Name</TableCell>
+            <TableCell align="right">Patient Father Name</TableCell>
+            <TableCell align="right">Patient Age</TableCell>
+             <TableCell align="right">Patient Gender</TableCell>
+            <TableCell align="right">Patient Mobile Number 1</TableCell>
+            <TableCell align="right">Patient Mobile Number 2</TableCell>
+            <TableCell align="right">Patient MR Number</TableCell>
             
-            <h4>{this.state.PatientName}</h4>
-            <h4>{this.state.PatientFatherName}</h4>
-            <h4>{this.state.Age}</h4>
-          </div>
-          </div>
+     
+
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {this.state.rows.map(row => (
+            <TableRow key={row.id}>
+              {/* <TableCell component="th" scope="row">
+                {row.name}
+              </TableCell> */}
+              <TableCell align="right">{row.patientname}</TableCell>
+              <TableCell align="right">{row.fathername}</TableCell>
+              <TableCell align="right">{row.age}</TableCell>
+              <TableCell align="right">{row.gender}</TableCell>
+              <TableCell align="right">{row.telephone1}</TableCell>
+              <TableCell align="right">{row.telephone2}</TableCell>
+              <TableCell align="right">{row.mr_no}</TableCell>
+             
+                <TableCell>
+                
+        </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>  
+
+
           <br></br>
           <TextField
             label="Height"
