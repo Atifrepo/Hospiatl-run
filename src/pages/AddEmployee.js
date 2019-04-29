@@ -1,4 +1,4 @@
-import React,{Component} from 'react'
+import React, { Component } from 'react'
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
@@ -10,18 +10,16 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import AdminAppbar from '../AdminAppbar'
 
-
-
 const styles = theme => ({
   container: {
     display: 'flex',
     flexWrap: 'wrap',
   },
   textField: {
-    marginLeft: theme.spacing.unit ,
+    marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
-  
-  
+
+
   },
   dense: {
     marginTop: 16,
@@ -30,21 +28,21 @@ const styles = theme => ({
     width: 200,
   },
 });
-class AddEmployee extends Component{
-constructor(){
+class AddEmployee extends Component {
+  constructor() {
     super()
-this.state={
-    Details:{
-Name:'',
-EmployeeID:'',
-Password:'',
-Password2:'',
-Type:'',
-}
+    this.state = {
+      Details: {
+        Name: '',
+        EmployeeID: '',
+        Password: '',
+        Password2: '',
+        Type: '',
+      }
 
-}
-}
-handleChange(changeValue, event) {
+    }
+  }
+  handleChange(changeValue, event) {
     this.state.Details[changeValue] = event.target.value;
     this.setState = ({
       Details: this.state.Details,
@@ -53,52 +51,35 @@ handleChange(changeValue, event) {
     console.log('login', this.state.Details)
   }
 
-render(){
-  const { classes } = this.props;
-    return(
-      
-        <div>
-          <h2 style={{color:'#2699FB'}}>Add Employee</h2>
-          <AdminAppbar/>
-<form>
-<TextField 
-              label="Enter MR_No"
-              value={this.state.MR_No}
-              onChange={this.handleChange.bind(this, 'MR_No')}
-              margin="normal"
-              variant="outlined"
-              className={classes.textField}
-            />
-            <TextField 
+  render() {
+    const { classes } = this.props;
+    return (
 
-              label="Employee ID"
-              value={this.state.EmployeeID}
-              onChange={this.handleChange.bind(this, 'EmployeeID')}
-              margin="normal"
-              variant="outlined"
-              className={classes.textField}
-            />
-            <br></br>
-            <TextField 
+      <div>
+        <h2 style={{ color: '#2699FB' }}>Add Employee</h2>
+        <AdminAppbar />
+        <form>
+          <TextField
 
-              label="Set Password"
-              value={this.state.Password}
-              onChange={this.handleChange.bind(this, 'Password')}
-              margin="normal"
-              variant="outlined"
-              className={classes.textField}
-/>
-            <TextField 
+            label="Enter Employee Name"
+            value={this.state.EmployeeID}
+            onChange={this.handleChange.bind(this, 'EmployeeID')}
+            margin="normal"
+            variant="outlined"
+            className={classes.textField}
+          />
+          <br></br>
+          <TextField
 
-              label="Confirm Passowrd"
-              value={this.state.Password2}
-              onChange={this.handleChange.bind(this, 'Password2')}
-              margin="normal"
-              variant="outlined"
-              className={classes.textField}
-            />
-            <br></br>
-            <br></br>
+            label="Set Password"
+            value={this.state.Password}
+            onChange={this.handleChange.bind(this, 'Password')}
+            margin="normal"
+            variant="outlined"
+            className={classes.textField}
+          />
+          <br></br>
+          <br></br>
           <FormControl variant="outlined">
             <InputLabel
               ref={ref => {
@@ -108,7 +89,7 @@ render(){
             >
               Role
           </InputLabel>
-            <Select style={{width:80,paddingLeft:100}}
+            <Select style={{ width: 120, paddingLeft: 100 }}
               value={this.state.type}
               onChange={this.handleChange.bind(this, 'type')}
               input={
@@ -120,7 +101,7 @@ render(){
               }
             >
               {/* <MenuItem value=""> */}
-                {/* <em value={'Admin'}>Admin</em> */}
+              {/* <em value={'Admin'}>Admin</em> */}
               {/* </MenuItem> */}
               <MenuItem value={'Admin'}>Admin</MenuItem>
               <MenuItem value={'Doctor'}>Doctor</MenuItem>
@@ -131,12 +112,12 @@ render(){
           <br></br>
           <br></br>
           <Button variant="contained" style={{ backgroundColor: '#2699FB', width: 220 }} onClick={this.handleSubmit}><b>login</b></Button>
-          </form>  
+        </form>
 
-          
-        </div>
+
+      </div>
     )
-}
+  }
 }
 AddEmployee.propTypes = {
   classes: PropTypes.object.isRequired,

@@ -161,7 +161,7 @@ class RecAppbar extends React.Component {
               onClick={this.handleMenu}
               color="inherit"
             >
-              <AccountCircle />
+              <AccountCircle style={{paddingRight:'30%'}} />
             </IconButton>
             <Menu
               id="menu-appbar"

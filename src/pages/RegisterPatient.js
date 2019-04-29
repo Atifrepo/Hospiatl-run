@@ -123,7 +123,16 @@ class RegisterPatient extends Component {
           setTimeout(() => toastr.success(`Patient registered`), 300)
         }
 
+      }).catch(error=> {
+        toastr.options = {
+          positionClass: 'toast-bottom-left',
+          hideDuration: 300000,
+          timeOut: 100
+        }
+        toastr.clear()
+        setTimeout(() => toastr.error(`username or password is incorrect`), 300)
       })
+
 
     console.log('handle click login')
     console.log('user', this.state)
@@ -263,7 +272,7 @@ class RegisterPatient extends Component {
             }}
             htmlFor="outlined-age-simple"
           >
-            Role
+            Gender
           </InputLabel>
 
           <Select style={{ width: 222, marginRight: "100%", marginTop: '7%' }}

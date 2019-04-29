@@ -400,7 +400,7 @@ class AddVitals extends Component {
               }}
               htmlFor="outlined-age-simple"
             >
-              Role
+              Allergy
         </InputLabel>
 
             <Select style={{ width: 220, marginTop: '7%' }}

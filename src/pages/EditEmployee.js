@@ -81,14 +81,14 @@ render(){
             <br></br>
             <TextField
 
-              label="Change Employee Password"
+              label="Change Password"
               value={this.state.NewPassword}
               onChange={this.handleChange.bind(this, 'NewPassword')}
               margin="normal"
               variant="outlined"
               className={classes.textField}
             />
-            <TextField 
+            {/* <TextField 
 
               label="Confirm New Password"
               value={this.state.NewPassword1}
@@ -96,8 +96,8 @@ render(){
               margin="normal"
               variant="outlined"
               className={classes.textField}
-            />
-            <br></br>
+            /> */}
+            {/* <br></br>
           <FormControl variant="outlined">
             <InputLabel
               ref={ref => {
@@ -118,15 +118,13 @@ render(){
                 />
               }
             >
-              {/* <MenuItem value=""> */}
-                {/* <em value={'Admin'}>Admin</em> */}
-              {/* </MenuItem> */}
               <MenuItem value={'Admin'}>Admin</MenuItem>
               <MenuItem value={'Doctor'}>Doctor</MenuItem>
               <MenuItem value={'Nurse'}>Nurse</MenuItem>
               <MenuItem value={'Receptionist  '}>Receptionist</MenuItem>
             </Select>
-          </FormControl>
+          </FormControl> */}
+          <br></br>
           <Button type="submit" variant="outlined" style={{ backgroundColor: '#2699FB', position: 'relative' }} onClick={this.handleClick}><b>Edit Employee</b></Button>
         </div>
     )

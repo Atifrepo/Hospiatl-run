@@ -4,6 +4,10 @@ import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AdminAppbar from '../AdminAppbar'
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
+
 
 const styles = theme => ({
   container: {
@@ -42,7 +46,11 @@ class DeleteEmployee extends Component {
     })
     console.log('login', this.state.Details)
   }
-
+  handleSubmit(){
+    console.log('')
+    var name=cookies.get('username')
+    console.log('username',name)
+  }
   render() {
     const { classes } = this.props;
     return (

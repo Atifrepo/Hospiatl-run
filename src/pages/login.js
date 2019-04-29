@@ -8,6 +8,7 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Cookies from 'universal-cookie';
+import toastr from 'toastr'
 
 const cookies = new Cookies();
 const styles = theme => ({
@@ -112,9 +113,17 @@ export default class Login extends Component {
 
 
       .catch(function (error) {
-        // this.props.enqueueSnackbar('I love snacks.');
-
+        toastr.options = {
+          positionClass: 'toast-bottom-left',
+          hideDuration: 300000,
+          timeOut: 100
+        }
+        toastr.clear()
+        setTimeout(() => toastr.error(`username or password is incorrect`), 300)
       })
+
+
+   
 
 
 
