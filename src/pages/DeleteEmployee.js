@@ -3,7 +3,10 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import AdminAppbar from '../AdminAppbar'
+import AdminAppbar from '../AdminAppbar';
+import axios from 'axios';
+import toastr from 'toastr';
+import 'toastr/build/toastr.min.css';
 import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
@@ -29,39 +32,107 @@ const styles = theme => ({
 });
 class DeleteEmployee extends Component {
   constructor() {
-    super()
+    super();
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
-      Details: {
-        EmployeeID: '',
-        Password: '',
-      }
+         EmployeeID: '',
+        adminpassword: ''  
 
     }
   }
-  handleChange(changeValue, event) {
-    this.state.Details[changeValue] = event.target.value;
-    this.setState = ({
-      Details: this.state.Details,
-      // password:this.state.password
+ handleChange({ target }) {
+
+    this.setState({
+      [target.name]: target.value
+
     })
-    console.log('login', this.state.Details)
+    console.log('Edit', this.state);
   }
+
+
   handleSubmit(){
     console.log('')
     var name=cookies.get('username')
     console.log('username',name)
+   var deleteemployee = {
+      username: this.state.EmployeeID,
+      adminpassword: this.state.adminpassword,
+      adminusername: name
+     
+      
+          };
+    var formBody = [];
+   
+    for (var property in deleteemployee) {
+      var encodedKey = encodeURIComponent(property);
+      var encodedValue = encodeURIComponent(deleteemployee[property]);
+      formBody.push(encodedKey + "=" + encodedValue);
+    }
+
+    formBody = formBody.join("&");
+
+    console.log("Form Body", formBody);
+    var Authtoken = cookies.get('token')
+    var finalAuthtoken = 'Bearer ' + Authtoken
+
+    fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/deleteuser', {
+      method: 'POST',
+      withCredentials: true,
+
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+        'Authorization': finalAuthtoken
+
+      },
+      body: formBody
+
+    })
+    .then((resp) => {
+      if (resp.ok) {
+        toastr.options = {
+          positionClass: 'toast-top-right',
+          hideDuration: 3000,
+          timeOut: 100
+        }
+        toastr.clear()
+        setTimeout(() => toastr.success(`User Deleted`), 300)
+      }
+ toastr.options = {
+          positionClass: 'toast-bottom-left',
+          hideDuration: 300000,
+          timeOut: 100
+        }
+        toastr.clear()
+        setTimeout(() => toastr.error(`Error occured`), 300)
+      
+
+    }).catch(error=> {
+        toastr.options = {
+          positionClass: 'toast-bottom-left',
+          hideDuration: 300000,
+          timeOut: 100
+        }
+        toastr.clear()
+        setTimeout(() => toastr.error(`Error in calling api`), 300)
+      })
+
+
+
+
   }
   render() {
     const { classes } = this.props;
     return (
       <div>
-        <h2 style={{ color: '#2699FB' }}>Add Vitals of Patient</h2>
+        <h2 style={{ color: '#2699FB' }}>Delete User</h2>
         <AdminAppbar />
         <TextField
 
           label="Employee ID"
+          name="EmployeeID"
           value={this.state.EmployeeID}
-          onChange={this.handleChange.bind(this, 'EmployeeID')}
+          onChange={this.handleChange}
           margin="normal"
           variant="outlined"
           className={classes.textField}
@@ -69,8 +140,9 @@ class DeleteEmployee extends Component {
         <br></br>
         <TextField
           label="Enter admin Password"
-          value={this.state.Password}
-          onChange={this.handleChange.bind(this, 'Password')}
+          name="adminpassword"
+          value={this.state.adminpassword}
+          onChange={this.handleChange}
           margin="normal"
           variant="outlined"
           className={classes.textField}

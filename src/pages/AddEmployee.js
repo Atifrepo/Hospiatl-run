@@ -8,7 +8,12 @@ import Select from '@material-ui/core/Select';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
-import AdminAppbar from '../AdminAppbar'
+import AdminAppbar from '../AdminAppbar';
+import axios from 'axios';
+import toastr from 'toastr';
+import 'toastr/build/toastr.min.css';
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
 
 const styles = theme => ({
   container: {
@@ -30,26 +35,96 @@ const styles = theme => ({
 });
 class AddEmployee extends Component {
   constructor() {
-    super()
+    super();
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+
     this.state = {
-      Details: {
-        Name: '',
         EmployeeID: '',
         Password: '',
-        Password2: '',
         Type: '',
-      }
+    
 
     }
   }
-  handleChange(changeValue, event) {
-    this.state.Details[changeValue] = event.target.value;
-    this.setState = ({
-      Details: this.state.Details,
-      // password:this.state.password
+  handleChange({ target }) {
+
+    this.setState({
+      [target.name]: target.value
+
     })
-    console.log('login', this.state.Details)
+    console.log('Register', this.state);
   }
+
+ handleSubmit(){
+
+console.log("STate",this.state);
+var addemployee = {
+      fullname: this.state.EmployeeID,
+      password: this.state.Password,
+      role: this.state.Type
+      
+          };
+    var formBody = [];
+   
+    for (var property in addemployee) {
+      var encodedKey = encodeURIComponent(property);
+      var encodedValue = encodeURIComponent(addemployee[property]);
+      formBody.push(encodedKey + "=" + encodedValue);
+    }
+
+    formBody = formBody.join("&");
+
+    console.log("Form Body", formBody);
+    var Authtoken = cookies.get('token')
+    var finalAuthtoken = 'Bearer ' + Authtoken
+
+    fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/createuser', {
+      method: 'POST',
+      withCredentials: true,
+
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+        'Authorization': finalAuthtoken
+
+      },
+      body: formBody
+
+    })
+    .then((resp) => {
+      if (resp.ok) {
+        toastr.options = {
+          positionClass: 'toast-top-right',
+          hideDuration: 3000,
+          timeOut: 100
+        }
+        toastr.clear()
+        setTimeout(() => toastr.success(`User Added`), 300)
+      }
+ toastr.options = {
+          positionClass: 'toast-bottom-left',
+          hideDuration: 300000,
+          timeOut: 100
+        }
+        toastr.clear()
+        setTimeout(() => toastr.error(`User not added . Maybe user already exist`), 300)
+      
+
+    }).catch(error=> {
+        toastr.options = {
+          positionClass: 'toast-bottom-left',
+          hideDuration: 300000,
+          timeOut: 100
+        }
+        toastr.clear()
+        setTimeout(() => toastr.error(`Error in calling api`), 300)
+      })
+
+
+ }
+
+
+
 
   render() {
     const { classes } = this.props;
@@ -62,8 +137,9 @@ class AddEmployee extends Component {
           <TextField
 
             label="Enter Employee Name"
+            name="EmployeeID"
             value={this.state.EmployeeID}
-            onChange={this.handleChange.bind(this, 'EmployeeID')}
+            onChange={this.handleChange}
             margin="normal"
             variant="outlined"
             className={classes.textField}
@@ -72,8 +148,9 @@ class AddEmployee extends Component {
           <TextField
 
             label="Set Password"
+            name="Password"
             value={this.state.Password}
-            onChange={this.handleChange.bind(this, 'Password')}
+            onChange={this.handleChange}
             margin="normal"
             variant="outlined"
             className={classes.textField}
@@ -90,8 +167,9 @@ class AddEmployee extends Component {
               Role
           </InputLabel>
             <Select style={{ width: 120, paddingLeft: 100 }}
-              value={this.state.type}
-              onChange={this.handleChange.bind(this, 'type')}
+              name="Type"
+              value={this.state.Type}
+              onChange={this.handleChange}
               input={
                 <OutlinedInput
                   labelWidth={this.state.labelWidth}
@@ -106,12 +184,12 @@ class AddEmployee extends Component {
               <MenuItem value={'Admin'}>Admin</MenuItem>
               <MenuItem value={'Doctor'}>Doctor</MenuItem>
               <MenuItem value={'Nurse'}>Nurse</MenuItem>
-              <MenuItem value={'Receptionist  '}>Receptionist</MenuItem>
+              <MenuItem value={'Receptionist'}>Receptionist</MenuItem>
             </Select>
           </FormControl>
           <br></br>
           <br></br>
-          <Button variant="contained" style={{ backgroundColor: '#2699FB', width: 220 }} onClick={this.handleSubmit}><b>login</b></Button>
+          <Button variant="contained" style={{ backgroundColor: '#2699FB', width: 220 }} onClick={this.handleSubmit}><b>Add User</b></Button>
         </form>
 
 
