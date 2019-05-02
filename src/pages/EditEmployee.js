@@ -78,7 +78,7 @@ handleChange({ target }) {
     var Authtoken = cookies.get('token')
     var finalAuthtoken = 'Bearer ' + Authtoken
 
-    fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/updateuserpassword', {
+    fetch('http://primespecialistclinics.com:40001/updateuserpassword', {
       method: 'POST',
       withCredentials: true,
 
@@ -199,7 +199,7 @@ render(){
             </Select>
           </FormControl> */}
           <br></br>
-          <Button type="submit" variant="outlined" style={{ backgroundColor: '#2699FB', position: 'relative' }} onClick={this.handleClick}><b>Edit Employee</b></Button>
+          <Button type="submit" variant="outlined" style={{ backgroundColor: '#2699FB', position: 'relative' }} onClick={this.handleClick}><b style={{color:'#fff'}}>Edit Employee</b></Button>
         </div>
     )
 }

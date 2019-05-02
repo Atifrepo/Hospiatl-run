@@ -110,7 +110,7 @@ class AdminAppbar extends React.Component {
 logout=()=>{
   console.log('logout')
   localStorage.clear();
-  window.location.href = '/';
+  window.location.href = '/Admin';
 cookies.remove('roles')
 cookies.remove('username')
 cookies.remove('token')
@@ -152,9 +152,10 @@ route(path){
 
             </IconButton>
             <Typography variant="h6" color="inherit" className={classes.grow} noWrap>
-              Hospital Mangagement
+            Prime Specialist Clinic
             </Typography>
-            <IconButton
+            <div style={{paddingLeft:'75%'}}> 
+               <IconButton
                   aria-owns={open ? 'menu-appbar' : undefined}
                   aria-haspopup="true"
                   onClick={this.handleMenu}
@@ -179,7 +180,10 @@ route(path){
                   <MenuItem onClick={this.logout}>logout</MenuItem>
                   
                 </Menu>
+                </div>
+
                 </Toolbar>
+
                
                  </AppBar>
    <Drawer

@@ -100,7 +100,7 @@ class RegisterPatient extends Component {
     var Authtoken = cookies.get('token')
     var finalAuthtoken = 'Bearer ' + Authtoken
 
-    fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/addpatient', {
+    fetch('http://primespecialistclinics.com:40001/addpatient', {
       method: 'POST',
       withCredentials: true,
 
@@ -136,6 +136,15 @@ class RegisterPatient extends Component {
 
     console.log('handle click login')
     console.log('user', this.state)
+this.setState({
+  Name: '',
+  FatherName: '',
+  Age: '',
+  Gender: '',
+  Telephone1: '',
+  Telephone2: '',
+  MR_No: '',
+})
 
   }
 
@@ -156,7 +165,7 @@ class RegisterPatient extends Component {
 
     axios({
       method: 'get',
-      url: 'http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/createmrnumber',
+      url: 'http://primespecialistclinics.com:40001/createmrnumber',
 
     })
       .then((json) => {
@@ -200,7 +209,7 @@ class RegisterPatient extends Component {
             variant="outlined"
             style={{ backgroundColor: '#fff' }}
           />
-          <Button variant="outlined" style={{ backgroundColor: '#2699FB', marginTop: '2%' }} onClick={this.MRNo}><b>Generate MR_No</b></Button>
+          <Button variant="outlined" style={{ backgroundColor: '#2699FB', marginTop: '2%' }} onClick={this.MRNo}><b style={{color:'#fff'}}>Generate MR_No</b></Button>
         </div>
         <br></br>
         <TextField
@@ -302,7 +311,7 @@ class RegisterPatient extends Component {
 
         <br></br>
 
-        <Button type="submit" variant="outlined" style={{ backgroundColor: '#2699FB', position: 'relative' }} onClick={this.handleClick}><b>Register   Patient</b></Button>
+        <Button type="submit" variant="outlined" style={{ backgroundColor: '#2699FB', position: 'relative' }} onClick={this.handleClick}><b style={{color:'#fff'}} >Register   Patient</b></Button>
 
 
 

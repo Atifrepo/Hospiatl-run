@@ -153,15 +153,17 @@ class RecAppbar extends React.Component {
 
             </IconButton>
             <Typography variant="h6" color="inherit" className={classes.grow} noWrap>
-              Hospital Mangagement
+            Prime Specialist Clinic
             </Typography>
-            <IconButton
+<div style={{paddingLeft:'75%'}}>            <IconButton
+
               aria-owns={open ? 'menu-appbar' : undefined}
               aria-haspopup="true"
               onClick={this.handleMenu}
               color="inherit"
             >
-              <AccountCircle style={{paddingRight:'30%'}} />
+
+              <AccountCircle />
             </IconButton>
             <Menu
               id="menu-appbar"
@@ -180,6 +182,7 @@ class RecAppbar extends React.Component {
               <MenuItem onClick={this.logout}>logout</MenuItem>
 
             </Menu>
+            </div>
           </Toolbar>
 
         </AppBar>

@@ -8,12 +8,10 @@ import EditEmployee from './pages/EditEmployee';
 import AddEmployee from './pages/AddEmployee';
 import DeleteEmployee from './pages/DeleteEmployee';
 import SearchPatient from './pages/SearchPatient';
-import ViewPatient from './pages/ViewPatient';
 import SearchExistingPatient from './pages/SearchExistingPatient'
 import Cookies from 'universal-cookie';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-
 
 import './App.css';
 import {
@@ -134,7 +132,7 @@ class App extends Component {
           </Typography>
           </Toolbar>
         </AppBar>
-      
+
         <Router>
           <div>
 
@@ -146,8 +144,7 @@ class App extends Component {
             <ProtectedRouteforAdmin exact path='/EditEmployee' loggedIn={this.state.cookierolevalue} component={EditEmployee} />
             <ProtectedRouteforReceptionist exact path='/SearchExistingPatient' loggedIn={this.state.cookierolevalue} component={SearchExistingPatient} />
             <ProtectedRouteforDoctor exact path='/SearchPatient' loggedIn={this.state.cookierolevalue} component={SearchPatient} />
-            <ProtectedRouteforDoctor exact path='/ViewPatient' loggedIn={this.state.cookierolevalue} component={ViewPatient} />
-      <Route exact path="/LoginAdmin" component={LoginAdmin}/>
+            <Route exact path="/Admin" component={LoginAdmin} />
           </div>
         </Router>
         {/* <Drawer/> */}

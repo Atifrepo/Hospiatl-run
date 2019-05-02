@@ -57,7 +57,7 @@ class DeleteEmployee extends Component {
     console.log('username',name)
    var deleteemployee = {
       username: this.state.EmployeeID,
-      adminpassword: this.state.adminpassword,
+      password: this.state.adminpassword,
       adminusername: name
      
       
@@ -76,7 +76,7 @@ class DeleteEmployee extends Component {
     var Authtoken = cookies.get('token')
     var finalAuthtoken = 'Bearer ' + Authtoken
 
-    fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/deleteuser', {
+    fetch('http://primespecialistclinics.com:40001/deleteuser', {
       method: 'POST',
       withCredentials: true,
 
@@ -148,7 +148,7 @@ class DeleteEmployee extends Component {
           className={classes.textField}
         />
         <br></br>
-        <Button variant="contained" style={{ backgroundColor: 'red', width: 220 }} onClick={this.handleSubmit}><b>Delete</b></Button>
+        <Button variant="contained" style={{ backgroundColor: 'red', width: 220 }} onClick={this.handleSubmit}><b style={{color:'#fff'}}>Delete</b></Button>
       </div>
     )
   }

@@ -74,7 +74,7 @@ class AddVitals extends Component {
       patientid: '',
       labelWidth: 0,
       AllergyArray: [],
-      rows:[]
+      rows: []
 
     }
 
@@ -86,8 +86,8 @@ class AddVitals extends Component {
       labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
     });
 
-  let tempallergiearray = [];
-}
+    let tempallergiearray = [];
+  }
   // fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/getallergi')
   //       .then(response => {
   //           console.log(response);
@@ -133,8 +133,8 @@ class AddVitals extends Component {
     };
 
     this.setState({
-      rows:[],
-      patientid:''
+      rows: [],
+      patientid: ''
     })
 
     var formBody = [];
@@ -151,7 +151,7 @@ class AddVitals extends Component {
     var Authtoken = cookies.get('token')
     var finalAuthtoken = 'Bearer ' + Authtoken
 
-    fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/searchmrnumber', {
+    fetch('http://primespecialistclinics.com:40001/searchmrnumber', {
       method: 'POST',
       withCredentials: true,
       headers: {
@@ -175,13 +175,13 @@ class AddVitals extends Component {
       })
       .then((result) => {
         console.log("Response from server", result);
-       this.setState({
-        rows: result,
-        patientid: result[0].patientid
-      })
+        this.setState({
+          rows: result,
+          patientid: result[0].patientid
+        })
 
-       console.log(this.state.patientid);
-             })
+        console.log(this.state.patientid);
+      })
       .catch((error) => {
         toastr.options = {
           positionClass: 'toast-top-right',
@@ -202,11 +202,11 @@ class AddVitals extends Component {
     var date = currentDate.getDate();
     var month = currentDate.getMonth();
     var year = currentDate.getFullYear();
-    var dateString = date + "-" +(month + 1) + "-" + year;
+    var dateString = date + "-" + (month + 1) + "-" + year;
 
     var Vitals = {
       heights: this.state.Height,
-      weight: this.state.weight,
+      weight: this.state.Weight,
       bloodpressure: this.state.BP,
       pulse: this.state.Pulse,
       temperature: this.state.Temperature,
@@ -229,7 +229,7 @@ class AddVitals extends Component {
     var Authtoken = cookies.get('token')
     var finalAuthtoken = 'Bearer ' + Authtoken
 
-    fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/addpatientvitals', {
+    fetch('http://primespecialistclinics.com:40001/addpatientvitals', {
       method: 'POST',
       withCredentials: true,
 
@@ -252,7 +252,15 @@ class AddVitals extends Component {
       }
     })
 
-
+this.setState({
+  MR_No:'',
+  Height: '',
+  Weight: '',
+  BP: '',
+  Pulse: '',
+  Temperature: '',
+  PO2: '',
+})
   }
 
   GetAllergy() {
@@ -286,52 +294,52 @@ class AddVitals extends Component {
               variant="outlined"
               className={classes.textField}
             />
-            <Button variant="outlined" style={{ backgroundColor: '#2699FB', marginTop: '2%' }} onClick={this.Search}><b>Search</b></Button>
-         
-          
+            <Button variant="outlined" style={{ backgroundColor: '#2699FB', marginTop: '2%' }} onClick={this.Search}><b style={{ color: '#fff' }}>Search</b></Button>
+
+
           </div>
 
           <Table className='Patient Information'>
-        <TableHead>
-          <TableRow>
-            <TableCell>Patient Name</TableCell>
-            <TableCell align="right">Patient Father Name</TableCell>
-            <TableCell align="right">Patient Age</TableCell>
-             <TableCell align="right">Patient Gender</TableCell>
-            <TableCell align="right">Patient Mobile Number 1</TableCell>
-            <TableCell align="right">Patient Mobile Number 2</TableCell>
-            <TableCell align="right">Patient MR Number</TableCell>
-            
-     
+            <TableHead>
+              <TableRow>
+                <TableCell>Patient Name</TableCell>
+                <TableCell align="right">Patient Father Name</TableCell>
+                <TableCell align="right">Patient Age</TableCell>
+                <TableCell align="right">Patient Gender</TableCell>
+                <TableCell align="right">Patient Mobile Number 1</TableCell>
+                <TableCell align="right">Patient Mobile Number 2</TableCell>
+                <TableCell align="right">Patient MR Number</TableCell>
 
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {this.state.rows.map(row => (
-            <TableRow key={row.id}>
-              {/* <TableCell component="th" scope="row">
+
+
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {this.state.rows.map(row => (
+                <TableRow key={row.id}>
+                  {/* <TableCell component="th" scope="row">
                 {row.name}
               </TableCell> */}
-              <TableCell align="right">{row.patientname}</TableCell>
-              <TableCell align="right">{row.fathername}</TableCell>
-              <TableCell align="right">{row.age}</TableCell>
-              <TableCell align="right">{row.gender}</TableCell>
-              <TableCell align="right">{row.telephone1}</TableCell>
-              <TableCell align="right">{row.telephone2}</TableCell>
-              <TableCell align="right">{row.mr_no}</TableCell>
-             
-                <TableCell>
-                
-        </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>  
+                  <TableCell align="right">{row.patientname}</TableCell>
+                  <TableCell align="right">{row.fathername}</TableCell>
+                  <TableCell align="right">{row.age}</TableCell>
+                  <TableCell align="right">{row.gender}</TableCell>
+                  <TableCell align="right">{row.telephone1}</TableCell>
+                  <TableCell align="right">{row.telephone2}</TableCell>
+                  <TableCell align="right">{row.mr_no}</TableCell>
+
+                  <TableCell>
+
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
 
 
           <br></br>
           <TextField
-            label="Height"
+            label="Height(cm)"
             name="Height"
             value={this.state.Height}
             onChange={this.handleChange}
@@ -341,9 +349,9 @@ class AddVitals extends Component {
           />
 
           <TextField
-            label="Weight"
-            name="weight"
-            value={this.state.weight}
+            label="Weight(kg)"
+            name="Weight"
+            value={this.state.Weight}
             onChange={this.handleChange}
             variant="outlined"
             className={classes.textField}
@@ -372,7 +380,7 @@ class AddVitals extends Component {
           <br></br>
 
           <TextField
-            label="Temperature"
+            label="Temperature(°F)"
             name="Temperature"
             value={this.state.Temperature}
             onChange={this.handleChange}
@@ -392,8 +400,8 @@ class AddVitals extends Component {
           />
 
           <br></br>
-          
-            <FormControl variant="outlined" className={styles.formControl}>
+
+          <FormControl variant="outlined" className={styles.formControl}>
             <InputLabel style={{ marginTop: '7%' }}
               ref={ref => {
                 this.InputLabelRef = ref;
@@ -421,14 +429,14 @@ class AddVitals extends Component {
               <MenuItem value={'2'}>Allergy2</MenuItem>
               <MenuItem value={'3'}>Allergy3</MenuItem>
               <MenuItem value={'4'}>Allergy4</MenuItem>
-</Select>
-        
+            </Select>
+
 
 
 
           </FormControl>
           <br></br>
-          <Button type="submit" variant="outlined" style={{ backgroundColor: '#2699FB', position: 'relative' }} onClick={this.patientvital}><b>Add Vitals</b></Button>
+          <Button type="submit" variant="outlined" style={{ backgroundColor: '#2699FB', position: 'relative' }} onClick={this.patientvital}><b style={{ color: '#fff' }}>Add Vitals</b></Button>
 
         </div>
 

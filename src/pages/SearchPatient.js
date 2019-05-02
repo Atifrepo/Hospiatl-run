@@ -164,7 +164,7 @@ class SearchExistingPatient extends Component {
     var Authtoken = cookies.get('token')
     var finalAuthtoken = 'Bearer ' + Authtoken
 
-    fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/getpatientdetails', {
+    fetch('http://primespecialistclinics.com:40001/getpatientdetails', {
       method: 'POST',
       withCredentials: true,
       headers: {
@@ -390,7 +390,7 @@ class SearchExistingPatient extends Component {
             variant="outlined"
             className={classes.textField}
           />
-          <Button variant="outlined" style={{ backgroundColor: '#2699FB', marginTop: '2%' }} onClick={this.handleSearch}>Search</Button>
+          <Button variant="outlined" style={{ backgroundColor: '#2699FB', marginTop: '2%' }} onClick={this.handleSearch}><b style={{color:'#fff'}}>Search</b></Button>
            
          </div>
 
@@ -428,7 +428,9 @@ class SearchExistingPatient extends Component {
 
                 <TableCell>
                 <Button variant="outlined" color="secondary" onClick={()=>{this.handleClickOpen(row)}}>
+      <b>
          View Notes
+        </b>
         </Button> 
         </TableCell>
             </TableRow>
@@ -470,7 +472,7 @@ class SearchExistingPatient extends Component {
             variant="outlined"
           />
           <br></br>
-          <Button variant="outlined" style={{ backgroundColor: '#2699FB', marginTop: '2%', }} onClick={this.AddNotes}>Add Notes</Button>
+          <Button variant="outlined" style={{ backgroundColor: '#2699FB', marginTop: '2%', }} onClick={this.AddNotes}><b style={{color:'#fff'}}>Add Notes</b></Button>
         </div>
       </div>
 

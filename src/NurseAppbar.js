@@ -152,15 +152,16 @@ route(path){
 
             </IconButton>
             <Typography variant="h6" color="inherit" className={classes.grow} noWrap>
-              Hospital Mangagement
+            Prime Specialist Clinic
             </Typography>
+            <div style={{paddingLeft:'75%'}}>
             <IconButton
                   aria-owns={open ? 'menu-appbar' : undefined}
                   aria-haspopup="true"
                   onClick={this.handleMenu}
                   color="inherit"
                 >
-                  <AccountCircle  />
+                  <AccountCircle style={{}} />
                 </IconButton>
                 <Menu
                   id="menu-appbar"
@@ -179,6 +180,7 @@ route(path){
                   <MenuItem onClick={this.logout}>logout</MenuItem>
                   
                 </Menu>
+                </div>
                 </Toolbar>
                
                  </AppBar>

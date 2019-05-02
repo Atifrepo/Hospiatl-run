@@ -79,7 +79,7 @@ var addemployee = {
     var Authtoken = cookies.get('token')
     var finalAuthtoken = 'Bearer ' + Authtoken
 
-    fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/createuser', {
+    fetch('http://primespecialistclinics.com:40001/createuser', {
       method: 'POST',
       withCredentials: true,
 
@@ -189,7 +189,7 @@ var addemployee = {
           </FormControl>
           <br></br>
           <br></br>
-          <Button variant="contained" style={{ backgroundColor: '#2699FB', width: 220 }} onClick={this.handleSubmit}><b>Add User</b></Button>
+          <Button variant="contained" style={{ backgroundColor: '#2699FB', width: 220 }} onClick={this.handleSubmit}><b style={{color:'#fff'}}> Add User</b></Button>
         </form>
 
 

@@ -12,6 +12,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Paper from "@material-ui/core/Paper";
 
 
 const cookies = new Cookies();
@@ -27,6 +28,14 @@ const styles = theme => ({
     marginRight: theme.spacing.unit,
 
 
+  },
+  root: {
+    width: "100%",
+    marginTop: theme.spacing.unit * 3,
+    overflowX: "auto"
+  },
+  table: {
+    minWidth: 700
   },
   dense: {
     marginTop: 16,
@@ -57,9 +66,9 @@ class SearchExistingPatient extends Component {
       Name: '',
       Fathername: '',
       Age: '',
-      Gender:'',
-     Phone_No:'',
-     rows:[]
+      Gender: '',
+      Phone_No: '',
+      rows: []
     }
 
 
@@ -98,7 +107,7 @@ class SearchExistingPatient extends Component {
     var Authtoken = cookies.get('token')
     var finalAuthtoken = 'Bearer ' + Authtoken
 
-    fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/searchmrnumber', {
+    fetch('http://primespecialistclinics.com:40001/searchmrnumber', {
       method: 'POST',
       withCredentials: true,
       headers: {
@@ -122,12 +131,12 @@ class SearchExistingPatient extends Component {
       })
       .then((result) => {
         console.log("Response from server", result);
-        this.setState({ Name: result[0].patientname, Fathername: result[0].fathername, Age: result[0].age,Gender:result[0].gender,Phone_No:result[0].telephone1 });
+        this.setState({ Name: result[0].patientname, Fathername: result[0].fathername, Age: result[0].age, Gender: result[0].gender, Phone_No: result[0].telephone1 });
         this.setState({
-        rows: result
-      })
+          rows: result
+        })
 
-        console.log("Row state",this.state.row);
+        console.log("Row state", this.state.row);
 
       })
       .catch((error) => {
@@ -137,7 +146,7 @@ class SearchExistingPatient extends Component {
           timeOut: 100
         }
         toastr.clear()
-        setTimeout(() => toastr.success(`Patient Not found`), 300)
+        setTimeout(() => toastr.error(`Patient Not found`), 300)
       })
 
   }
@@ -164,49 +173,45 @@ class SearchExistingPatient extends Component {
           variant="outlined"
           className={classes.textField}
         />
-        <Button variant="outlined" style={{ backgroundColor: '#2699FB', marginTop:'2%' }} onClick={this.handleSearch}>Search</Button>
-     
-        
+        <Button variant="outlined" style={{ backgroundColor: '#2699FB', marginTop: '2%' }} onClick={this.handleSearch}><b style={{color:'#fff'}}>Search</b></Button>
 
-         <Table className='Patient Information'>
-        <TableHead>
-          <TableRow>
-            <TableCell>Patient Name</TableCell>
-            <TableCell align="right">Patient Father Name</TableCell>
-            <TableCell align="right">Patient Age</TableCell>
-             <TableCell align="right">Patient Gender</TableCell>
-            <TableCell align="right">Patient Mobile Number 1</TableCell>
-            <TableCell align="right">Patient Mobile Number 2</TableCell>
-            <TableCell align="right">Patient MR Number</TableCell>
-            
-     
+        <Paper>
+          <Table className={classes.table}>
+            <TableHead>
+              <TableRow>
+                <TableCell align="right">Patient Name</TableCell>
+                <TableCell align="right">Patient Father Name</TableCell>
+                <TableCell align="right">Patient Age</TableCell>
+                <TableCell align="right">Patient Gender</TableCell>
+                <TableCell align="right">Patient Mobile Number 1</TableCell>
+                <TableCell align="right">Patient Mobile Number 2</TableCell>
+                <TableCell align="right">Patient MR Number</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {this.state.rows.map(row => (
+                <TableRow >
+                  <TableCell component="th" scope="row">
+                    {row.patientname}
+                  </TableCell>
+                  {/* <TableCell align="right">{row.patientname}</TableCell> */}
+                  <TableCell align="right">{row.fathername}</TableCell>
+                  <TableCell align="right">{row.age}</TableCell>
+                  <TableCell align="right">{row.gender}</TableCell>
+                  <TableCell align="right">{row.telephone1}</TableCell>
+                  <TableCell align="right">{row.telephone2}</TableCell>
+                  <TableCell align="right">{row.mr_no}</TableCell>
 
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {this.state.rows.map(row => (
-            <TableRow key={row.id}>
-              {/* <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell> */}
-              <TableCell align="right">{row.patientname}</TableCell>
-              <TableCell align="right">{row.fathername}</TableCell>
-              <TableCell align="right">{row.age}</TableCell>
-              <TableCell align="right">{row.gender}</TableCell>
-              <TableCell align="right">{row.telephone1}</TableCell>
-              <TableCell align="right">{row.telephone2}</TableCell>
-              <TableCell align="right">{row.mr_no}</TableCell>
-             
-                <TableCell>
-                
-        </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>  
+                  <TableCell>
+
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
 
 
-
+        </Paper>
       </div>
     )
   }

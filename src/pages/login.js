@@ -12,6 +12,10 @@ import toastr from 'toastr'
 
 const cookies = new Cookies();
 const styles = theme => ({
+  container: {
+    display: "flex",
+    flexWrap: "wrap"
+  },
   root: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -75,7 +79,7 @@ export default class Login extends Component {
 
     formBody = formBody.join("&");
 
-    fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/loginuser', {
+    fetch('http://primespecialistclinics.com:40001/loginuser', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
@@ -106,7 +110,7 @@ export default class Login extends Component {
         window.location.href = '/SearchPatient';
         console.log('login role', data.roles)
       }
-     
+
 
 
     })
@@ -123,7 +127,7 @@ export default class Login extends Component {
       })
 
 
-   
+
 
 
 
@@ -137,14 +141,14 @@ export default class Login extends Component {
     return (
       <div>
 
-        <form>
+        <form >
 
           <br></br>
           <br></br>
           <br></br>
           <br></br>
           <TextField
-
+            id="standard-required"
             name="username"
             label="Employee ID"
             value={this.state.username}
@@ -161,7 +165,7 @@ export default class Login extends Component {
 
             type="password"
             value={this.state.password}
-            onChange={this.handleChange}
+           required  onChange={this.handleChange}
             autoComplete="current-password"
             margin="normal"
             variant="outlined"
@@ -194,18 +198,18 @@ export default class Login extends Component {
 
               }
             >
-              
+
               <MenuItem value={'Doctor'}>Doctor</MenuItem>
               <MenuItem value={'Nurse'}>Nurse</MenuItem>
               <MenuItem value={'Receptionist'}>Receptionist</MenuItem>
             </Select>
 
 
-          
-          <br></br>
-          <br></br>
-          <Button variant="contained" style={{ backgroundColor: '#2699FB', width: 220 }} onClick={this.handleSubmit}><b>login</b></Button>
-       </FormControl>
+
+            <br></br>
+            <br></br>
+            <Button variant="contained" style={{ backgroundColor: '#2699FB', width: 220 }} onClick={this.handleSubmit}><b style={{ color: '#fff' }}>login</b></Button>
+          </FormControl>
         </form>
       </div>
     )
