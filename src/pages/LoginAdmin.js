@@ -63,7 +63,7 @@ export default class LoginAdmin extends Component {
    
     formBody = formBody.join("&");
 
-    fetch('http://primespecialistclinics.com:40001/loginuser', {
+    fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/loginuser', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'

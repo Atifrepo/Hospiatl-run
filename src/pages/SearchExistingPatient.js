@@ -107,7 +107,7 @@ class SearchExistingPatient extends Component {
     var Authtoken = cookies.get('token')
     var finalAuthtoken = 'Bearer ' + Authtoken
 
-    fetch('http://primespecialistclinics.com:40001/searchmrnumber', {
+    fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/searchmrnumber', {
       method: 'POST',
       withCredentials: true,
       headers: {

@@ -12,66 +12,44 @@ class ViewAllPatient extends Component {
     constructor(){
         super()
         this.state={
-            MR_No: '',
-            Name: '',
-            Fathername: '',
-            Age: '',
-            multiline: '',
-            note:'',
-            patientid:'',
-            rows:[],
-            receivenote: []
+            rows:[]
         }
     }
 componentDidMount(){
 
-    var Search = {
-        searchmrnumber: this.state.MR_No
-      };
   
-  
-      var formBody = [];
-      for (var property in Search) {
-        var encodedKey = encodeURIComponent(property);
-        var encodedValue = encodeURIComponent(Search[property]);
-        formBody.push(encodedKey + "=" + encodedValue);
-      }
-  
-      formBody = formBody.join("&");
   
      
       var Authtoken = cookies.get('token')
       var finalAuthtoken = 'Bearer ' + Authtoken
   
       fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/viewsearchpatient', {
-        method: 'POST',
+        method: 'GET',
         withCredentials: true,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
           'Authorization': finalAuthtoken
   
-        },
-        body: formBody
-  
+        }
+   
       })
-        // .then((resp) => {
-  
-        //   if (resp.status !== 200) {
-        //     throw new Error("Not 200 response")
-        //   }
-  
-        //   if (resp.ok) {
-        //     var data = resp.json();
-        //     return data;
-        //   }
-        // })
         .then((result) => {
         console.log('re',result)
-          this.setState({ Name: result[0].patientname, Fathername: result[0].fathername, Age: result[0].age, Gender: result[0].gender, Phone_No: result[0].telephone1 });
-          this.setState({
-            rows: result
-          })
-        })
+  
+       var jsondata = result.json();
+       return jsondata;
+
+        }).
+        then((data)=>{
+          console.log("data",data);
+           this.setState({
+             rows: data
+           })
+         })
+
+        .catch((error)=>{
+          console.log("error")
+        });
       
   
 }

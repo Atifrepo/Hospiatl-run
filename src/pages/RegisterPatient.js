@@ -99,7 +99,7 @@ class RegisterPatient extends Component {
     var Authtoken = cookies.get('token')
     var finalAuthtoken = 'Bearer ' + Authtoken
 
-    fetch('http://primespecialistclinics.com:40001/addpatient', {
+    fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/addpatient', {
       method: 'POST',
       withCredentials: true,
 
@@ -162,7 +162,7 @@ this.setState({
 
     axios({
       method: 'get',
-      url: 'http://primespecialistclinics.com:40001/createmrnumber',
+      url: 'http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/createmrnumber',
 
     })
       .then((json) => {
