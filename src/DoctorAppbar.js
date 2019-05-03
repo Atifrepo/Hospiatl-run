@@ -211,8 +211,15 @@ route(path){
                 <ListItemText primary />
               </ListItem>
 
+              <ListItem button onClick={(event) => this.route('/ViewAllPatient')} style={{backgroundColor:'#2699FB',}}>
+                <ListItemIcon style={{color:'#fff'}}> 
+              View All Patient
+                   </ListItemIcon>
+                <ListItemText primary />
+              </ListItem>
 
           </List>
+
              
              </Drawer>
         

@@ -367,8 +367,10 @@ class SearchExistingPatient extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <div style={{overflowY:'scroll'}} >
-        <div>
+  
+      // <div style={{overflowY:"hidden"}} >
+      
+      <div style={{overflowX:"hidden"}}>
         <DoctorAppBar/>
           <h2 style={{ color: '#2699FB', position: 'absolute' }}>Search patient</h2>
           <TextField
@@ -382,7 +384,7 @@ class SearchExistingPatient extends Component {
           />
           <Button variant="outlined" style={{ backgroundColor: '#2699FB', marginTop: '2%' }} onClick={this.handleSearch}><b style={{color:'#fff'}}>Search</b></Button>
            
-         </div>
+         {/* </div> */}
 
         <Table className='Patient Information'>
         <TableHead>
@@ -403,9 +405,6 @@ class SearchExistingPatient extends Component {
         <TableBody>
           {this.state.rows.map(row => (
             <TableRow key={row.id}>
-              {/* <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell> */}
               <TableCell align="right">{row.patientname}</TableCell>
               <TableCell align="right">{row.age}</TableCell>
               <TableCell align="right">{row.bloodpressure}</TableCell>
@@ -427,7 +426,7 @@ class SearchExistingPatient extends Component {
           ))}
         </TableBody>
       </Table>
-
+<div >
       <Dialog
           onClose={this.handleClose}
           aria-labelledby="customized-dialog-title"
@@ -447,9 +446,10 @@ class SearchExistingPatient extends Component {
             </Typography>
 </DialogContent>
 </Dialog>
-        <div style={{ paddingLeft: 500, paddingTop: 100,position:'fixed' }}>
+</div>
+        {/* <div style={{ paddingLeft: 500, paddingTop: 100,position:'fixed' }}> */}
         <h3 style={{ color: '#2699FB'}}>Notes/Diagnostics Results/Prescription</h3>
-          <TextField style={{ width: '200%' }}
+          <TextField style={{ width: '80%' }}
             id="outlined-multiline-static"
 
             multiline
@@ -463,7 +463,7 @@ class SearchExistingPatient extends Component {
           />
           <br></br>
           <Button variant="outlined" style={{ backgroundColor: '#2699FB', marginTop: '2%', }} onClick={this.AddNotes}><b style={{color:'#fff'}}>Add Notes</b></Button>
-        </div>
+        {/* </div> */}
       </div>
 
     )

@@ -129,7 +129,7 @@ class RecAppbar extends React.Component {
   }
 
   render() {
-    const { auth, anchorEl } = this.state;
+    const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
     const { classes, theme } = this.props;
     return (

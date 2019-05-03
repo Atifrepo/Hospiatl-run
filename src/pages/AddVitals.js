@@ -3,12 +3,6 @@ import TextField from '@material-ui/core/TextField';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import NurseAppbar from '../NurseAppbar'
-import ReactDOM from 'react-dom';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
 import Cookies from 'universal-cookie';
 import toastr from 'toastr'
 import Button from '@material-ui/core/Button';
@@ -81,14 +75,7 @@ class AddVitals extends Component {
   }
 
 
-  componentDidMount() {
-    this.setState({
-      labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
-    });
-
-    let tempallergiearray = [];
-  }
-
+ 
   handleChange({ target }) {
 
     this.setState({
@@ -186,7 +173,7 @@ class AddVitals extends Component {
       temperature: this.state.Temperature,
       po2: this.state.PO2,
       datetimes: dateString,
-      allergiid: this.state.Allergy,
+      allergie: this.state.Allergy,
       patientid: this.state.patientid,
     };
     var formBody = [];
@@ -374,41 +361,16 @@ this.setState({
           />
 
           <br></br>
+<TextField
+ label="Add Allergy"
+ name="Allergy"
+ value={this.state.Allergy}
+ onChange={this.handleChange}
+ variant="outlined"
+ className={classes.textField}
+ margin="normal"
 
-          <FormControl variant="outlined" className={styles.formControl}>
-            <InputLabel style={{ marginTop: '7%' }}
-              ref={ref => {
-                this.InputLabelRef = ref;
-              }}
-              htmlFor="outlined-age-simple"
-            >
-              Allergy
-        </InputLabel>
-
-            <Select style={{ width: 220, marginTop: '7%' }}
-              name="Allergy"
-              value={this.state.Allergy}
-              onChange={this.handleChange}
-              input={
-                <OutlinedInput
-                  labelWidth={this.state.labelWidth}
-                  name="Allergy"
-                  id="outlined-age-simple"
-                // value={this.state.role}
-                />
-
-              }
-            >
-              <MenuItem value={'1'}>Allergy1</MenuItem>
-              <MenuItem value={'2'}>Allergy2</MenuItem>
-              <MenuItem value={'3'}>Allergy3</MenuItem>
-              <MenuItem value={'4'}>Allergy4</MenuItem>
-            </Select>
-
-
-
-
-          </FormControl>
+/>
           <br></br>
           <Button type="submit" variant="outlined" style={{ backgroundColor: '#2699FB', position: 'relative' }} onClick={this.patientvital}><b style={{ color: '#fff' }}>Add Vitals</b></Button>
 
