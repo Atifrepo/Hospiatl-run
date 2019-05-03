@@ -1,15 +1,9 @@
-import React,{Component} from 'react'
+import React, { Component } from 'react'
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
 import AdminAppBar from '../AdminAppbar'
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import axios from 'axios';
 import toastr from 'toastr';
 import 'toastr/build/toastr.min.css';
 import Cookies from 'universal-cookie';
@@ -22,10 +16,10 @@ const styles = theme => ({
     flexWrap: 'wrap',
   },
   textField: {
-    marginLeft: theme.spacing.unit   ,
+    marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
-    
-  
+
+
   },
   dense: {
     marginTop: 16,
@@ -34,38 +28,38 @@ const styles = theme => ({
     width: 200,
   },
 });
- class EditEmployee extends Component{
-constructor(){
+class EditEmployee extends Component {
+  constructor() {
     super();
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
 
-this.state={
-        EmployeeID:'',
-        NewPassword:''
+    this.state = {
+      EmployeeID: '',
+      NewPassword: ''
 
-}
-}
-handleChange({ target }) {
+    }
+  }
+  handleChange({ target }) {
 
     this.setState({
       [target.name]: target.value
 
     })
-    console.log('Edit', this.state);
+
   }
 
 
-  handleClick(){
-    console.log('Edit');
+  handleClick() {
+
     var editemployee = {
       username: this.state.EmployeeID,
       password: this.state.Password
-     
-      
-          };
+
+
+    };
     var formBody = [];
-   
+
     for (var property in editemployee) {
       var encodedKey = encodeURIComponent(property);
       var encodedValue = encodeURIComponent(editemployee[property]);
@@ -73,8 +67,6 @@ handleChange({ target }) {
     }
 
     formBody = formBody.join("&");
-
-    console.log("Form Body", formBody);
     var Authtoken = cookies.get('token')
     var finalAuthtoken = 'Bearer ' + Authtoken
 
@@ -90,26 +82,26 @@ handleChange({ target }) {
       body: formBody
 
     })
-    .then((resp) => {
-      if (resp.ok) {
-        toastr.options = {
-          positionClass: 'toast-top-right',
-          hideDuration: 3000,
-          timeOut: 100
+      .then((resp) => {
+        if (resp.ok) {
+          toastr.options = {
+            positionClass: 'toast-top-right',
+            hideDuration: 3000,
+            timeOut: 100
+          }
+          toastr.clear()
+          setTimeout(() => toastr.success(`User Password changed`), 300)
         }
-        toastr.clear()
-        setTimeout(() => toastr.success(`User Password changed`), 300)
-      }
- toastr.options = {
+        toastr.options = {
           positionClass: 'toast-bottom-left',
           hideDuration: 300000,
           timeOut: 100
         }
         toastr.clear()
         setTimeout(() => toastr.error(`Error exist`), 300)
-      
 
-    }).catch(error=> {
+
+      }).catch(error => {
         toastr.options = {
           positionClass: 'toast-bottom-left',
           hideDuration: 300000,
@@ -122,23 +114,23 @@ handleChange({ target }) {
 
   }
 
-render(){
-  const { classes } = this.props;
-    return(
-      
-        <div>
-          <AdminAppBar/>
-        
-            <TextField 
-              label="Enter Employee ID"
-              name="EmployeeID"
-              value={this.state.EmployeeID}
-              onChange={this.handleChange}
-              margin="normal"
-              variant="outlined"
-              className={classes.textField}
-            />
-{ /*
+  render() {
+    const { classes } = this.props;
+    return (
+
+      <div>
+        <AdminAppBar />
+
+        <TextField
+          label="Enter Employee ID"
+          name="EmployeeID"
+          value={this.state.EmployeeID}
+          onChange={this.handleChange}
+          margin="normal"
+          variant="outlined"
+          className={classes.textField}
+        />
+        { /*
             // <TextField 
 
             //   label="Change Employee Name"
@@ -149,20 +141,20 @@ render(){
             //   className={classes.textField}
             // />
             
-     */ }      
+     */ }
 
-            <br></br>
-            <TextField
+        <br></br>
+        <TextField
 
-              label="Change Password"
-              name="NewPassword"
-              value={this.state.NewPassword}
-              onChange={this.handleChange}
-              margin="normal"
-              variant="outlined"
-              className={classes.textField}
-            />
-            {/* <TextField 
+          label="Change Password"
+          name="NewPassword"
+          value={this.state.NewPassword}
+          onChange={this.handleChange}
+          margin="normal"
+          variant="outlined"
+          className={classes.textField}
+        />
+        {/* <TextField 
 
               label="Confirm New Password"
               value={this.state.NewPassword1}
@@ -171,7 +163,7 @@ render(){
               variant="outlined"
               className={classes.textField}
             /> */}
-            {/* <br></br>
+        {/* <br></br>
           <FormControl variant="outlined">
             <InputLabel
               ref={ref => {
@@ -198,11 +190,11 @@ render(){
               <MenuItem value={'Receptionist  '}>Receptionist</MenuItem>
             </Select>
           </FormControl> */}
-          <br></br>
-          <Button type="submit" variant="outlined" style={{ backgroundColor: '#2699FB', position: 'relative' }} onClick={this.handleClick}><b style={{color:'#fff'}}>Edit Employee</b></Button>
-        </div>
+        <br></br>
+        <Button type="submit" variant="outlined" style={{ backgroundColor: '#2699FB', position: 'relative' }} onClick={this.handleClick}><b style={{ color: '#fff' }}>Edit Employee</b></Button>
+      </div>
     )
-}
+  }
 }
 
 EditEmployee.propTypes = {

@@ -56,7 +56,7 @@ export default class Login extends Component {
     this.setState({
       [target.name]: target.value
     })
-    console.log('Register', this.state)
+   
   }
 
 
@@ -98,17 +98,16 @@ export default class Login extends Component {
       console.log(cookies.get('roles'));
       if (data.roles == 'Receptionist') {
         window.location.href = '/register';
-        console.log('login role', data.roles)
+      
       }
 
       if (data.roles == 'Nurse') {
         window.location.href = '/addvitals';
-        console.log('login role', data.roles)
-      }
+            }
 
       if (data.roles == 'Doctor') {
         window.location.href = '/SearchPatient';
-        console.log('login role', data.roles)
+      
       }
 
 
@@ -132,7 +131,7 @@ export default class Login extends Component {
 
 
 
-    console.log('res', details)
+   
 
   }
   render() {

@@ -42,7 +42,7 @@ export default class LoginAdmin extends Component {
     this.setState({
       [target.name]: target.value
     })
-    console.log('Register', this.state)
+   
   }
 
 
@@ -92,14 +92,13 @@ export default class LoginAdmin extends Component {
 
 
       .catch(function (error) {
-        // this.props.enqueueSnackbar('I love snacks.');
-
+      
       })
 
 
 
 
-    console.log('res', details)
+
 
   }
   render() {

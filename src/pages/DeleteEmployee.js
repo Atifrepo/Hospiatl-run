@@ -4,7 +4,6 @@ import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AdminAppbar from '../AdminAppbar';
-import axios from 'axios';
 import toastr from 'toastr';
 import 'toastr/build/toastr.min.css';
 import Cookies from 'universal-cookie';
@@ -47,14 +46,14 @@ class DeleteEmployee extends Component {
       [target.name]: target.value
 
     })
-    console.log('Edit', this.state);
+  
   }
 
 
   handleSubmit(){
-    console.log('')
+   
     var name=cookies.get('username')
-    console.log('username',name)
+  
    var deleteemployee = {
       username: this.state.EmployeeID,
       password: this.state.adminpassword,
@@ -72,7 +71,7 @@ class DeleteEmployee extends Component {
 
     formBody = formBody.join("&");
 
-    console.log("Form Body", formBody);
+  
     var Authtoken = cookies.get('token')
     var finalAuthtoken = 'Bearer ' + Authtoken
 

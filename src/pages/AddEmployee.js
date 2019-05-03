@@ -9,7 +9,6 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import AdminAppbar from '../AdminAppbar';
-import axios from 'axios';
 import toastr from 'toastr';
 import 'toastr/build/toastr.min.css';
 import Cookies from 'universal-cookie';
@@ -53,12 +52,11 @@ class AddEmployee extends Component {
       [target.name]: target.value
 
     })
-    console.log('Register', this.state);
+  
   }
 
  handleSubmit(){
 
-console.log("STate",this.state);
 var addemployee = {
       fullname: this.state.EmployeeID,
       password: this.state.Password,
@@ -75,7 +73,7 @@ var addemployee = {
 
     formBody = formBody.join("&");
 
-    console.log("Form Body", formBody);
+   
     var Authtoken = cookies.get('token')
     var finalAuthtoken = 'Bearer ' + Authtoken
 

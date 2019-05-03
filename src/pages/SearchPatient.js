@@ -135,7 +135,7 @@ class SearchExistingPatient extends Component {
       [target.name]: target.value
 
     })
-    console.log('Register', this.state.MR_No)
+   
   }
 
 
@@ -160,7 +160,7 @@ class SearchExistingPatient extends Component {
 
     formBody = formBody.join("&");
 
-    console.log("Form Body", formBody);
+
     var Authtoken = cookies.get('token')
     var finalAuthtoken = 'Bearer ' + Authtoken
 
@@ -187,19 +187,17 @@ class SearchExistingPatient extends Component {
         }
       })
       .then((result) => {
+ this.setState({ Name: result[0].patientname, 
+  Fathername: result[0].fathername, 
+  Age: result[0].age , 
+  patientid:result[0].patientid });
 
-        console.log("Response from server", result);
-        this.setState({ Name: result[0].patientname, Fathername: result[0].fathername, Age: result[0].age , patientid:result[0].patientid });
-        console.log("State after setting", this.state)
- //        result.forEach((item, i) => {
- //    this.rows.push(createData(item.paitentname, item.fathername, item.age,item.patientid,'abc'));
- // });
-
+ 
       this.setState({
         rows: result
       })
 
-      console.log("rows after result",this.state.rows);
+      
       
       })
       .catch((error) => {
@@ -218,8 +216,6 @@ class SearchExistingPatient extends Component {
 
 
   AddNotes() {
-
-    console.log('add notes');
     var currentDate = new Date();
     var date = currentDate.getDate();
     var month = currentDate.getMonth();
@@ -241,7 +237,6 @@ class SearchExistingPatient extends Component {
 
     formBody = formBody.join("&");
 
-    console.log("Form Body", formBody);
     var Authtoken = cookies.get('token')
     var finalAuthtoken = 'Bearer ' + Authtoken
 
@@ -288,7 +283,7 @@ class SearchExistingPatient extends Component {
   }
 
   handleClickOpen(ab) {
-    console.log('ab',ab.datetimes);
+
             var Search = {
             dates: ab.datetimes,
             patientid: this.state.patientid
@@ -304,7 +299,7 @@ class SearchExistingPatient extends Component {
 
     formBody = formBody.join("&");
 
-    console.log("Form Body", formBody);
+   
     var Authtoken = cookies.get('token')
     var finalAuthtoken = 'Bearer ' + Authtoken
 
@@ -326,19 +321,17 @@ class SearchExistingPatient extends Component {
         }
 
         if (resp.ok) {
-         console.log("Response",resp);
          var data = resp.json();
           return data;
 
          }
       })
       .then((result)=>{
-        console.log("Response from server", result);
+    
         this.setState({
           receivenote: result
         })
-        console.log(this.state.receivenote);
-
+      
       })
       .catch((error) => {
         toastr.options = {
@@ -368,16 +361,13 @@ class SearchExistingPatient extends Component {
     this.setState({ open: false });
   };
 
-   handleClick = (name) => {
-    console.log(name);
-  }
 
 
 
   render() {
     const { classes } = this.props;
     return (
-      <div>
+      <div style={{overflowY:'scroll'}} >
         <div>
         <DoctorAppBar/>
           <h2 style={{ color: '#2699FB', position: 'absolute' }}>Search patient</h2>

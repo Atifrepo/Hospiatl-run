@@ -85,7 +85,7 @@ class RegisterPatient extends Component {
 
 
     var formBody = [];
-    console.log("Register values", Register);
+   
 
 
     for (var property in Register) {
@@ -96,7 +96,6 @@ class RegisterPatient extends Component {
 
     formBody = formBody.join("&");
 
-    console.log("Form Body", formBody);
     var Authtoken = cookies.get('token')
     var finalAuthtoken = 'Bearer ' + Authtoken
 
@@ -134,8 +133,6 @@ class RegisterPatient extends Component {
       })
 
 
-    console.log('handle click login')
-    console.log('user', this.state)
 this.setState({
   Name: '',
   FatherName: '',
@@ -154,7 +151,7 @@ this.setState({
     this.setState({
       [target.name]: target.value
     })
-    console.log('Register', this.state)
+   
   }
 
 
@@ -170,19 +167,14 @@ this.setState({
     })
       .then((json) => {
         var data = json;
-        console.log(json.data);
         var mr = json.data
-        console.log(mr);
-
         this.setState({
           MR_No: mr
         })
 
-        console.log("MR Number", this.state.MR_No);
-
       })
       .catch(error => {
-        console.log(error)
+        
       })
 
 

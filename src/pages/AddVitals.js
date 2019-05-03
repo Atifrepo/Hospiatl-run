@@ -88,32 +88,6 @@ class AddVitals extends Component {
 
     let tempallergiearray = [];
   }
-  // fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/getallergi')
-  //       .then(response => {
-  //           console.log(response);
-  //           return response.json();
-  //       }).then(data => {
-  //         console.log(data);
-  //         var returndata = data[0];
-  //       tempallergiearray = returndata.map((result) => {
-  //           return result
-  //       });
-  //       console.log(tempallergiearray);
-  //       this.setState({
-  //           AllergyArray: tempallergiearray,
-  //       });
-  //   });
-
-  // }
-
-  // componentDidMount() {
-  //   var rolecookis = cookies.get('roles')
-  //   console.log('hi', rolecookis)
-  //   this.setState({
-  //     rolecookies: rolecookis
-  //   })
-  // }
-
 
   handleChange({ target }) {
 
@@ -121,7 +95,7 @@ class AddVitals extends Component {
       [target.name]: target.value
 
     })
-    console.log('Register', this.state.Vitals)
+   
   }
 
 
@@ -147,7 +121,7 @@ class AddVitals extends Component {
 
     formBody = formBody.join("&");
 
-    console.log("Form Body", formBody);
+   
     var Authtoken = cookies.get('token')
     var finalAuthtoken = 'Bearer ' + Authtoken
 
@@ -174,13 +148,13 @@ class AddVitals extends Component {
         }
       })
       .then((result) => {
-        console.log("Response from server", result);
+       
         this.setState({
           rows: result,
           patientid: result[0].patientid
         })
 
-        console.log(this.state.patientid);
+      
       })
       .catch((error) => {
         toastr.options = {
@@ -216,7 +190,7 @@ class AddVitals extends Component {
       patientid: this.state.patientid,
     };
     var formBody = [];
-    console.log("vitals values", Vitals);
+ 
     for (var property in Vitals) {
       var encodedKey = encodeURIComponent(property);
       var encodedValue = encodeURIComponent(Vitals[property]);
@@ -225,7 +199,7 @@ class AddVitals extends Component {
 
     formBody = formBody.join("&");
 
-    console.log("Form Body", formBody);
+   
     var Authtoken = cookies.get('token')
     var finalAuthtoken = 'Bearer ' + Authtoken
 

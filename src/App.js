@@ -110,7 +110,7 @@ class App extends Component {
 
   select() {
     var rolecookis = cookies.get('roles')
-    console.log('hi', rolecookis)
+  
     if (rolecookis == "nurse") {
 
     }

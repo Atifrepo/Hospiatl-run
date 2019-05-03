@@ -19,7 +19,7 @@ import classNames from 'classnames';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-const cookies=new Cookies();
+const cookies = new Cookies();
 const drawerWidth = 240;
 const styles = theme => ({
   root: {
@@ -38,7 +38,7 @@ const styles = theme => ({
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
-      backgroundColor:'#2699FB'
+      backgroundColor: '#2699FB'
     }),
   },
   menuButton: {
@@ -52,14 +52,14 @@ const styles = theme => ({
     width: drawerWidth,
     flexShrink: 0,
     whiteSpace: 'nowrap',
-  backgroundColor:'#2699FB'
+    backgroundColor: '#2699FB'
   },
   drawerOpen: {
     width: drawerWidth,
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
-      backgroundColor:'#2699FB'
+      backgroundColor: '#2699FB'
     }),
   },
   drawerClose: {
@@ -74,8 +74,8 @@ const styles = theme => ({
     },
     grow: {
       flexGrow: 1,
-      justifyContent:'left'
-      
+      justifyContent: 'left'
+
     },
   },
   toolbar: {
@@ -84,12 +84,12 @@ const styles = theme => ({
     justifyContent: 'flex-end',
     padding: '0 8px',
     ...theme.mixins.toolbar,
-    backgroundColor:'#2699FB'
+    backgroundColor: '#2699FB'
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing.unit * 3,
-    backgroundColor:'#2699FB'
+    backgroundColor: '#2699FB'
   },
 });
 
@@ -107,15 +107,16 @@ class AdminAppbar extends React.Component {
   handleClose = () => {
     this.setState({ anchorEl: null });
   };
-logout=()=>{
-  console.log('logout')
-  localStorage.clear();
-  window.location.href = '/Admin';
-cookies.remove('roles')
-cookies.remove('username')
-cookies.remove('token')
+  logout = () => {
 
-}
+
+    localStorage.clear();
+    window.location.href = '/Admin';
+    cookies.remove('roles')
+    cookies.remove('username')
+    cookies.remove('token')
+
+  }
   handleDrawerOpen = () => {
     this.setState({ open: true });
   };
@@ -123,10 +124,10 @@ cookies.remove('token')
   handleDrawerClose = () => {
     this.setState({ open: false });
   };
-route(path){
-  console.log('in route');
-  window.location.href = path;
-}
+  route(path) {
+
+    window.location.href = path;
+  }
 
   render() {
     const { auth, anchorEl } = this.state;
@@ -134,12 +135,13 @@ route(path){
     const { classes, theme } = this.props;
     return (
       <div className={classes.root}>
-    
-        <AppBar position="fixed" style={{backgroundColor:'#2699FB'}}
-        className={classNames(classes.appBar,{[classes.appBarShift]:this.state.open,
-        })}
+
+        <AppBar position="fixed" style={{ backgroundColor: '#2699FB' }}
+          className={classNames(classes.appBar, {
+            [classes.appBarShift]: this.state.open,
+          })}
         >
-<Toolbar disableGutters={!this.state.open}>
+          <Toolbar disableGutters={!this.state.open}>
             <IconButton
               color="inherit"
               aria-label="Open drawer"
@@ -148,90 +150,90 @@ route(path){
                 [classes.hide]: this.state.open,
               })}
             >
-            <MenuIcon/>
+              <MenuIcon />
 
             </IconButton>
             <Typography variant="h6" color="inherit" className={classes.grow} noWrap>
-            Prime Specialist Clinic
+              Prime Specialist Clinic
             </Typography>
-            <div style={{paddingLeft:'75%'}}> 
-               <IconButton
-                  aria-owns={open ? 'menu-appbar' : undefined}
-                  aria-haspopup="true"
-                  onClick={this.handleMenu}
-                  color="inherit"
-                >
-                  <AccountCircle  />
-                </IconButton>
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  open={open}
-                  onClose={this.handleClose}
-                >
-                  <MenuItem onClick={this.logout}>logout</MenuItem>
-                  
-                </Menu>
-                </div>
+            <div style={{ paddingLeft: '75%' }}>
+              <IconButton
+                aria-owns={open ? 'menu-appbar' : undefined}
+                aria-haspopup="true"
+                onClick={this.handleMenu}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={open}
+                onClose={this.handleClose}
+              >
+                <MenuItem onClick={this.logout}>logout</MenuItem>
 
-                </Toolbar>
+              </Menu>
+            </div>
 
-               
-                 </AppBar>
-   <Drawer
-            //  variant="permanent"
-            //  className={classNames(classes.drawer, {
-            //    [classes.drawerOpen]: this.state.open,
-            //    [classes.drawerClose]: !this.state.open,
-            //  })}
-             classes={{
-               paper: classNames({
-                 [classes.drawerOpen]                  : this.state.open,
-                 [classes.drawerClose]: !this.state.open,
-               }),
-             }}
-             open={this.state.open}
-             >
-              <div className={classes.toolbar}>
+          </Toolbar>
+
+
+        </AppBar>
+        <Drawer
+          //  variant="permanent"
+          //  className={classNames(classes.drawer, {
+          //    [classes.drawerOpen]: this.state.open,
+          //    [classes.drawerClose]: !this.state.open,
+          //  })}
+          classes={{
+            paper: classNames({
+              [classes.drawerOpen]: this.state.open,
+              [classes.drawerClose]: !this.state.open,
+            }),
+          }}
+          open={this.state.open}
+        >
+          <div className={classes.toolbar}>
             <IconButton onClick={this.handleDrawerClose}>
               {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
             </IconButton>
           </div>
           <List>
-          <ListItem button onClick={(event) => this.route('/addEmployee')} style={{backgroundColor:'#2699FB',}}>
-                <ListItemIcon style={{color:'#fff'}}> 
-                  Add Employee
+            <ListItem button onClick={(event) => this.route('/addEmployee')} style={{ backgroundColor: '#2699FB', }}>
+              <ListItemIcon style={{ color: '#fff' }}>
+                Add Employee
                    </ListItemIcon>
-                <ListItemText primary />
-              </ListItem>
-<Divider/>
-<ListItem button onClick={(event) => this.route('/EditEmployee')} style={{backgroundColor:'#2699FB',}}>
-                <ListItemIcon style={{color:'#fff'}}> 
-                  Edit Employee
+              <ListItemText primary />
+            </ListItem>
+            <Divider />
+            <ListItem button onClick={(event) => this.route('/EditEmployee')} style={{ backgroundColor: '#2699FB', }}>
+              <ListItemIcon style={{ color: '#fff' }}>
+                Edit Employee
                    </ListItemIcon>
-                <ListItemText primary />
-              </ListItem>
+              <ListItemText primary />
+            </ListItem>
 
-         <Divider/>
-          <ListItem button onClick={(event) => this.route('/DeleteEmployee')} style={{backgroundColor:'#2699FB',}}>
-                <ListItemIcon style={{color:'#fff'}}> 
-                  Delete Employee
+            <Divider />
+            <ListItem button onClick={(event) => this.route('/DeleteEmployee')} style={{ backgroundColor: '#2699FB', }}>
+              <ListItemIcon style={{ color: '#fff' }}>
+                Delete Employee
                    </ListItemIcon>
-                <ListItemText primary />
-              </ListItem>
-              </List>
+              <ListItemText primary />
+            </ListItem>
+          </List>
 
-             </Drawer>
-            
-                
+        </Drawer>
+
+
       </div>
     );
   }
@@ -241,4 +243,4 @@ AdminAppbar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true } )(AdminAppbar);
+export default withStyles(styles, { withTheme: true })(AdminAppbar);

@@ -108,7 +108,7 @@ class DoctorAppbar extends React.Component {
     this.setState({ anchorEl: null });
   };
 logout=()=>{
-  console.log('logout')
+ 
   localStorage.clear();
   window.location.href = '/';
 cookies.remove('roles')
@@ -124,7 +124,7 @@ cookies.remove('token')
     this.setState({ open: false });
   };
 route(path){
-  console.log('in route');
+ 
   window.location.href = path;
 }
 

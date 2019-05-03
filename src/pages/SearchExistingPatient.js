@@ -81,7 +81,7 @@ class SearchExistingPatient extends Component {
       [target.name]: target.value
 
     })
-    console.log('Register', this.state.MR_No)
+
   }
 
 
@@ -103,7 +103,7 @@ class SearchExistingPatient extends Component {
 
     formBody = formBody.join("&");
 
-    console.log("Form Body", formBody);
+   
     var Authtoken = cookies.get('token')
     var finalAuthtoken = 'Bearer ' + Authtoken
 
@@ -130,13 +130,13 @@ class SearchExistingPatient extends Component {
         }
       })
       .then((result) => {
-        console.log("Response from server", result);
+      
         this.setState({ Name: result[0].patientname, Fathername: result[0].fathername, Age: result[0].age, Gender: result[0].gender, Phone_No: result[0].telephone1 });
         this.setState({
           rows: result
         })
 
-        console.log("Row state", this.state.row);
+    
 
       })
       .catch((error) => {
