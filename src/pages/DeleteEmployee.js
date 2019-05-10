@@ -50,7 +50,8 @@ class DeleteEmployee extends Component {
   }
 
 
-  handleSubmit(){
+  handleSubmit = (event) =>{
+    event.preventDefault();
    
     var name=cookies.get('username')
   
@@ -126,10 +127,12 @@ class DeleteEmployee extends Component {
       <div>
         <h2 style={{ color: '#2699FB' }}>Delete User</h2>
         <AdminAppbar />
+        <form onSubmit={this.handleSubmit}>
         <TextField
 
           label="Employee ID"
           name="EmployeeID"
+          required={true}
           value={this.state.EmployeeID}
           onChange={this.handleChange}
           margin="normal"
@@ -140,6 +143,7 @@ class DeleteEmployee extends Component {
         <TextField
           label="Enter admin Password"
           name="adminpassword"
+          required={true}
           value={this.state.adminpassword}
           onChange={this.handleChange}
           margin="normal"
@@ -147,7 +151,8 @@ class DeleteEmployee extends Component {
           className={classes.textField}
         />
         <br></br>
-        <Button variant="contained" style={{ backgroundColor: 'red', width: 220 }} onClick={this.handleSubmit}><b style={{color:'#fff'}}>Delete</b></Button>
+        <Button variant="contained" style={{ backgroundColor: 'red', width: 220 }} type="submit"><b style={{color:'#fff'}}>Delete</b></Button>
+      </form>
       </div>
     )
   }

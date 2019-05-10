@@ -55,7 +55,8 @@ class AddEmployee extends Component {
   
   }
 
- handleSubmit(){
+ handleSubmit = (event) =>{
+   event.preventDefault();
 
 var addemployee = {
       fullname: this.state.EmployeeID,
@@ -131,11 +132,12 @@ var addemployee = {
       <div>
         <h2 style={{ color: '#2699FB' }}>Add Employee</h2>
         <AdminAppbar />
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <TextField
 
             label="Enter Employee Name"
             name="EmployeeID"
+            required={true}
             value={this.state.EmployeeID}
             onChange={this.handleChange}
             margin="normal"
@@ -147,6 +149,7 @@ var addemployee = {
 
             label="Set Password"
             name="Password"
+            required={true}
             value={this.state.Password}
             onChange={this.handleChange}
             margin="normal"
@@ -187,7 +190,7 @@ var addemployee = {
           </FormControl>
           <br></br>
           <br></br>
-          <Button variant="contained" style={{ backgroundColor: '#2699FB', width: 220 }} onClick={this.handleSubmit}><b style={{color:'#fff'}}> Add User</b></Button>
+          <Button variant="contained" style={{ backgroundColor: '#2699FB', width: 220 }} type="submit"><b style={{color:'#fff'}}> Add User</b></Button>
         </form>
 
 

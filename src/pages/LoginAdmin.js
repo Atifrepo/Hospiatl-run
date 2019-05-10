@@ -48,6 +48,7 @@ export default class LoginAdmin extends Component {
 
 
   handleSubmit = (event) => {
+    event.preventDefault();
     var details = {
       username: this.state.username,
       password: this.state.password,
@@ -107,14 +108,16 @@ export default class LoginAdmin extends Component {
     return (
       <div>
 
-        <form>
+        <form onSubmit={this.handleSubmit}>
 
           <br></br>
           <br></br>
           <br></br>
           <br></br>
+
           <TextField
             name="username"
+            required={true}
             label="Employee ID"
             value={this.state.username}
             onChange={this.handleChange}
@@ -125,6 +128,7 @@ export default class LoginAdmin extends Component {
 
           <TextField
             name="password"
+            required={true}
             id="outlined-password-input"
             label="Password"
 
@@ -139,7 +143,7 @@ export default class LoginAdmin extends Component {
           <br></br>
 
          
-         <Button variant="contained" style={{ backgroundColor: '#2699FB', width: 220 }} onClick={this.handleSubmit}><b style={{color:'#fff'}}>login</b></Button>
+         <Button variant="contained" style={{ backgroundColor: '#2699FB', width: 220 }} type="submit"><b style={{color:'#fff'}}>login</b></Button>
         </form>
       </div>
     )

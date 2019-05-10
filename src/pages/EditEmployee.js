@@ -50,7 +50,7 @@ class EditEmployee extends Component {
   }
 
 
-  handleClick() {
+  handleClick=(event) => {
 
     var editemployee = {
       username: this.state.EmployeeID,
@@ -120,78 +120,35 @@ class EditEmployee extends Component {
 
       <div>
         <AdminAppBar />
-
+        <form onSubmit={this.handleClick}>
         <TextField
           label="Enter Employee ID"
           name="EmployeeID"
+          required={true}
           value={this.state.EmployeeID}
           onChange={this.handleChange}
           margin="normal"
           variant="outlined"
           className={classes.textField}
         />
-        { /*
-            // <TextField 
-
-            //   label="Change Employee Name"
-            //   value={this.state.NewName}
-            //   onChange={this.handleChange.bind(this, 'NewName')}
-            //   margin="normal"
-            //   variant="outlined"
-            //   className={classes.textField}
-            // />
-            
-     */ }
+       
 
         <br></br>
         <TextField
 
           label="Change Password"
           name="NewPassword"
+          required={true}
           value={this.state.NewPassword}
           onChange={this.handleChange}
           margin="normal"
           variant="outlined"
           className={classes.textField}
         />
-        {/* <TextField 
-
-              label="Confirm New Password"
-              value={this.state.NewPassword1}
-              onChange={this.handleChange.bind(this, 'NewPassword1')}
-              margin="normal"
-              variant="outlined"
-              className={classes.textField}
-            /> */}
-        {/* <br></br>
-          <FormControl variant="outlined">
-            <InputLabel
-              ref={ref => {
-                this.InputLabelRef = ref;
-              }}
-              htmlFor="outlined-age-simple"
-            >
-              Role
-          </InputLabel>
-            <Select style={{width:250,marginRight:"100%",paddingLeft:'50'}}
-              value={this.state.type}
-              onChange={this.handleChange.bind(this, 'type')}
-              input={
-                <OutlinedInput
-                  labelWidth={this.state.labelWidth}
-                  name="type"
-                  id="outlined-age-simple"
-                />
-              }
-            >
-              <MenuItem value={'Admin'}>Admin</MenuItem>
-              <MenuItem value={'Doctor'}>Doctor</MenuItem>
-              <MenuItem value={'Nurse'}>Nurse</MenuItem>
-              <MenuItem value={'Receptionist  '}>Receptionist</MenuItem>
-            </Select>
-          </FormControl> */}
+       
         <br></br>
-        <Button type="submit" variant="outlined" style={{ backgroundColor: '#2699FB', position: 'relative' }} onClick={this.handleClick}><b style={{ color: '#fff' }}>Edit Employee</b></Button>
+        <Button type="submit" variant="outlined" style={{ backgroundColor: '#2699FB', position: 'relative' }} type="submit"><b style={{ color: '#fff' }}>Edit Employee</b></Button>
+     </form>
       </div>
     )
   }
