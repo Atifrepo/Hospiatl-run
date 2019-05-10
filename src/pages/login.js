@@ -62,80 +62,88 @@ export default class Login extends Component {
 
 
   handleSubmit = (event) => {
-    console.log("event",event);
+
+
      event.preventDefault();
-    var details = {
-      username: this.state.username,
-      password: this.state.password,
-      role: this.state.role
-    };
-
-    var formBody = [];
-    for (var property in details) {
-      var encodedKey = encodeURIComponent(property);
-      var encodedValue = encodeURIComponent(details[property]);
-      formBody.push(encodedKey + "=" + encodedValue);
-    }
-    var token;
-    var username;
-
-    formBody = formBody.join("&");
-
-    fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/loginuser', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-      },
-      body: formBody
-    }).then(function (resp) {
-      if (resp.ok) {
-        return resp.json()
-      }
-    }).then(function (data) {
-      cookies.set('token', data.token, { path: '/' });
-      console.log(cookies.get('token'));
-      cookies.set('username', data.username, { path: '/' });
-      console.log(cookies.get('username'));
-      cookies.set('roles', data.roles, { path: '/' });
-      console.log(cookies.get('roles'));
-      if (data.roles == 'Receptionist') {
-        window.location.href = '/register';
-      
-      }
-
-      if (data.roles == 'Nurse') {
-        window.location.href = '/addvitals';
+     if(!this.state.role){
+            toastr.options = {
+              positionClass: 'toast-bottom-left',
+              hideDuration: 300000,
+              timeOut: 100
             }
+            toastr.clear()
+            setTimeout(() => toastr.error(`Please select role`), 300)
+     }
 
-      if (data.roles == 'Doctor') {
-        window.location.href = '/SearchPatient';
-      
-      }
-
-
-
-    })
-
-
-      .catch(function (error) {
-        toastr.options = {
-          positionClass: 'toast-bottom-left',
-          hideDuration: 300000,
-          timeOut: 100
-        }
-        toastr.clear()
-        setTimeout(() => toastr.error(`username or password is incorrect`), 300)
-      })
-
-
-
-
-
-
-
+   else {
    
 
+             var details = {
+                    username: this.state.username,
+                    password: this.state.password,
+                    role: this.state.role
+               };
+
+            var formBody = [];
+            for (var property in details) {
+                var encodedKey = encodeURIComponent(property);
+                var encodedValue = encodeURIComponent(details[property]);
+                formBody.push(encodedKey + "=" + encodedValue);
+            }
+
+            formBody = formBody.join("&");
+
+            fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/loginuser', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+              },
+              body: formBody
+            }).then(function (resp) {
+              if (resp.ok) {
+                return resp.json()
+              }
+            }).then(function (data) {
+              cookies.set('token', data.token, { path: '/' });
+              cookies.set('username', data.username, { path: '/' });
+              cookies.set('roles', data.roles, { path: '/' });
+              if (data.roles == 'Receptionist') {
+                window.location.href = '/register';
+              
+              }
+
+              if (data.roles == 'Nurse') {
+                window.location.href = '/addvitals';
+                    }
+
+              if (data.roles == 'Doctor') {
+                window.location.href = '/SearchPatient';
+              
+              }
+
+
+
+            })
+
+
+              .catch(function (error) {
+                toastr.options = {
+                  positionClass: 'toast-bottom-left',
+                  hideDuration: 300000,
+                  timeOut: 100
+                }
+                toastr.clear()
+                setTimeout(() => toastr.error(`username or password is incorrect`), 300)
+              })
+
+
+
+}
+
   }
+
+
+
   render() {
 
 
@@ -176,7 +184,7 @@ export default class Login extends Component {
           <br></br>
           <br></br>
 
-          <FormControl variant="outlined" className={styles.formControl} required>
+          <FormControl variant="outlined" className={styles.formControl} >
             <InputLabel
               ref={ref => {
                 this.InputLabelRef = ref;
@@ -189,6 +197,7 @@ export default class Login extends Component {
             <Select style={{ width: 220 }}
 
               name="role"
+              required
               value={this.state.role}
               onChange={this.handleChange}
               input={
