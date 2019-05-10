@@ -62,6 +62,8 @@ export default class Login extends Component {
 
 
   handleSubmit = (event) => {
+    console.log("event",event);
+     event.preventDefault();
     var details = {
       username: this.state.username,
       password: this.state.password,
@@ -140,7 +142,7 @@ export default class Login extends Component {
     return (
       <div>
 
-        <form >
+        <form  onSubmit={this.handleSubmit}>
 
           <br></br>
           <br></br>
@@ -148,6 +150,7 @@ export default class Login extends Component {
           <br></br>
           <TextField
             id="standard-required"
+            required={true}
             name="username"
             label="Employee ID"
             value={this.state.username}
@@ -159,6 +162,7 @@ export default class Login extends Component {
 
           <TextField
             name="password"
+            required={true}
             id="outlined-password-input"
             label="Password"
 
@@ -207,7 +211,7 @@ export default class Login extends Component {
 
             <br></br>
             <br></br>
-            <Button variant="contained" style={{ backgroundColor: '#2699FB', width: 220 }} onClick={this.handleSubmit}><b style={{ color: '#fff' }}>login</b></Button>
+            <Button variant="contained" style={{ backgroundColor: '#2699FB', width: 220 }} type="submit"><b style={{ color: '#fff' }}>login</b></Button>
           </FormControl>
         </form>
       </div>

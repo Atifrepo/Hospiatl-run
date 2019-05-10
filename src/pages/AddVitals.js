@@ -46,7 +46,7 @@ class AddVitals extends Component {
     super()
     this.handleChange = this.handleChange.bind(this);
     this.patientvital = this.patientvital.bind(this);
-    this.GetAllergy = this.GetAllergy.bind(this);
+  
     this.Search = this.Search.bind(this);
 
     this.state = {
@@ -87,8 +87,9 @@ class AddVitals extends Component {
 
 
 
-  Search() {
+  Search = (event) => {
 
+    event.preventDefault();
     var Search = {
       searchmrnumber: this.state.MR_No
     };
@@ -158,8 +159,8 @@ class AddVitals extends Component {
 
 
 
-  patientvital() {
-    var currentDate = new Date();
+  patientvital = (event) => {
+     var currentDate = new Date();
     var date = currentDate.getDate();
     var month = currentDate.getMonth();
     var year = currentDate.getFullYear();
@@ -224,9 +225,7 @@ this.setState({
 })
   }
 
-  GetAllergy() {
-
-  }
+ 
 
 
 
@@ -246,17 +245,19 @@ this.setState({
           <NurseAppbar />
 
           <div  >
+          <form onSubmit={this.Search}>
             <TextField
               label="Enter MR_No"
               name="MR_No"
+              required={true}
               value={this.state.MR_No}
               onChange={this.handleChange}
               margin="normal"
               variant="outlined"
               className={classes.textField}
             />
-            <Button variant="outlined" style={{ backgroundColor: '#2699FB', marginTop: '2%' }} onClick={this.Search}><b style={{ color: '#fff' }}>Search</b></Button>
-
+            <Button variant="outlined" style={{ backgroundColor: '#2699FB', marginTop: '2%' }} type="submit"><b style={{ color: '#fff' }}>Search</b></Button>
+</form>
 
           </div>
 
@@ -299,9 +300,11 @@ this.setState({
 
 
           <br></br>
+          <form onSubmit={this.patientvital}>
           <TextField
             label="Height(cm)"
             name="Height"
+            required={true}
             value={this.state.Height}
             onChange={this.handleChange}
             variant="outlined"
@@ -312,6 +315,7 @@ this.setState({
           <TextField
             label="Weight(kg)"
             name="Weight"
+            required={true}
             value={this.state.Weight}
             onChange={this.handleChange}
             variant="outlined"
@@ -323,6 +327,7 @@ this.setState({
           <TextField
             label="BP(mmHg)"
             name="BP"
+            required={true}
             value={this.state.BP}
             onChange={this.handleChange}
             variant="outlined"
@@ -332,6 +337,7 @@ this.setState({
           <TextField
             label="Pulse(bpm)"
             name="Pulse"
+            required={true}
             value={this.state.Pulse}
             onChange={this.handleChange}
             variant="outlined"
@@ -343,6 +349,7 @@ this.setState({
           <TextField
             label="Temperature(°F)"
             name="Temperature"
+            required={true}
             value={this.state.Temperature}
             onChange={this.handleChange}
             variant="outlined"
@@ -353,6 +360,7 @@ this.setState({
           <TextField
             label="PO2"
             name="PO2"
+            required={true}
             value={this.state.PO2}
             onChange={this.handleChange}
             variant="outlined"
@@ -364,6 +372,7 @@ this.setState({
 <TextField
  label="Add Allergy"
  name="Allergy"
+ required={true}
  value={this.state.Allergy}
  onChange={this.handleChange}
  variant="outlined"
@@ -372,8 +381,8 @@ this.setState({
 
 />
           <br></br>
-          <Button type="submit" variant="outlined" style={{ backgroundColor: '#2699FB', position: 'relative' }} onClick={this.patientvital}><b style={{ color: '#fff' }}>Add Vitals</b></Button>
-
+          <Button type="submit" variant="outlined" style={{ backgroundColor: '#2699FB', position: 'relative' }} type="submit"><b style={{ color: '#fff' }}>Add Vitals</b></Button>
+</form>
         </div>
 
       </div>

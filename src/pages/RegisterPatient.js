@@ -71,8 +71,8 @@ class RegisterPatient extends Component {
 
 
 
-  handleClick() {
-
+  handleClick = (event) => {
+     event.preventDefault();
     var Register = {
       patientname: this.state.Name,
       patientfathername: this.state.FatherName,
@@ -204,11 +204,12 @@ this.setState({
           <Button variant="outlined" style={{ backgroundColor: '#2699FB', marginTop: '2%' }} onClick={this.MRNo}><b style={{color:'#fff'}}>Generate MR_No</b></Button>
         </div>
         <br></br>
+        <form onSubmit={this.handleClick}>
         <TextField
           label="Name"
           name="Name"
           value={this.state.Name}
-          required
+          required={true}
           onChange={this.handleChange}
           margin="normal"
           variant="outlined"
@@ -219,7 +220,7 @@ this.setState({
 
         <TextField
           label="Husband/Father Name"
-          required
+          required={true}
           name="FatherName"
           value={this.state.FatherName}
           onChange={this.handleChange}
@@ -231,7 +232,7 @@ this.setState({
         <br></br>
         <TextField
           label="Age"
-          required
+          required={true}
           name="Age"
           value={this.state.Age}
           onChange={this.handleChange}
@@ -242,7 +243,7 @@ this.setState({
 
         <TextField
           label="Telephone#1"
-          required
+          required={true}
           name="Telephone1"
           value={this.state.Telephone1}
 
@@ -255,7 +256,7 @@ this.setState({
         <br></br>
         <TextField
           label="Telephone#2"
-          required
+         
           name="Telephone2"
           value={this.state.Telephone2}
 
@@ -303,9 +304,9 @@ this.setState({
 
         <br></br>
 
-        <Button type="submit" variant="outlined" style={{ backgroundColor: '#2699FB', position: 'relative' }} onClick={this.handleClick}><b style={{color:'#fff'}} >Register   Patient</b></Button>
+        <Button type="submit" variant="outlined" style={{ backgroundColor: '#2699FB', position: 'relative' }} ><b style={{color:'#fff'}} >Register   Patient</b></Button>
 
-
+        </form>
 
 
 

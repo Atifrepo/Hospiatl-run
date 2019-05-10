@@ -87,8 +87,8 @@ class SearchExistingPatient extends Component {
 
 
 
-  handleSearch() {
-
+  handleSearch = (event) => {
+    event.preventDefault();
     var Search = {
       searchmrnumber: this.state.MR_No
     };
@@ -164,8 +164,10 @@ class SearchExistingPatient extends Component {
         <RecAppbar />
 
         <h1 style={{ color: '#2699FB', position: 'absolute' }}>Search existing patient</h1>
+        <form onSubmit={this.handleSearch}>
         <TextField
           label="Search Patient"
+          required={true}
           name="MR_No"
           value={this.state.MR_No}
           onChange={this.handleChange}
@@ -173,8 +175,8 @@ class SearchExistingPatient extends Component {
           variant="outlined"
           className={classes.textField}
         />
-        <Button variant="outlined" style={{ backgroundColor: '#2699FB', marginTop: '2%' }} onClick={this.handleSearch}><b style={{color:'#fff'}}>Search</b></Button>
-
+        <Button variant="outlined" style={{ backgroundColor: '#2699FB', marginTop: '2%' }} type="submit" ><b style={{color:'#fff'}}>Search</b></Button>
+</form>
         <Paper>
           <Table className={classes.table}>
             <TableHead>

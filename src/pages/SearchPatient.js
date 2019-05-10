@@ -141,7 +141,8 @@ class SearchExistingPatient extends Component {
 
 
 
-  handleSearch() {
+  handleSearch = (event) => {
+    event.preventDefault();
 
     var Search = {
       patientmrnumber: this.state.MR_No
@@ -215,7 +216,8 @@ class SearchExistingPatient extends Component {
 
 
 
-  AddNotes() {
+  AddNotes = (event)=> {
+    event.preventDefault();
     var currentDate = new Date();
     var date = currentDate.getDate();
     var month = currentDate.getMonth();
@@ -373,17 +375,19 @@ class SearchExistingPatient extends Component {
       <div style={{overflowX:"hidden"}}>
         <DoctorAppBar/>
           <h2 style={{ color: '#2699FB', position: 'absolute' }}>Search patient</h2>
+          <form onSubmit={this.handleSearch}>
           <TextField
             label="Search Patient"
             name="MR_No"
+            required={true}
             value={this.state.MR_No}
             onChange={this.handleChange}
             margin="normal"
             variant="outlined"
             className={classes.textField}
           />
-          <Button variant="outlined" style={{ backgroundColor: '#2699FB', marginTop: '2%' }} onClick={this.handleSearch}><b style={{color:'#fff'}}>Search</b></Button>
-           
+          <Button variant="outlined" style={{ backgroundColor: '#2699FB', marginTop: '2%' }} type="submit"><b style={{color:'#fff'}}>Search</b></Button>
+           </form>
          {/* </div> */}
 
         <Table className='Patient Information'>
@@ -449,12 +453,14 @@ class SearchExistingPatient extends Component {
 </div>
         {/* <div style={{ paddingLeft: 500, paddingTop: 100,position:'fixed' }}> */}
         <h3 style={{ color: '#2699FB'}}>Notes/Diagnostics Results/Prescription</h3>
+        <form onSubmit={this.AddNotes}>
           <TextField style={{ width: '80%' }}
             id="outlined-multiline-static"
 
             multiline
             rows="10"
             name="note"
+            required={true}
             value={this.state.note}
             onChange={this.handleChange}
             className={classes.textField}
@@ -462,7 +468,8 @@ class SearchExistingPatient extends Component {
             variant="outlined"
           />
           <br></br>
-          <Button variant="outlined" style={{ backgroundColor: '#2699FB', marginTop: '2%', }} onClick={this.AddNotes}><b style={{color:'#fff'}}>Add Notes</b></Button>
+          <Button variant="outlined" style={{ backgroundColor: '#2699FB', marginTop: '2%', }} type="submit"><b style={{color:'#fff'}}>Add Notes</b></Button>
+        </form>
         {/* </div> */}
       </div>
 
