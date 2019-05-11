@@ -189,7 +189,7 @@ class SearchExistingPatient extends Component {
       })
       .catch((error) => {
         toastr.options = {
-          positionClass: 'toast-top-right',
+          positionClass: 'toast-bottom-left',
           hideDuration: 300000,
           timeOut: 100
         }
@@ -247,8 +247,8 @@ class SearchExistingPatient extends Component {
 
         if (resp.ok) {
          toastr.options = {
-          positionClass: 'toast-top-right',
-          hideDuration: 3000,
+          positionClass: 'toast-bottom-left',
+          hideDuration: 300000,
           timeOut: 100
         }
         toastr.clear()
@@ -257,7 +257,7 @@ class SearchExistingPatient extends Component {
       })
       .catch((error) => {
         toastr.options = {
-          positionClass: 'toast-top-right',
+          positionClass: 'toast-bottom-left',
           hideDuration: 300000,
           timeOut: 100
         }

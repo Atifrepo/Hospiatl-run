@@ -85,8 +85,8 @@ class EditEmployee extends Component {
       .then((resp) => {
         if (resp.ok) {
           toastr.options = {
-            positionClass: 'toast-top-right',
-            hideDuration: 3000,
+            positionClass: 'toast-bottom-left',
+            hideDuration: 300000,
             timeOut: 100
           }
           toastr.clear()

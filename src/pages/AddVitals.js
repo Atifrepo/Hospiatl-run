@@ -146,7 +146,7 @@ class AddVitals extends Component {
       })
       .catch((error) => {
         toastr.options = {
-          positionClass: 'toast-top-right',
+          positionClass: 'toast-bottom-left',
           hideDuration: 300000,
           timeOut: 100
         }
@@ -205,7 +205,7 @@ class AddVitals extends Component {
     }).then((resp) => {
       if (resp.ok) {
         toastr.options = {
-          positionClass: 'toast-top-right',
+          positionClass: 'toast-bottom-left',
           hideDuration: 300000,
           timeOut: 100
         }
