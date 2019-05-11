@@ -206,7 +206,7 @@ class AddVitals extends Component {
       if (resp.ok) {
         toastr.options = {
           positionClass: 'toast-top-right',
-          hideDuration: 3000,
+          hideDuration: 300000,
           timeOut: 100
         }
         toastr.clear()

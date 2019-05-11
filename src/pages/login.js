@@ -9,6 +9,12 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Cookies from 'universal-cookie';
 import toastr from 'toastr'
+import classNames from 'classnames';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import IconButton from '@material-ui/core/IconButton';
+import InputAdornment from '@material-ui/core/InputAdornment';
+
 
 const cookies = new Cookies();
 const styles = theme => ({
@@ -19,6 +25,9 @@ const styles = theme => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
+  },
+  margin: {
+    margin: theme.spacing.unit,
   },
   formControl: {
     margin: theme.spacing.unit,
@@ -41,6 +50,8 @@ export default class Login extends Component {
       password: '',
       role: '',
       name: 'hai',
+      required:true,
+      showPassword: false,
 
 
     }
@@ -62,103 +73,88 @@ export default class Login extends Component {
 
 
   handleSubmit = (event) => {
+    var details = {
+      username: this.state.username,
+      password: this.state.password,
+      role: this.state.role
+    };
 
+    var formBody = [];
+    for (var property in details) {
+      var encodedKey = encodeURIComponent(property);
+      var encodedValue = encodeURIComponent(details[property]);
+      formBody.push(encodedKey + "=" + encodedValue);
+    }
+    var token;
+    var username;
 
-     event.preventDefault();
-     if(!this.state.role){
-            toastr.options = {
-              positionClass: 'toast-bottom-left',
-              hideDuration: 300000,
-              timeOut: 100
+    formBody = formBody.join("&");
+
+    fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/loginuser', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+      },
+      body: formBody
+    }).then(function (resp) {
+      if (resp.ok) {
+        return resp.json()
+      }
+    }).then(function (data) {
+      cookies.set('token', data.token, { path: '/' });
+      console.log(cookies.get('token'));
+      cookies.set('username', data.username, { path: '/' });
+      console.log(cookies.get('username'));
+      cookies.set('roles', data.roles, { path: '/' });
+      console.log(cookies.get('roles'));
+      if (data.roles == 'Receptionist') {
+        window.location.href = '/register';
+      
+      }
+
+      if (data.roles == 'Nurse') {
+        window.location.href = '/addvitals';
             }
-            toastr.clear()
-            setTimeout(() => toastr.error(`Please select role`), 300)
-     }
 
-   else {
-   
-
-             var details = {
-                    username: this.state.username,
-                    password: this.state.password,
-                    role: this.state.role
-               };
-
-            var formBody = [];
-            for (var property in details) {
-                var encodedKey = encodeURIComponent(property);
-                var encodedValue = encodeURIComponent(details[property]);
-                formBody.push(encodedKey + "=" + encodedValue);
-            }
-
-            formBody = formBody.join("&");
-
-            fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/loginuser', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-              },
-              body: formBody
-            }).then(function (resp) {
-              if (resp.ok) {
-                return resp.json()
-              }
-            }).then(function (data) {
-              cookies.set('token', data.token, { path: '/' });
-              cookies.set('username', data.username, { path: '/' });
-              cookies.set('roles', data.roles, { path: '/' });
-              if (data.roles == 'Receptionist') {
-                window.location.href = '/register';
-              
-              }
-
-              if (data.roles == 'Nurse') {
-                window.location.href = '/addvitals';
-                    }
-
-              if (data.roles == 'Doctor') {
-                window.location.href = '/SearchPatient';
-              
-              }
+      if (data.roles == 'Doctor') {
+        window.location.href = '/SearchPatient';
+      
+      }
 
 
 
-            })
+    })
 
 
-              .catch(function (error) {
-                toastr.options = {
-                  positionClass: 'toast-bottom-left',
-                  hideDuration: 300000,
-                  timeOut: 100
-                }
-                toastr.clear()
-                setTimeout(() => toastr.error(`username or password is incorrect`), 300)
-              })
-
-
-
+      .catch(function (error) {
+        toastr.options = {
+          positionClass: 'toast-bottom-left',
+          hideDuration: 300000,
+          timeOut: 100
+        }
+        toastr.clear()
+        setTimeout(() => toastr.error(`username or password is incorrect`), 300)
+      })
 }
 
-  }
-
-
-
+handleClickShowPassword = () => {
+  this.setState(state => ({ showPassword: !state.showPassword }));
+};
   render() {
 
+    const { classes } = this.props;
 
     return (
       <div>
 
-        <form  onSubmit={this.handleSubmit}>
+        <form >
 
           <br></br>
           <br></br>
           <br></br>
           <br></br>
           <TextField
-            id="standard-required"
-            required={true}
+
             name="username"
             label="Employee ID"
             value={this.state.username}
@@ -168,23 +164,36 @@ export default class Login extends Component {
           />
           <br></br>
 
-          <TextField
+          <TextField style={{width:'14.5%'}}
             name="password"
-            required={true}
             id="outlined-password-input"
             label="Password"
-
-            type="password"
+            // type="password"
+            type={this.state.showPassword ? 'text' : 'password'}
             value={this.state.password}
-           required  onChange={this.handleChange}
+            isRequired="true"
+            onChange={this.handleChange}
             autoComplete="current-password"
             margin="normal"
             variant="outlined"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="Toggle password visibility"
+                    onClick={this.handleClickShowPassword}
+                  >
+                    {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
           <br></br>
           <br></br>
+     
 
-          <FormControl variant="outlined" className={styles.formControl} >
+          <FormControl variant="outlined" className={styles.formControl} required>
             <InputLabel
               ref={ref => {
                 this.InputLabelRef = ref;
@@ -197,7 +206,6 @@ export default class Login extends Component {
             <Select style={{ width: 220 }}
 
               name="role"
-              required
               value={this.state.role}
               onChange={this.handleChange}
               input={
@@ -220,7 +228,7 @@ export default class Login extends Component {
 
             <br></br>
             <br></br>
-            <Button variant="contained" style={{ backgroundColor: '#2699FB', width: 220 }} type="submit"><b style={{ color: '#fff' }}>login</b></Button>
+            <Button variant="contained" style={{ backgroundColor: '#2699FB', width: 220 }} onClick={this.handleSubmit}><b style={{ color: '#fff' }}>login</b></Button>
           </FormControl>
         </form>
       </div>

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
-import axios from 'axios'
 import toastr from 'toastr'
 import Button from '@material-ui/core/Button';
 import DoctorAppBar from '../DoctorAppbar'
@@ -49,6 +48,7 @@ const DialogTitle = withStyles(theme => ({
 
 const DialogContent = withStyles(theme => ({
   root: {
+  
     margin: 0,
     padding: theme.spacing.unit * 2,
   },
@@ -68,27 +68,13 @@ const styles = theme => ({
     display: 'flex',
     flexWrap: 'wrap',
   },
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
+  // textField: {
+  //   marginLeft: theme.spacing.unit,
+  //   marginRight: theme.spacing.unit,
+  // },
 
 
 
-  },
-  dense: {
-    marginTop: 16,
-  },
-  menu: {
-    width: 200,
-  },
-  formControl: {
-    margin: theme.spacing.unit,
-    minWidth: '40',
-
-  },
-  selectEmpty: {
-    marginTop: theme.spacing.unit * 2,
-  },
 });
 
 
@@ -337,12 +323,12 @@ class SearchExistingPatient extends Component {
       })
       .catch((error) => {
         toastr.options = {
-          positionClass: 'toast-top-right',
+          positionClass: 'toast-bottom-left',
           hideDuration: 300000,
           timeOut: 100
         }
         toastr.clear()
-        setTimeout(() => toastr.error(`Error occured`), 300)
+        setTimeout(() => toastr.error(`No Notes`), 300)
       })
 
 
@@ -367,16 +353,19 @@ class SearchExistingPatient extends Component {
 
 
   render() {
-    const { classes } = this.props;
+ 
     return (
   
-      // <div style={{overflowY:"hidden"}} >
+
       
       <div style={{overflowX:"hidden"}}>
         <DoctorAppBar/>
           <h2 style={{ color: '#2699FB', position: 'absolute' }}>Search patient</h2>
           <form onSubmit={this.handleSearch}>
-          <TextField
+          <br></br>
+          <br></br>
+            <TextField
+             style={{width:'20%'}}
             label="Search Patient"
             name="MR_No"
             required={true}
@@ -384,9 +373,10 @@ class SearchExistingPatient extends Component {
             onChange={this.handleChange}
             margin="normal"
             variant="outlined"
-            className={classes.textField}
+          
           />
-          <Button variant="outlined" style={{ backgroundColor: '#2699FB', marginTop: '2%' }} type="submit"><b style={{color:'#fff'}}>Search</b></Button>
+          <br></br>
+          <Button variant="outlined" style={{ backgroundColor: '#2699FB',  }} type="submit"><b style={{color:'#fff'}}>Search</b></Button>
            </form>
          {/* </div> */}
 
@@ -432,12 +422,13 @@ class SearchExistingPatient extends Component {
       </Table>
 <div >
       <Dialog
+      
           onClose={this.handleClose}
           aria-labelledby="customized-dialog-title"
           open={this.state.open}
         >
           <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>
-            Modal title
+          Added Notes
           </DialogTitle>
           <DialogContent>
             <Typography gutterBottom>
@@ -449,6 +440,7 @@ class SearchExistingPatient extends Component {
                 ))}
             </Typography>
 </DialogContent>
+<DialogActions></DialogActions>
 </Dialog>
 </div>
         {/* <div style={{ paddingLeft: 500, paddingTop: 100,position:'fixed' }}> */}
@@ -463,12 +455,13 @@ class SearchExistingPatient extends Component {
             required={true}
             value={this.state.note}
             onChange={this.handleChange}
-            className={classes.textField}
+           
             margin="normal"
             variant="outlined"
           />
           <br></br>
-          <Button variant="outlined" style={{ backgroundColor: '#2699FB', marginTop: '2%', }} type="submit"><b style={{color:'#fff'}}>Add Notes</b></Button>
+          <br></br>
+          <Button variant="outlined" style={{ backgroundColor: '#2699FB', }} type="submit"><b style={{color:'#fff'}}>Add Notes</b></Button>
         </form>
         {/* </div> */}
       </div>
