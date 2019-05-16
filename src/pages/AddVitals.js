@@ -160,6 +160,7 @@ class AddVitals extends Component {
 
 
   patientvital = (event) => {
+    event.preventDefault();
      var currentDate = new Date();
     var date = currentDate.getDate();
     var month = currentDate.getMonth();
