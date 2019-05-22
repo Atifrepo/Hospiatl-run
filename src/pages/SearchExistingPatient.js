@@ -64,6 +64,7 @@ class SearchExistingPatient extends Component {
 
       MR_No: '',
       Name: '',
+      LName:'',
       Fathername: '',
       Age: '',
       Gender: '',
@@ -131,7 +132,7 @@ class SearchExistingPatient extends Component {
       })
       .then((result) => {
       
-        this.setState({ Name: result[0].patientname, Fathername: result[0].fathername, Age: result[0].age, Gender: result[0].gender, Phone_No: result[0].telephone1 });
+        // this.setState({ Name: result[0].patientname,LName:result[0].patientlastname, Fathername: result[0].fathername, Age: result[0].age, Gender: result[0].gender, Phone_No: result[0].telephone1 });
         this.setState({
           rows: result
         })
@@ -181,13 +182,14 @@ class SearchExistingPatient extends Component {
           <Table className={classes.table}>
             <TableHead>
               <TableRow>
-                <TableCell align="right">Patient Name</TableCell>
-                <TableCell align="right">Patient Father Name</TableCell>
-                <TableCell align="right">Patient Age</TableCell>
-                <TableCell align="right">Patient Gender</TableCell>
-                <TableCell align="right">Patient Mobile Number 1</TableCell>
-                <TableCell align="right">Patient Mobile Number 2</TableCell>
-                <TableCell align="right">Patient MR Number</TableCell>
+                <TableCell align="right">Name</TableCell>
+                <TableCell align="right">Last Name</TableCell>
+                <TableCell align="right">Father Name</TableCell>
+                <TableCell align="right">Age</TableCell>
+                <TableCell align="right">Gender</TableCell>
+                <TableCell align="right">Mobile Number 1</TableCell>
+                <TableCell align="right">Mobile Number 2</TableCell>
+                <TableCell align="right">MR Number</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -196,7 +198,7 @@ class SearchExistingPatient extends Component {
                   <TableCell component="th" scope="row">
                     {row.patientname}
                   </TableCell>
-                  {/* <TableCell align="right">{row.patientname}</TableCell> */}
+                  <TableCell align="right">{row.patientlastname}</TableCell>
                   <TableCell align="right">{row.fathername}</TableCell>
                   <TableCell align="right">{row.age}</TableCell>
                   <TableCell align="right">{row.gender}</TableCell>

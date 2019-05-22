@@ -52,6 +52,7 @@ class RegisterPatient extends Component {
     this.state = {
 
       Name: '',
+      LName:'',
       FatherName: '',
       Age: '',
       Gender: '',
@@ -75,6 +76,7 @@ class RegisterPatient extends Component {
      event.preventDefault();
     var Register = {
       patientname: this.state.Name,
+      patientlastname:this.state.LName,
       patientfathername: this.state.FatherName,
       age: this.state.Age,
       gender: this.state.Gender,
@@ -135,12 +137,14 @@ class RegisterPatient extends Component {
 
 this.setState({
   Name: '',
+LName:'',
   FatherName: '',
   Age: '',
   Gender: '',
   Telephone1: '',
   Telephone2: '',
   MR_No: '',
+
 })
 
   }
@@ -191,8 +195,6 @@ this.setState({
         <div>
           <TextField
             disabled
-            // id="outlined-disabled"
-            // label={this.state.MR_No}
             name="MR_No"
             value={this.state.MR_No}
             onChange={this.handleChange}
@@ -215,7 +217,17 @@ this.setState({
           variant="outlined"
           className={classes.textField}
         />
-
+   <TextField
+          label="Last Name"
+          name="LName"
+          value={this.state.LName}
+          required={true}
+          onChange={this.handleChange}
+          margin="normal"
+          variant="outlined"
+          className={classes.textField}
+        />
+<br></br>
 
 
         <TextField
@@ -229,7 +241,7 @@ this.setState({
           className={classes.textField}
         />
 
-        <br></br>
+      
         <TextField
           label="Age"
           required={true}
@@ -240,7 +252,7 @@ this.setState({
           variant="outlined"
           className={classes.textField}
         />
-
+<br></br>
         <TextField
           label="Telephone#1"
           required={true}
@@ -253,7 +265,7 @@ this.setState({
           className={classes.textField}
         />
 
-        <br></br>
+       
         <TextField
           label="Telephone#2"
          
@@ -266,7 +278,7 @@ this.setState({
           className={classes.textField}
         />
 
-
+<br></br>
         <FormControl variant="outlined" className={classes.formControl}>
           <InputLabel style={{ marginTop: '7%' }}
             ref={ref => {

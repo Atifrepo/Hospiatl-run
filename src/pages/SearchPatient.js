@@ -96,6 +96,7 @@ class SearchExistingPatient extends Component {
 
       MR_No: '',
       Name: '',
+      LName:'',
       Fathername: '',
       Age: '',
       multiline: '',
@@ -384,6 +385,7 @@ class SearchExistingPatient extends Component {
         <TableHead>
           <TableRow>
             <TableCell>Patient Name</TableCell>
+            <TableCell>Last Name</TableCell>
             <TableCell align="right">Age</TableCell>
             <TableCell align="right">Blood Pressure</TableCell>
             <TableCell align="right">Height</TableCell>
@@ -392,6 +394,7 @@ class SearchExistingPatient extends Component {
             <TableCell align="right">Pulse</TableCell>
             <TableCell align="right">Weight</TableCell>
             <TableCell align="right">Date</TableCell>
+            <TableCell align="right">Allergy</TableCell>
      
 
           </TableRow>
@@ -400,6 +403,7 @@ class SearchExistingPatient extends Component {
           {this.state.rows.map(row => (
             <TableRow key={row.id}>
               <TableCell align="right">{row.patientname}</TableCell>
+              <TableCell align="right">{row.patientlastname}</TableCell>
               <TableCell align="right">{row.age}</TableCell>
               <TableCell align="right">{row.bloodpressure}</TableCell>
               <TableCell align="right">{row.height}</TableCell>
@@ -408,6 +412,7 @@ class SearchExistingPatient extends Component {
               <TableCell align="right">{row.pulse}</TableCell>
               <TableCell align="right">{row.weight}</TableCell>
               <TableCell align="right">{row.datetimes}</TableCell>
+              <TableCell align="right">{row.allergie}</TableCell>
 
                 <TableCell>
                 <Button variant="outlined" color="secondary" onClick={()=>{this.handleClickOpen(row)}}>

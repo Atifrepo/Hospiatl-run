@@ -24,60 +24,66 @@ const styles = theme => ({
 
 
 class ViewAllPatient extends Component {
-    constructor(){
-        super()
-        this.state={
-            rows:[]
-        }
+  constructor() {
+    super()
+    this.state = {
+      rows: []
     }
-componentDidMount(){
+  }
+  componentDidMount() {
 
-  
-  
-     
-      var Authtoken = cookies.get('token')
-      var finalAuthtoken = 'Bearer ' + Authtoken
-  
-      fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/viewsearchpatient', {
-        method: 'GET',
-        withCredentials: true,
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-          'Authorization': finalAuthtoken
-  
-        }
-   
+
+
+
+    var Authtoken = cookies.get('token')
+    var finalAuthtoken = 'Bearer ' + Authtoken
+
+    fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/viewsearchpatient', {
+      method: 'GET',
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+        'Authorization': finalAuthtoken
+
+      }
+
+    })
+      .then((result) => {
+        console.log('re', result)
+
+        var jsondata = result.json();
+        return jsondata;
+
+      }).
+      then((data) => {
+        console.log("data", data);
+        this.setState({
+          rows: data
+        })
       })
-        .then((result) => {
-        console.log('re',result)
-  
-       var jsondata = result.json();
-       return jsondata;
 
-        }).
-        then((data)=>{
-          console.log("data",data);
-           this.setState({
-             rows: data
-           })
-         })
+      .catch((error) => {
+        console.log("error")
+      });
 
-        .catch((error)=>{
-          console.log("error")
-        });
-      
+
+  }
+
+  // onSearchHandler = (e) => {
+  //   this.setState({ items: this.state.rows.filter(str => str.toLowerCase().includes(e.target.value.toLowerCase()))})
+  // }
   
-}
-render(){
-  const { classes } = this.props;
-    return(
+  render() {
+    const { classes } = this.props;
+    return (
       <div>
-      <DoctorAppbar/>
-      <Paper className={classes.root}>
+        <DoctorAppbar />
+        <Paper className={classes.root}>
           <Table className='Patient Information'>
             <TableHead>
               <TableRow>
                 <TableCell>Patient Name</TableCell>
+                <TableCell>Last Name</TableCell>
                 <TableCell align="right">Patient Father Name</TableCell>
                 <TableCell align="right">Patient Age</TableCell>
                 <TableCell align="right">Patient Gender</TableCell>
@@ -96,6 +102,7 @@ render(){
                 {row.name}
               </TableCell> */}
                   <TableCell align="right">{row.patientname}</TableCell>
+                  <TableCell align="right">{row.patientlastname}</TableCell>
                   <TableCell align="right">{row.fathername}</TableCell>
                   <TableCell align="right">{row.age}</TableCell>
                   <TableCell align="right">{row.gender}</TableCell>
@@ -113,9 +120,9 @@ render(){
 
 
         </Paper>
-        </div>
+      </div>
     )
-}
+  }
 }
 
 ViewAllPatient.propTypes = {

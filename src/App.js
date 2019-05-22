@@ -29,15 +29,6 @@ import {
 const cookies = new Cookies();
 
 
-// const PrivateRoute = ({ component: Component, ...rest }) => (
-
-//   <Route {...rest} render={(props) => (
-
-//     { === 'Receptionist'
-//       ? <Component {...props} />
-//       : <Redirect to='/login' />
-//   )} />
-// )
 
 const ProtectedRouteforReceptionist = ({ component: Comp, loggedIn, path, ...rest }) => {
   return (

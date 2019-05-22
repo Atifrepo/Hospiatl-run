@@ -382,7 +382,7 @@ this.setState({
 
 />
           <br></br>
-          <Button type="submit" variant="outlined" style={{ backgroundColor: '#2699FB', position: 'relative' }} type="submit"><b style={{ color: '#fff' }}>Add Vitals</b></Button>
+          <Button type="submit" variant="outlined" style={{ backgroundColor: '#2699FB', position: 'relative' }} ><b style={{ color: '#fff' }}>Add Vitals</b></Button>
 </form>
         </div>
 
