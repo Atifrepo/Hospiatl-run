@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
-import axios from 'axios'
 import toastr from 'toastr'
 import Button from '@material-ui/core/Button';
 import RecAppbar from '../RecAppar'

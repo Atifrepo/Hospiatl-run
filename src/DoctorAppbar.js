@@ -14,7 +14,8 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
+import EditVitals from '../src/pages/EditVitals'
+import EditInfo from '../src/pages/EditInfo'
 import classNames from 'classnames';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -217,7 +218,18 @@ route(path){
                    </ListItemIcon>
                 <ListItemText primary />
               </ListItem>
-
+              <ListItem button onClick={(event) => this.route('/EditVitals')} style={{backgroundColor:'#2699FB',}}>
+                <ListItemIcon style={{color:'#fff'}}> 
+              Edit Vitals
+                   </ListItemIcon>
+                <ListItemText primary />
+              </ListItem>
+              <ListItem button onClick={(event) => this.route('/EditInfo')} style={{backgroundColor:'#2699FB',}}>
+                <ListItemIcon style={{color:'#fff'}}> 
+              Edit Info
+                   </ListItemIcon>
+                <ListItemText primary />
+              </ListItem>
           </List>
 
              

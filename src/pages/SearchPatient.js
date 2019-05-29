@@ -82,7 +82,7 @@ const styles = theme => ({
 
 
 
-class SearchExistingPatient extends Component {
+class SearchPatient extends Component {
   constructor() {
     super();
     this.handleSearch = this.handleSearch.bind(this);
@@ -474,7 +474,7 @@ class SearchExistingPatient extends Component {
     )
   }
 }
-SearchExistingPatient.propTypes = {
+SearchPatient.propTypes = {
   classes: PropTypes.object.isRequired,
 };
-export default withStyles(styles)(SearchExistingPatient)
+export default withStyles(styles)(SearchPatient)

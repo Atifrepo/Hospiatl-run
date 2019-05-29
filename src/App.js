@@ -13,7 +13,8 @@ import ViewAllPatient from './pages/ViewAllPatient'
 import Cookies from 'universal-cookie';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-
+import EditInfo from './pages/EditInfo'
+import EditVitals from './pages/EditVitals'
 import './App.css';
 import {
   BrowserRouter as Router,
@@ -137,7 +138,11 @@ class App extends Component {
             <ProtectedRouteforReceptionist exact path='/SearchExistingPatient' loggedIn={this.state.cookierolevalue} component={SearchExistingPatient} />
             <ProtectedRouteforDoctor exact path='/SearchPatient' loggedIn={this.state.cookierolevalue} component={SearchPatient} />
             <ProtectedRouteforDoctor exact path='/ViewAllPatient' loggedIn={this.state.cookierolevalue} component={ViewAllPatient} />
+            <ProtectedRouteforDoctor exact path='/EditVitals' loggedIn={this.state.cookierolevalue} component={EditVitals} />
             <Route exact path="/Admin" component={LoginAdmin} />
+            <ProtectedRouteforDoctor exact path='/EditInfo' loggedIn={this.state.cookierolevalue} component={EditInfo} />
+          
+          
 
           </div>
         </Router>

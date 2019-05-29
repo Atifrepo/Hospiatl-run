@@ -6,7 +6,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Cookies from 'universal-cookie';
 import Paper from '@material-ui/core/Paper';
-import PropTypes from 'prop-types';
+import PropTypes, { func } from 'prop-types';
 import DoctorAppbar from '../DoctorAppbar'
 import { withStyles } from '@material-ui/core/styles';
 const cookies = new Cookies();
@@ -22,13 +22,25 @@ const styles = theme => ({
   },
 });
 
-
+// function searchingFor(term){
+//   return function(x){
+//     return x.first.toLowerCase().includes(term.toLowerCase())  || !term ;
+//   }
+// }
 class ViewAllPatient extends Component {
-  constructor() {
-    super()
-    this.state = {
-      rows: []
+  constructor(props) {
+    super(props) 
+   this.state = {
+      rows: [],
+      search:'',
     }
+    this.searchHandler=this.searchHandler.bind(this);
+ 
+  }
+  searchHandler(event){
+this.setState({
+  search:event.target.value.substr(0,20)
+});
   }
   componentDidMount() {
 
@@ -75,8 +87,20 @@ class ViewAllPatient extends Component {
   
   render() {
     const { classes } = this.props;
+let filteredContents=this.props.rows.filter(
+  (rows)=> {
+    return rows.patientname.indexOf(this.state.search !== -1);
+  }
+
+);
     return (
-      <div>
+      <div> 
+        <form>
+          <input type="text"
+          onChange={this.searchHandler}
+  
+          />
+        </form>
         <DoctorAppbar />
         <Paper className={classes.root}>
           <Table className='Patient Information'>
@@ -96,11 +120,9 @@ class ViewAllPatient extends Component {
               </TableRow>
             </TableHead>
             <TableBody>
-              {this.state.rows.map(row => (
+              {filteredContents.map(row => (
                 <TableRow key={row.id}>
-                  {/* <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell> */}
+               
                   <TableCell align="right">{row.patientname}</TableCell>
                   <TableCell align="right">{row.patientlastname}</TableCell>
                   <TableCell align="right">{row.fathername}</TableCell>
