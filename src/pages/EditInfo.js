@@ -54,14 +54,16 @@ class EditInfo extends Component {
     this.handleChange = this.handleChange.bind(this);
 
     this.state = {
-
+      patientid: '',
+      patientname: '',
+      patientlastname: '',
+      patientfathername: '',
+      age: '',
+      gender: '',
+      telephone1: '',
+      telephone2: '',
+      mrnumberreceived: '',
       MR_No: '',
-      Name: '',
-      LName:'',
-      Fathername: '',
-      Age: '',
-      Gender: '',
-      Phone_No: '',
       rows: []
     }
 
@@ -124,12 +126,9 @@ handleSearch = (event) => {
         }
       })
       .then((result) => {
-      
-        this.setState({ Name: result[0].patientname,LName:result[0].patientlastname, Fathername: result[0].fathername, Age: result[0].age, Gender: result[0].gender, Phone_No: result[0].telephone1 });
-        // this.setState({
-        //   rows: result
-        // })
-
+        console.log(result);
+        this.setState({patientid:result[0].patientid,patientname: result[0].patientname,patientlastname:result[0].patientlastname, patientfathername: result[0].fathername, age: result[0].age, gender: result[0].gender, telephone1: result[0].telephone1,telephone2:result[0].telephone2,mrnumberreceived: result[0].mr_no });
+        console.log(this.state);
     
 
       })
@@ -144,6 +143,87 @@ handleSearch = (event) => {
       })
 
   }
+
+
+
+
+
+editdetails = (event) => {
+
+  event.preventDefault();
+    var EditForm = {
+      patientid: this.state.patientid,
+      patientname:this.state.patientname,
+      patientlastname:this.state.patientlastname,
+      patientfathername:this.state.patientfathername,
+      age:this.state.age,
+      gender:this.state.gender,
+      telephone1:this.state.telephone1,
+      telephone2:this.state.telephone2,
+      mrnumber:this.state.mrnumberreceived,
+    };
+
+
+    var formBody = [];
+    for (var property in EditForm) {
+      var encodedKey = encodeURIComponent(property);
+      var encodedValue = encodeURIComponent(EditForm[property]);
+      formBody.push(encodedKey + "=" + encodedValue);
+    }
+
+    formBody = formBody.join("&");
+
+    var Authtoken = cookies.get('token')
+    var finalAuthtoken = 'Bearer ' + Authtoken
+
+    fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/editpatientdetails', {
+      method: 'POST',
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+        'Authorization': finalAuthtoken
+
+      },
+      body: formBody
+
+    })
+      .then((resp) => {
+
+        if (resp.status !== 200) {
+          throw new Error("Not 200 response")
+        }
+
+        if (resp.ok) {
+          toastr.options = {
+          positionClass: 'toast-bottom-left',
+          hideDuration: 300000,
+          timeOut: 100
+        }
+        toastr.clear()
+        setTimeout(() => toastr.success(`Patient record updated`), 300)
+        }
+      })
+     .catch((error) => {
+        toastr.options = {
+          positionClass: 'toast-bottom-left',
+          hideDuration: 300000,
+          timeOut: 100
+        }
+        toastr.clear()
+        setTimeout(() => toastr.error(`Patient record not updated`), 300)
+      })
+
+
+
+}
+
+
+
+
+
+
+
+
 render(){
     const { classes } = this.props;
     return(
@@ -163,10 +243,13 @@ render(){
         />
         <Button variant="outlined" style={{ backgroundColor: '#2699FB', marginTop: '2%' }} type="submit" ><b style={{color:'#fff'}}>Search</b></Button>
 </form>
+
+
+<form onSubmit={this.editdetails}>
 <TextField
           label="Name"
-          name="Name"
-          value={this.state.Name}
+          name="patientname"
+          value={this.state.patientname}
           required={true}
           onChange={this.handleChange}
           margin="normal"
@@ -175,8 +258,8 @@ render(){
         />
    <TextField
           label="Last Name"
-          name="LName"
-          value={this.state.LName}
+          name="patientlastname"
+          value={this.state.patientlastname}
           required={true}
           onChange={this.handleChange}
           margin="normal"
@@ -189,8 +272,8 @@ render(){
         <TextField
           label="Husband/Father Name"
           required={true}
-          name="FatherName"
-          value={this.state.FatherName}
+          name="patientfathername"
+          value={this.state.patientfathername}
           onChange={this.handleChange}
           margin="normal"
           variant="outlined"
@@ -201,8 +284,8 @@ render(){
         <TextField
           label="Age"
           required={true}
-          name="Age"
-          value={this.state.Age}
+          name="age"
+          value={this.state.age}
           onChange={this.handleChange}
           margin="normal"
           variant="outlined"
@@ -212,8 +295,8 @@ render(){
         <TextField
           label="Telephone#1"
           required={true}
-          name="Telephone1"
-          value={this.state.Phone_No}
+          name="telephone1"
+          value={this.state.telephone1}
 
           onChange={this.handleChange}
           margin="normal"
@@ -225,6 +308,8 @@ render(){
         
 <br></br>
 <Button variant="outlined" style={{ backgroundColor: '#2699FB', marginTop: '2%' }} type="submit" ><b style={{color:'#fff'}}>Edit Details</b></Button>
+</form>
+
 </div>
     )
 }
