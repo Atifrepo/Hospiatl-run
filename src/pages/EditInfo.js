@@ -229,10 +229,12 @@ render(){
     return(
 <div>
 <DoctorAppBar/>
-          <h2 style={{ color: '#2699FB', position: 'absolute' }}>Edit Info</h2>
+          <h2 style={{ color: '#2699FB', position: 'absolute' }}>Edit Patient Information</h2>
+<div>
 <form onSubmit={this.handleSearch}>
+<br></br> 
         <TextField
-          label="Search Patient"
+           label="Search Patient"
           required={true}
           name="MR_No"
           value={this.state.MR_No}
@@ -246,6 +248,7 @@ render(){
 
 
 <form onSubmit={this.editdetails}>
+
 <TextField
           label="Name"
           name="patientname"
@@ -303,13 +306,34 @@ render(){
           variant="outlined"
           className={classes.textField}
         />
-
-       
+<TextField
+          label="Telephone#2"
+          name="telephone2"
+          value={this.state.telephone2}
+          required={true}
+          onChange={this.handleChange}
+          margin="normal"
+          variant="outlined"
+          className={classes.textField}
+        />
+        
+        <br></br>
+<TextField
+          label="MR NO."
+          name="mrnumberreceived"
+          value={this.state.mrnumberreceived}
+          required={true}
+          onChange={this.handleChange}
+          margin="normal"
+          variant="outlined"
+          className={classes.textField}
+        />
         
 <br></br>
-<Button variant="outlined" style={{ backgroundColor: '#2699FB', marginTop: '2%' }} type="submit" ><b style={{color:'#fff'}}>Edit Details</b></Button>
-</form>
 
+<Button variant="outlined" style={{ backgroundColor: '#2699FB', }} type="submit" ><b style={{color:'#fff'}}>Edit Details</b></Button>
+</form>
+</div>
 </div>
     )
 }

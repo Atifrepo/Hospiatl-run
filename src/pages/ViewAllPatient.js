@@ -87,20 +87,15 @@ this.setState({
   
   render() {
     const { classes } = this.props;
-let filteredContents=this.props.rows.filter(
-  (rows)=> {
-    return rows.patientname.indexOf(this.state.search !== -1);
-  }
+// let filteredContents=this.props.rows.filter(
+//   (rows)=> {
+//     return rows.patientname.indexOf(this.state.search !== -1);
+//   }
 
-);
+// );
     return (
       <div> 
-        <form>
-          <input type="text"
-          onChange={this.searchHandler}
-  
-          />
-        </form>
+       
         <DoctorAppbar />
         <Paper className={classes.root}>
           <Table className='Patient Information'>
@@ -120,7 +115,7 @@ let filteredContents=this.props.rows.filter(
               </TableRow>
             </TableHead>
             <TableBody>
-              {filteredContents.map(row => (
+              {this.state.rows.map(row => (
                 <TableRow key={row.id}>
                
                   <TableCell align="right">{row.patientname}</TableCell>
