@@ -18,6 +18,7 @@ import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
 
 const cookies = new Cookies();
 const DialogTitle = withStyles(theme => ({
@@ -48,7 +49,7 @@ const DialogTitle = withStyles(theme => ({
 
 const DialogContent = withStyles(theme => ({
   root: {
-  
+
     margin: 0,
     padding: theme.spacing.unit * 2,
   },
@@ -89,28 +90,29 @@ class SearchPatient extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.AddNotes = this.AddNotes.bind(this);
     this.handleClickOpen = this.handleClickOpen.bind(this);
-    
+
 
 
     this.state = {
 
       MR_No: '',
       Name: '',
-      LName:'',
+      LName: '',
       Fathername: '',
       Age: '',
       multiline: '',
-      note:'',
-      patientid:'',
-      rows:[],
-      receivenote: []
+      note: '',
+      patientid: '',
+      rows: [],
+      receivenote: [],
+      DoctorName:''
     }
 
 
   }
 
 
-  
+
 
 
 
@@ -122,7 +124,7 @@ class SearchPatient extends Component {
       [target.name]: target.value
 
     })
-   
+
   }
 
 
@@ -135,8 +137,8 @@ class SearchPatient extends Component {
       patientmrnumber: this.state.MR_No
     };
     this.setState({
-        rows: []
-      })
+      rows: []
+    })
 
 
     var formBody = [];
@@ -175,18 +177,20 @@ class SearchPatient extends Component {
         }
       })
       .then((result) => {
- this.setState({ Name: result[0].patientname, 
-  Fathername: result[0].fathername, 
-  Age: result[0].age , 
-  patientid:result[0].patientid });
+        this.setState({
+          Name: result[0].patientname,
+          Fathername: result[0].fathername,
+          Age: result[0].age,
+          patientid: result[0].patientid
+        });
 
- 
-      this.setState({
-        rows: result
-      })
 
-      
-      
+        this.setState({
+          rows: result
+        })
+
+
+
       })
       .catch((error) => {
         toastr.options = {
@@ -199,25 +203,25 @@ class SearchPatient extends Component {
       })
 
   }
-  
 
 
 
-  AddNotes = (event)=> {
+
+  AddNotes = (event) => {
     event.preventDefault();
     var currentDate = new Date();
     var date = currentDate.getDate();
     var month = currentDate.getMonth();
     var year = currentDate.getFullYear();
-    var dateString = date + "-" +(month + 1) + "-" + year;
-        var Search = {
-            patientid: this.state.patientid,
-            note: this.state.note,
-            date: dateString
+    var dateString = date + "-" + (month + 1) + "-" + year;
+    var Search = {
+      patientid: this.state.patientid,
+      note: this.state.note,
+      date: dateString
     };
 
 
-       var formBody = [];
+    var formBody = [];
     for (var property in Search) {
       var encodedKey = encodeURIComponent(property);
       var encodedValue = encodeURIComponent(Search[property]);
@@ -247,13 +251,13 @@ class SearchPatient extends Component {
         }
 
         if (resp.ok) {
-         toastr.options = {
-          positionClass: 'toast-bottom-left',
-          hideDuration: 300000,
-          timeOut: 100
-        }
-        toastr.clear()
-        setTimeout(() => toastr.success(`Note Added`), 300)
+          toastr.options = {
+            positionClass: 'toast-bottom-left',
+            hideDuration: 300000,
+            timeOut: 100
+          }
+          toastr.clear()
+          setTimeout(() => toastr.success(`Note Added`), 300)
         }
       })
       .catch((error) => {
@@ -273,13 +277,13 @@ class SearchPatient extends Component {
 
   handleClickOpen(ab) {
 
-            var Search = {
-            dates: ab.datetimes,
-            patientid: this.state.patientid
+    var Search = {
+      dates: ab.datetimes,
+      patientid: this.state.patientid
     };
 
 
-       var formBody = [];
+    var formBody = [];
     for (var property in Search) {
       var encodedKey = encodeURIComponent(property);
       var encodedValue = encodeURIComponent(Search[property]);
@@ -288,7 +292,7 @@ class SearchPatient extends Component {
 
     formBody = formBody.join("&");
 
-   
+
     var Authtoken = cookies.get('token')
     var finalAuthtoken = 'Bearer ' + Authtoken
 
@@ -310,17 +314,18 @@ class SearchPatient extends Component {
         }
 
         if (resp.ok) {
-         var data = resp.json();
+          var data = resp.json();
           return data;
 
-         }
+        }
       })
-      .then((result)=>{
-    
+      .then((result) => {
+
         this.setState({
-          receivenote: result
+          receivenote: result,
+          DoctorName:result[0].doctorname,
         })
-      
+console.log('res',result)
       })
       .catch((error) => {
         toastr.options = {
@@ -334,11 +339,11 @@ class SearchPatient extends Component {
 
 
 
-    
+
     this.setState({
       open: true,
     });
-  
+
   };
 
 
@@ -354,19 +359,19 @@ class SearchPatient extends Component {
 
 
   render() {
- 
-    return (
-  
 
-      
-      <div style={{overflowX:"hidden"}}>
-        <DoctorAppBar/>
-          <h2 style={{ color: '#2699FB', position: 'absolute' }}>Search patient</h2>
-          <form onSubmit={this.handleSearch}>
+    return (
+
+
+
+      <div style={{ overflowX: "hidden" }}>
+        <DoctorAppBar />
+        <h2 style={{ color: '#2699FB', position: 'absolute' }}>Search patient</h2>
+        <form onSubmit={this.handleSearch}>
           <br></br>
           <br></br>
-            <TextField
-             style={{width:'20%'}}
+          <TextField
+            style={{ width: '20%' }}
             label="Search Patient"
             name="MR_No"
             required={true}
@@ -374,82 +379,85 @@ class SearchPatient extends Component {
             onChange={this.handleChange}
             margin="normal"
             variant="outlined"
-          
+
           />
           <br></br>
-          <Button variant="outlined" style={{ backgroundColor: '#2699FB',  }} type="submit"><b style={{color:'#fff'}}>Search</b></Button>
-           </form>
-         {/* </div> */}
+          <Button variant="outlined" style={{ backgroundColor: '#2699FB', }} type="submit"><b style={{ color: '#fff' }}>Search</b></Button>
+        </form>
+        {/* </div> */}
 
         <Table className='Patient Information'>
-        <TableHead>
-          <TableRow>
-            <TableCell>Patient Name</TableCell>
-            <TableCell>Last Name</TableCell>
-            <TableCell align="right">Age</TableCell>
-            <TableCell align="right">Blood Pressure</TableCell>
-            <TableCell align="right">Height</TableCell>
-            <TableCell align="right">MR Number</TableCell>
-            <TableCell align="right">PO2</TableCell>
-            <TableCell align="right">Pulse</TableCell>
-            <TableCell align="right">Weight</TableCell>
-            <TableCell align="right">Date</TableCell>
-            <TableCell align="right">Allergy</TableCell>
-     
+          <TableHead>
+            <TableRow>
+              <TableCell >MR Number</TableCell>
+              <TableCell> Name</TableCell>
+              <TableCell >Age</TableCell>
+              <TableCell >Blood Pressure</TableCell>
+              <TableCell >Height</TableCell>
+              <TableCell >PO2</TableCell>
+              <TableCell >Pulse</TableCell>
+              <TableCell >Weight</TableCell>
+              <TableCell >Date</TableCell>
+              <TableCell >Allergy</TableCell>
 
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {this.state.rows.map(row => (
-            <TableRow key={row.id}>
-              <TableCell align="right">{row.patientname}</TableCell>
-              <TableCell align="right">{row.patientlastname}</TableCell>
-              <TableCell align="right">{row.age}</TableCell>
-              <TableCell align="right">{row.bloodpressure}</TableCell>
-              <TableCell align="right">{row.height}</TableCell>
-              <TableCell align="right">{row.mr_no}</TableCell>
-              <TableCell align="right">{row.po2}</TableCell>
-              <TableCell align="right">{row.pulse}</TableCell>
-              <TableCell align="right">{row.weight}</TableCell>
-              <TableCell align="right">{row.datetimes}</TableCell>
-              <TableCell align="right">{row.allergie}</TableCell>
+
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {this.state.rows.map(row => (
+              <TableRow key={row.id}>
+                <TableCell >{row.mr_no}</TableCell>
+                <TableCell >{row.patientname} {row.patientlastname}</TableCell>
+                <TableCell >{row.age}</TableCell>
+                <TableCell >{row.bloodpressure}</TableCell>
+                <TableCell >{row.height}</TableCell>
+                <TableCell >{row.po2}</TableCell>
+                <TableCell >{row.pulse}</TableCell>
+                <TableCell >{row.weight}</TableCell>
+                <TableCell >{row.datetimes}</TableCell>
+                <TableCell >{row.allergie}</TableCell>
 
                 <TableCell>
-                <Button variant="outlined" color="secondary" onClick={()=>{this.handleClickOpen(row)}}>
-      <b>
-         View Notes
+                  <Button variant="outlined" color="secondary" onClick={() => { this.handleClickOpen(row) }}>
+                    <b>
+                      View Notes
         </b>
-        </Button> 
-        </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-<div >
-      <Dialog
-      
-          onClose={this.handleClose}
-          aria-labelledby="customized-dialog-title"
-          open={this.state.open}
-        >
-          <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>
-          Added Notes
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+        <div >
+          <Dialog
+
+            onClose={this.handleClose}
+            aria-labelledby="customized-dialog-title"
+            open={this.state.open}
+          >
+            <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>
+              Added Notes
           </DialogTitle>
-          <DialogContent>
-            <Typography gutterBottom>
-              {this.state.receivenote.map(row => (
+            <DialogContent>
+              <Typography gutterBottom>
+                {this.state.receivenote.map(row => (
                   <div>
-                  {row.notetext}
+                    {row.notetext}
                   </div>
 
                 ))}
-            </Typography>
-</DialogContent>
-<DialogActions></DialogActions>
-</Dialog>
-</div>
+              </Typography>
+              <Divider/>
+              <Typography gutterBottom >
+                Added By: <b> {this.state.DoctorName}</b>
+          
+              </Typography>
+            </DialogContent>
+            <DialogActions></DialogActions>
+          </Dialog>
+        </div>
         {/* <div style={{ paddingLeft: 500, paddingTop: 100,position:'fixed' }}> */}
-        <h3 style={{ color: '#2699FB'}}>Notes/Diagnostics Results/Prescription</h3>
+        <h3 style={{ color: '#2699FB' }}>Notes/Diagnostics Results/Prescription</h3>
         <form onSubmit={this.AddNotes}>
           <TextField style={{ width: '80%' }}
             id="outlined-multiline-static"
@@ -460,13 +468,13 @@ class SearchPatient extends Component {
             required={true}
             value={this.state.note}
             onChange={this.handleChange}
-           
+
             margin="normal"
             variant="outlined"
           />
           <br></br>
           <br></br>
-          <Button variant="outlined" style={{ backgroundColor: '#2699FB', }} type="submit"><b style={{color:'#fff'}}>Add Notes</b></Button>
+          <Button variant="outlined" style={{ backgroundColor: '#2699FB', }} type="submit"><b style={{ color: '#fff' }}>Add Notes</b></Button>
         </form>
         {/* </div> */}
       </div>

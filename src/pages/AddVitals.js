@@ -265,13 +265,13 @@ this.setState({
           <Table className='Patient Information'>
             <TableHead>
               <TableRow>
-                <TableCell>Patient Name</TableCell>
-                <TableCell align="right">Patient Father Name</TableCell>
-                <TableCell align="right">Patient Age</TableCell>
-                <TableCell align="right">Patient Gender</TableCell>
-                <TableCell align="right">Patient Mobile Number 1</TableCell>
-                <TableCell align="right">Patient Mobile Number 2</TableCell>
-                <TableCell align="right">Patient MR Number</TableCell>
+                <TableCell> Name</TableCell>
+                <TableCell > Father Name</TableCell>
+                <TableCell > Age</TableCell>
+                <TableCell > Gender</TableCell>
+                <TableCell > Mobile Number 1</TableCell>
+                <TableCell > Mobile Number 2</TableCell>
+                <TableCell > MR Number</TableCell>
 
 
 
@@ -283,13 +283,13 @@ this.setState({
                   {/* <TableCell component="th" scope="row">
                 {row.name}
               </TableCell> */}
-                  <TableCell align="right">{row.patientname}</TableCell>
-                  <TableCell align="right">{row.fathername}</TableCell>
-                  <TableCell align="right">{row.age}</TableCell>
-                  <TableCell align="right">{row.gender}</TableCell>
-                  <TableCell align="right">{row.telephone1}</TableCell>
-                  <TableCell align="right">{row.telephone2}</TableCell>
-                  <TableCell align="right">{row.mr_no}</TableCell>
+                  <TableCell >{row.patientname} {row. patientlastname} </TableCell>
+                  <TableCell>{row.fathername}</TableCell>
+                  <TableCell>{row.age}</TableCell>
+                  <TableCell>{row.gender}</TableCell>
+                  <TableCell>{row.telephone1}</TableCell>
+                  <TableCell>{row.telephone2}</TableCell>
+                  <TableCell>{row.mr_no}</TableCell>
 
                   <TableCell>
 

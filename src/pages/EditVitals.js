@@ -235,13 +235,13 @@ render() {
         <Table className='Patient Information'>
           <TableHead>
             <TableRow>
-              <TableCell align="right" >Height</TableCell>
-              <TableCell align="right">Blood Pressure</TableCell>
-              <TableCell align="right">PO2</TableCell>
-              <TableCell align="right">Pulse</TableCell>
-              <TableCell align="right">Weight</TableCell>
-              <TableCell align="right">Date</TableCell>
-              <TableCell align="right"></TableCell>
+              <TableCell >Height</TableCell>
+              <TableCell >Blood Pressure</TableCell>
+              <TableCell >PO2</TableCell>
+              <TableCell >Pulse</TableCell>
+              <TableCell >Weight</TableCell>
+              <TableCell >Date</TableCell>
+              <TableCell ></TableCell>
 
 
 
@@ -261,7 +261,7 @@ render() {
                     className={classes.textField}
                     margin="normal"
                   /></TableCell>
-                <TableCell align="right">
+                <TableCell>
                   <TextField
                     label="Height(cm)"
                     name="Height"
@@ -273,7 +273,7 @@ render() {
                     margin="normal"
                   /></TableCell>
 
-                <TableCell align="right">
+                <TableCell >
                   <TextField
                     label="Height(cm)"
                     name="Height"
@@ -284,7 +284,7 @@ render() {
                     className={classes.textField}
                     margin="normal"
                   /></TableCell>
-                <TableCell align="right">
+                <TableCell >
                   <TextField
                     label="Height(cm)"
                     name="Height"
@@ -296,7 +296,7 @@ render() {
                     margin="normal"
                   /></TableCell>
 
-                <TableCell align="right">
+                <TableCell>
                   <TextField
                     label="Height(cm)"
                     name="Height"
@@ -307,9 +307,9 @@ render() {
                     className={classes.textField}
                     margin="normal"
                   /></TableCell>
-                <TableCell align="right">{row.datetimes}</TableCell>
+                <TableCell >{row.datetimes}</TableCell>
 
-                <TableCell align="right">
+                <TableCell >
                   <Button variant="outlined" style={{ backgroundColor: '#2699FB', }} onClick={(rows)=>this.editVitals.bind(this,rows)}><b style={{ color: '#fff' }}>Edit Vitals</b></Button>
                 </TableCell>
 

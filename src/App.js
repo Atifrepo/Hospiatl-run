@@ -14,6 +14,7 @@ import Cookies from 'universal-cookie';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import EditInfo from './pages/EditInfo'
+import SearchForNurse from './pages/SearchForNurse'
 import EditVitals from './pages/EditVitals'
 import './App.css';
 import {
@@ -132,6 +133,7 @@ class App extends Component {
             <Route exact path='/' component={Login} />
             <ProtectedRouteforReceptionist path='/Register' loggedIn={this.state.cookierolevalue} component={RegisterPatient} />
             <ProtectedRouteforNurse path='/AddVitals' loggedIn={this.state.cookierolevalue} component={AddVitals} />
+            <ProtectedRouteforNurse path='/SearchAll' loggedIn={this.state.cookierolevalue} component={SearchForNurse} />
             <ProtectedRouteforAdmin exact path='/AddEmployee' loggedIn={this.state.cookierolevalue} component={AddEmployee} />
             <ProtectedRouteforAdmin exact path='/DeleteEmployee' loggedIn={this.state.cookierolevalue} component={DeleteEmployee} />
             <ProtectedRouteforAdmin exact path='/EditEmployee' loggedIn={this.state.cookierolevalue} component={EditEmployee} />

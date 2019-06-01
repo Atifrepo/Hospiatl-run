@@ -53,7 +53,7 @@ const styles = theme => ({
 
 
 
-class SearchExistingPatient extends Component {
+class SearchForNurse extends Component {
   constructor() {
     super();
     this.handleSearch = this.handleSearch.bind(this);
@@ -163,8 +163,9 @@ class SearchExistingPatient extends Component {
       <div>
         <RecAppbar />
 
-        <h2 style={{ color: '#2699FB', position: 'absolute' }}>Search existing patient</h2>
+        <h2 style={{ color: '#2699FB', position: 'absolute' }}>Search Patient</h2>
         <form onSubmit={this.handleSearch}>
+         <br></br>
           <TextField
             label="Search Patient"
             required={true}
@@ -219,7 +220,7 @@ class SearchExistingPatient extends Component {
     )
   }
 }
-SearchExistingPatient.propTypes = {
+SearchForNurse.propTypes = {
   classes: PropTypes.object.isRequired,
 };
-export default withStyles(styles)(SearchExistingPatient)
+export default withStyles(styles)(SearchForNurse)

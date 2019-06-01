@@ -210,7 +210,13 @@ route(path){
                    </ListItemIcon>
                 <ListItemText primary />
               </ListItem>
-
+<Divider/>
+<ListItem button onClick={(event) => this.route('/SearchAll')} style={{backgroundColor:'#2699FB',}}>
+                <ListItemIcon style={{color:'#fff'}}> 
+                Search Patient
+                   </ListItemIcon>
+                <ListItemText primary />
+              </ListItem>
 
           </List>
              

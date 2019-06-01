@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
 import Cookies from 'universal-cookie';
 import Paper from '@material-ui/core/Paper';
 import PropTypes, { func } from 'prop-types';
 import DoctorAppbar from '../DoctorAppbar'
+
+import MUIDataTable from "mui-datatables";
 import { withStyles } from '@material-ui/core/styles';
 const cookies = new Cookies();
+
+const columns = ["MR No.", "Name", "Last Name", "Father/Husband Nama", "Age", "Gender", "Telehone#1", "Telephone#2"];
+
 
 const styles = theme => ({
   root: {
@@ -22,25 +22,21 @@ const styles = theme => ({
   },
 });
 
-// function searchingFor(term){
-//   return function(x){
-//     return x.first.toLowerCase().includes(term.toLowerCase())  || !term ;
-//   }
-// }
+
 class ViewAllPatient extends Component {
   constructor(props) {
-    super(props) 
-   this.state = {
+    super(props)
+    this.state = {
       rows: [],
-      search:'',
+      search: '',
     }
-    this.searchHandler=this.searchHandler.bind(this);
- 
+    this.searchHandler = this.searchHandler.bind(this);
+
   }
-  searchHandler(event){
-this.setState({
-  search:event.target.value.substr(0,20)
-});
+  searchHandler(event) {
+    this.setState({
+      search: event.target.value.substr(0, 20)
+    });
   }
   componentDidMount() {
 
@@ -81,61 +77,34 @@ this.setState({
 
   }
 
-  // onSearchHandler = (e) => {
-  //   this.setState({ items: this.state.rows.filter(str => str.toLowerCase().includes(e.target.value.toLowerCase()))})
-  // }
-  
+
   render() {
     const { classes } = this.props;
-// let filteredContents=this.props.rows.filter(
-//   (rows)=> {
-//     return rows.patientname.indexOf(this.state.search !== -1);
-//   }
-
-// );
+    
     return (
-      <div> 
-       
+      <div>
+
         <DoctorAppbar />
         <Paper className={classes.root}>
-          <Table className='Patient Information'>
-            <TableHead>
-              <TableRow>
-                <TableCell>Patient Name</TableCell>
-                <TableCell>Last Name</TableCell>
-                <TableCell align="right">Patient Father Name</TableCell>
-                <TableCell align="right">Patient Age</TableCell>
-                <TableCell align="right">Patient Gender</TableCell>
-                <TableCell align="right">Patient Mobile Number 1</TableCell>
-                <TableCell align="right">Patient Mobile Number 2</TableCell>
-                <TableCell align="right">Patient MR Number</TableCell>
+          <MUIDataTable
+            columns={columns}
+            data={this.state.rows.map(row => {
+              return [
+                row.mr_no,
+                row.patientname,
+                row.patientlastname,
+                row.fathername,
+                row.age,
+                row.gender,
+                row.telephone1,
+                row.telephone2
 
 
+]
 
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {this.state.rows.map(row => (
-                <TableRow key={row.id}>
-               
-                  <TableCell align="right">{row.patientname}</TableCell>
-                  <TableCell align="right">{row.patientlastname}</TableCell>
-                  <TableCell align="right">{row.fathername}</TableCell>
-                  <TableCell align="right">{row.age}</TableCell>
-                  <TableCell align="right">{row.gender}</TableCell>
-                  <TableCell align="right">{row.telephone1}</TableCell>
-                  <TableCell align="right">{row.telephone2}</TableCell>
-                  <TableCell align="right">{row.mr_no}</TableCell>
-
-                  <TableCell>
-
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-
-
+            })}
+          />
+         
         </Paper>
       </div>
     )
