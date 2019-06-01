@@ -100,6 +100,7 @@ var addemployee = {
         toastr.clear()
         setTimeout(() => toastr.success(`User Added`), 300)
       }
+      else {
  toastr.options = {
           positionClass: 'toast-bottom-left',
           hideDuration: 300000,
@@ -107,7 +108,7 @@ var addemployee = {
         }
         toastr.clear()
         setTimeout(() => toastr.error(`User not added . Maybe user already exist`), 300)
-      
+      }
 
     }).catch(error=> {
         toastr.options = {

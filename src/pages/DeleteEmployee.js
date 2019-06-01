@@ -98,14 +98,16 @@ class DeleteEmployee extends Component {
         toastr.clear()
         setTimeout(() => toastr.success(`User Deleted`), 300)
       }
+
+      else {
  toastr.options = {
           positionClass: 'toast-bottom-left',
           hideDuration: 300000,
           timeOut: 100
         }
         toastr.clear()
-        setTimeout(() => toastr.error(`Error occured`), 300)
-      
+        setTimeout(() => toastr.error(`unable to delete`), 300)
+      }
 
     }).catch(error=> {
         toastr.options = {
@@ -130,7 +132,7 @@ class DeleteEmployee extends Component {
         <form onSubmit={this.handleSubmit}>
         <TextField
 
-          label="Employee ID"
+          label="Employee Name"
           name="EmployeeID"
           required={true}
           value={this.state.EmployeeID}

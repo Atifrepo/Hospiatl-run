@@ -51,10 +51,10 @@ class EditEmployee extends Component {
 
 
   handleClick=(event) => {
-
+   event.preventDefault();
     var editemployee = {
       username: this.state.EmployeeID,
-      password: this.state.Password
+      password: this.state.NewPassword
 
 
     };
@@ -92,14 +92,15 @@ class EditEmployee extends Component {
           toastr.clear()
           setTimeout(() => toastr.success(`User Password changed`), 300)
         }
+        else {
         toastr.options = {
           positionClass: 'toast-bottom-left',
           hideDuration: 300000,
           timeOut: 100
         }
         toastr.clear()
-        setTimeout(() => toastr.error(`Error exist`), 300)
-
+        setTimeout(() => toastr.error(`Unable to update `), 300)
+}
 
       }).catch(error => {
         toastr.options = {
@@ -122,7 +123,7 @@ class EditEmployee extends Component {
         <AdminAppBar />
         <form onSubmit={this.handleClick}>
         <TextField
-          label="Enter Employee ID"
+          label="Enter Employee Name"
           name="EmployeeID"
           required={true}
           value={this.state.EmployeeID}

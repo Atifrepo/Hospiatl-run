@@ -8,7 +8,7 @@ import MUIDataTable from "mui-datatables";
 import { withStyles } from '@material-ui/core/styles';
 const cookies = new Cookies();
 
-const columns = ["MR No.", "Name", "Last Name", "Father/Husband Nama", "Age", "Gender", "Telehone#1", "Telephone#2"];
+const columns = ["MR No.", "Name", "Father/Husband Name", "Age", "Gender", "Telehone#1", "Telephone#2"];
 
 
 const styles = theme => ({
@@ -92,7 +92,7 @@ class ViewAllPatient extends Component {
               return [
                 row.mr_no,
                 row.patientname,
-                row.patientlastname,
+
                 row.fathername,
                 row.age,
                 row.gender,
