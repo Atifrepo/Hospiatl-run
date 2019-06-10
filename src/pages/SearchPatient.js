@@ -443,6 +443,7 @@ console.log('res',result)
                 {this.state.receivenote.map(row => (
                   <div>
                     {row.notetext}
+{this.state.DoctorName}
                   </div>
 
                 ))}

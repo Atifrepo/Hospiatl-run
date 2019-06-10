@@ -139,11 +139,11 @@ class App extends Component {
             <ProtectedRouteforAdmin exact path='/EditEmployee' loggedIn={this.state.cookierolevalue} component={EditEmployee} />
             <ProtectedRouteforReceptionist exact path='/SearchExistingPatient' loggedIn={this.state.cookierolevalue} component={SearchExistingPatient} />
             <ProtectedRouteforDoctor exact path='/SearchPatient' loggedIn={this.state.cookierolevalue} component={SearchPatient} />
-            <ProtectedRouteforDoctor exact path='/ViewAllPatient' loggedIn={this.state.cookierolevalue} component={ViewAllPatient} />
+            {/* <ProtectedRouteforDoctor exact path='/ViewAllPatient' loggedIn={this.state.cookierolevalue} component={ViewAllPatient} /> */}
             <ProtectedRouteforDoctor exact path='/EditVitals' loggedIn={this.state.cookierolevalue} component={EditVitals} />
             <Route exact path="/Admin" component={LoginAdmin} />
             <ProtectedRouteforDoctor exact path='/EditInfo' loggedIn={this.state.cookierolevalue} component={EditInfo} />
-          
+            <Route exact path="/ViewAllPatient" component={ViewAllPatient} />
           
 
           </div>
