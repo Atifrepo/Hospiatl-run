@@ -430,7 +430,8 @@ console.log('res',result)
         </Table>
         <div >
           <Dialog
-
+            fullWidth='true'
+            maxWidth='lg'
             onClose={this.handleClose}
             aria-labelledby="customized-dialog-title"
             open={this.state.open}
@@ -441,17 +442,18 @@ console.log('res',result)
             <DialogContent>
               <Typography gutterBottom>
                 {this.state.receivenote.map(row => (
-                  <div>
+
+<div>
+
                     {row.notetext}
-{this.state.DoctorName}
+          <br></br>        
+                    Added By: <b> {row.doctorname}</b>
+<Divider/>
                   </div>
+           
 
                 ))}
-              </Typography>
-              <Divider/>
-              <Typography gutterBottom >
-                Added By: <b> {this.state.DoctorName}</b>
-          
+
               </Typography>
             </DialogContent>
             <DialogActions></DialogActions>

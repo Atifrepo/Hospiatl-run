@@ -155,7 +155,7 @@ class RecAppbar extends React.Component {
               <MenuIcon />
 
             </IconButton>
-            <Typography variant="h6" color="inherit" className={classes.title} noWrap>
+            <Typography variant="h6" color="inherit" style={{flexGrow:'1'}} noWrap>
             Prime Specialist Clinic
             </Typography>
            <IconButton
