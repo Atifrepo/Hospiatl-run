@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import toastr from 'toastr'
 import Button from '@material-ui/core/Button';
-import RecAppbar from '../RecAppar'
+import NurseAppbar from '../NurseAppbar'
 import Cookies from 'universal-cookie';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -161,7 +161,7 @@ class SearchForNurse extends Component {
     return (
 
       <div>
-        <RecAppbar />
+        <NurseAppbar />
 
         <h2 style={{ color: '#2699FB', position: 'absolute' }}>Search Patient</h2>
         <form onSubmit={this.handleSearch}>

@@ -197,7 +197,7 @@ class SearchExistingPatient extends Component {
                   <TableCell component="th" scope="row">
                     {row.patientname} {row.patientlastname}
                   </TableCell>
-                  <TableCell ></TableCell>
+                 
                   <TableCell >{row.fathername}</TableCell>
                   <TableCell>{row.age}</TableCell>
                   <TableCell>{row.gender}</TableCell>

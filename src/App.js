@@ -16,6 +16,8 @@ import Typography from '@material-ui/core/Typography';
 import EditInfo from './pages/EditInfo'
 import SearchForNurse from './pages/SearchForNurse'
 import EditVitals from './pages/EditVitals'
+import ViewAllPatientR from './pages/ViewAllPatientR'
+import ViewAllPatientN from './pages/ViewAllPatientN'
 import './App.css';
 import {
   BrowserRouter as Router,
@@ -104,7 +106,7 @@ class App extends Component {
 
   select() {
     var rolecookis = cookies.get('roles')
-  
+
     if (rolecookis == "nurse") {
 
     }
@@ -132,19 +134,20 @@ class App extends Component {
 
             <Route exact path='/' component={Login} />
             <ProtectedRouteforReceptionist path='/Register' loggedIn={this.state.cookierolevalue} component={RegisterPatient} />
+            <ProtectedRouteforReceptionist exact path='/SearchExistingPatient' loggedIn={this.state.cookierolevalue} component={SearchExistingPatient} />
+            <ProtectedRouteforReceptionist exact path='/ViewAll' loggedIn={this.state.cookierolevalue} component={ViewAllPatientR} />
             <ProtectedRouteforNurse path='/AddVitals' loggedIn={this.state.cookierolevalue} component={AddVitals} />
             <ProtectedRouteforNurse path='/SearchAll' loggedIn={this.state.cookierolevalue} component={SearchForNurse} />
+            <ProtectedRouteforNurse path='/ViewAllN' loggedIn={this.state.cookierolevalue} component={ViewAllPatientN} />
+            <ProtectedRouteforDoctor exact path='/SearchPatient' loggedIn={this.state.cookierolevalue} component={SearchPatient} />
+            <ProtectedRouteforDoctor exact path='/ViewAllPatient' loggedIn={this.state.cookierolevalue} component={ViewAllPatient} />
+            <ProtectedRouteforDoctor exact path='/EditVitals' loggedIn={this.state.cookierolevalue} component={EditVitals} />
+            <ProtectedRouteforDoctor exact path='/EditInfo' loggedIn={this.state.cookierolevalue} component={EditInfo} />
             <ProtectedRouteforAdmin exact path='/AddEmployee' loggedIn={this.state.cookierolevalue} component={AddEmployee} />
             <ProtectedRouteforAdmin exact path='/DeleteEmployee' loggedIn={this.state.cookierolevalue} component={DeleteEmployee} />
             <ProtectedRouteforAdmin exact path='/EditEmployee' loggedIn={this.state.cookierolevalue} component={EditEmployee} />
-            <ProtectedRouteforReceptionist exact path='/SearchExistingPatient' loggedIn={this.state.cookierolevalue} component={SearchExistingPatient} />
-            <ProtectedRouteforDoctor exact path='/SearchPatient' loggedIn={this.state.cookierolevalue} component={SearchPatient} />
-            {/* <ProtectedRouteforDoctor exact path='/ViewAllPatient' loggedIn={this.state.cookierolevalue} component={ViewAllPatient} /> */}
-            <ProtectedRouteforDoctor exact path='/EditVitals' loggedIn={this.state.cookierolevalue} component={EditVitals} />
             <Route exact path="/Admin" component={LoginAdmin} />
-            <ProtectedRouteforDoctor exact path='/EditInfo' loggedIn={this.state.cookierolevalue} component={EditInfo} />
-            <Route exact path="/ViewAllPatient" component={ViewAllPatient} />
-          
+
 
           </div>
         </Router>

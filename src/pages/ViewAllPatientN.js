@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Cookies from 'universal-cookie';
 import Paper from '@material-ui/core/Paper';
 import PropTypes, { func } from 'prop-types';
-import DoctorAppbar from '../DoctorAppbar'
+import NurseAppbar from '../NurseAppbar'
 
 import MUIDataTable from "mui-datatables";
 import { withStyles } from '@material-ui/core/styles';
@@ -23,7 +23,7 @@ const styles = theme => ({
 });
 
 
-class ViewAllPatient extends Component {
+class ViewAllPatientN extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -84,7 +84,7 @@ class ViewAllPatient extends Component {
     return (
       <div>
 
-        <DoctorAppbar />
+        <NurseAppbar />
         <Paper className={classes.root}>
           <MUIDataTable
             columns={columns}
@@ -107,8 +107,8 @@ class ViewAllPatient extends Component {
   }
 }
 
-ViewAllPatient.propTypes = {
+ViewAllPatientN.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ViewAllPatient);
+export default withStyles(styles)(ViewAllPatientN);

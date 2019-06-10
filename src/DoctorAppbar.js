@@ -78,6 +78,9 @@ const styles = theme => ({
       justifyContent:'left'
       
     },
+    title: {
+      flexGrow: 1,
+    },
   },
   toolbar: {
     display: 'flex',
@@ -152,10 +155,11 @@ route(path){
             <MenuIcon/>
 
             </IconButton>
-            <Typography variant="h6" color="inherit" className={classes.grow} noWrap>
+            <Typography variant="h6" color="inherit" className={classes.title} noWrap>
             Prime Specialist Clinic
             </Typography>
-            <div style={{paddingLeft:'75%'}}> 
+           
+           
             <IconButton
                   aria-owns={open ? 'menu-appbar' : undefined}
                   aria-haspopup="true"
@@ -181,7 +185,7 @@ route(path){
                   <MenuItem onClick={this.logout}>logout</MenuItem>
                   
                 </Menu>
-                </div>
+            
                 </Toolbar>
                
                  </AppBar>

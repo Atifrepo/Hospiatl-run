@@ -91,6 +91,9 @@ const styles = theme => ({
     padding: theme.spacing.unit * 3,
     backgroundColor: '#2699FB'
   },
+  title: {
+    flexGrow: 1,
+  },
 });
 
 class RecAppbar extends React.Component {
@@ -152,10 +155,10 @@ class RecAppbar extends React.Component {
               <MenuIcon />
 
             </IconButton>
-            <Typography variant="h6" color="inherit" className={classes.grow} noWrap>
+            <Typography variant="h6" color="inherit" className={classes.title} noWrap>
             Prime Specialist Clinic
             </Typography>
-<div style={{paddingLeft:'75%'}}>            <IconButton
+           <IconButton
 
               aria-owns={open ? 'menu-appbar' : undefined}
               aria-haspopup="true"
@@ -182,7 +185,7 @@ class RecAppbar extends React.Component {
               <MenuItem onClick={this.logout}>logout</MenuItem>
 
             </Menu>
-            </div>
+         
           </Toolbar>
 
         </AppBar>
@@ -220,7 +223,7 @@ class RecAppbar extends React.Component {
               <ListItemText primary />
             </ListItem>
             <Divider/>
-<ListItem button onClick={(event) => this.route('/ViewAllPatient')} style={{backgroundColor:'#2699FB',}}>
+<ListItem button onClick={(event) => this.route('/ViewAll')} style={{backgroundColor:'#2699FB',}}>
                 <ListItemIcon style={{color:'#fff'}}> 
              View All Patient
                    </ListItemIcon>

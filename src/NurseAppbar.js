@@ -77,6 +77,9 @@ const styles = theme => ({
       justifyContent:'left'
       
     },
+    title: {
+      flexGrow: 1,
+    },
   },
   toolbar: {
     display: 'flex',
@@ -151,17 +154,17 @@ route(path){
             <MenuIcon/>
 
             </IconButton>
-            <Typography variant="h6" color="inherit" className={classes.grow} noWrap>
+            <Typography variant="h6" color="inherit" className={classes.title} noWrap>
             Prime Specialist Clinic
             </Typography>
-            <div style={{paddingLeft:'75%'}}>
+           
             <IconButton
                   aria-owns={open ? 'menu-appbar' : undefined}
                   aria-haspopup="true"
                   onClick={this.handleMenu}
                   color="inherit"
                 >
-                  <AccountCircle style={{}} />
+                  <AccountCircle />
                 </IconButton>
                 <Menu
                   id="menu-appbar"
@@ -180,7 +183,7 @@ route(path){
                   <MenuItem onClick={this.logout}>logout</MenuItem>
                   
                 </Menu>
-                </div>
+             
                 </Toolbar>
                
                  </AppBar>
@@ -220,7 +223,7 @@ route(path){
 
           
           <Divider/>
-<ListItem button onClick={(event) => this.route('/ViewAllPatient')} style={{backgroundColor:'#2699FB',}}>
+<ListItem button onClick={(event) => this.route('/ViewAllN')} style={{backgroundColor:'#2699FB',}}>
                 <ListItemIcon style={{color:'#fff'}}> 
              View All Patient
                    </ListItemIcon>
