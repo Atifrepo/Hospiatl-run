@@ -199,11 +199,16 @@ class SearchPatient extends Component {
       })
 
   }
+
+
+
+
   editVitals(rows) {
-    for (let i = 0; i < rows.length; i++) {
-      console.log(this.state.data[rows[i]])
-  }
-  }
+    console.log(rows.vitals_id);
+  
+  };
+
+
 render() {
     const { classes } = this.props;
     return (
@@ -249,68 +254,27 @@ render() {
           </TableHead>
           <TableBody>
             {this.state.rows.map((row,index) => (
-              <TableRow key={row.id}>
+              <TableRow key={row.id} onClick={this.editVitals.bind(this,row)}>
                 <TableCell>
-                  <TextField
-                    label="Height(cm)"
-                    name="Height"
-                    required={true}
-                    value={row.height}
-                    onChange={this.handleChange}
-                    variant="outlined"
-                    className={classes.textField}
-                    margin="normal"
-                  /></TableCell>
+                  {row.height}</TableCell>
                 <TableCell>
-                  <TextField
-                    label="Height(cm)"
-                    name="Height"
-                    required={true}
-                    value={row.bloodpressure}
-                    onChange={this.handleChange}
-                    variant="outlined"
-                    className={classes.textField}
-                    margin="normal"
-                  /></TableCell>
+                  {row.bloodpressure}
+                  </TableCell>
 
                 <TableCell >
-                  <TextField
-                    label="Height(cm)"
-                    name="Height"
-                    required={true}
-                    value={row.po2}
-                    onChange={this.handleChange}
-                    variant="outlined"
-                    className={classes.textField}
-                    margin="normal"
-                  /></TableCell>
+{row.po2}
+</TableCell>
                 <TableCell >
-                  <TextField
-                    label="Height(cm)"
-                    name="Height"
-                    required={true}
-                    value={row.pulse}
-                    onChange={this.handleChange}
-                    variant="outlined"
-                    className={classes.textField}
-                    margin="normal"
-                  /></TableCell>
+                  {row.pulse}
+                  </TableCell>
 
                 <TableCell>
-                  <TextField
-                    label="Height(cm)"
-                    name="Height"
-                    required={true}
-                    value={row.weight}
-                    onChange={this.handleChange}
-                    variant="outlined"
-                    className={classes.textField}
-                    margin="normal"
-                  /></TableCell>
+                 {row.weight}
+                 </TableCell>
                 <TableCell >{row.datetimes}</TableCell>
 
                 <TableCell >
-                  <Button variant="outlined" style={{ backgroundColor: '#2699FB', }} onClick={(rows)=>this.editVitals.bind(this,rows)}><b style={{ color: '#fff' }}>Edit Vitals</b></Button>
+                  <Button variant="outlined" style={{ backgroundColor: '#2699FB', }} ><b style={{ color: '#fff' }}>Edit Vitals</b></Button>
                 </TableCell>
 
                 <TableCell>
