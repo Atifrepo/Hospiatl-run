@@ -253,7 +253,6 @@ render(){
           label="Name"
           name="patientname"
           value={this.state.patientname}
-          required={true}
           onChange={this.handleChange}
           margin="normal"
           variant="outlined"
@@ -263,7 +262,6 @@ render(){
           label="Last Name"
           name="patientlastname"
           value={this.state.patientlastname}
-          required={true}
           onChange={this.handleChange}
           margin="normal"
           variant="outlined"
@@ -274,7 +272,6 @@ render(){
 
         <TextField
           label="Husband/Father Name"
-          required={true}
           name="patientfathername"
           value={this.state.patientfathername}
           onChange={this.handleChange}
@@ -286,7 +283,6 @@ render(){
       
         <TextField
           label="Age"
-          required={true}
           name="age"
           value={this.state.age}
           onChange={this.handleChange}
@@ -297,7 +293,6 @@ render(){
 <br></br>
         <TextField
           label="Telephone#1"
-          required={true}
           name="telephone1"
           value={this.state.telephone1}
 
@@ -310,7 +305,6 @@ render(){
           label="Telephone#2"
           name="telephone2"
           value={this.state.telephone2}
-          required={true}
           onChange={this.handleChange}
           margin="normal"
           variant="outlined"
@@ -319,10 +313,10 @@ render(){
         
         <br></br>
 <TextField
+disabled
           label="MR NO."
           name="mrnumberreceived"
           value={this.state.mrnumberreceived}
-          required={true}
           onChange={this.handleChange}
           margin="normal"
           variant="outlined"
