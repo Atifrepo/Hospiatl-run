@@ -57,7 +57,7 @@ class AddVitals extends Component {
       BP: '',
       Pulse: '',
       Temperature: '',
-      PO2: '',
+      RPS: '',
       Allergies: '',
       DateTime: '',
       rolecookies: '',
@@ -173,7 +173,7 @@ class AddVitals extends Component {
       bloodpressure: this.state.BP,
       pulse: this.state.Pulse,
       temperature: this.state.Temperature,
-      po2: this.state.PO2,
+      po2: this.state.RPS,
       datetimes: dateString,
       allergie: this.state.Allergy,
       patientid: this.state.patientid,
@@ -222,7 +222,8 @@ this.setState({
   BP: '',
   Pulse: '',
   Temperature: '',
-  PO2: '',
+  RPS: '',
+  Allergy:'',
 })
   }
 
@@ -359,10 +360,10 @@ this.setState({
           />
 
           <TextField
-            label="PO2"
-            name="PO2"
+            label="RPS"
+            name="RPS"
             required={true}
-            value={this.state.PO2}
+            value={this.state.RPS}
             onChange={this.handleChange}
             variant="outlined"
             className={classes.textField}

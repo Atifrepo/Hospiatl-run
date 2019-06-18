@@ -19,6 +19,9 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
 
 const cookies = new Cookies();
 const DialogTitle = withStyles(theme => ({
@@ -73,7 +76,22 @@ const styles = theme => ({
   //   marginLeft: theme.spacing.unit,
   //   marginRight: theme.spacing.unit,
   // },
+  card: {
+    minWidth: 275,
+    width: 21,
 
+  },
+  bullet: {
+    display: 'inline-block',
+    margin: '0 2px',
+    transform: 'scale(0.8)',
+  },
+  title: {
+    fontSize: 14,
+  },
+  pos: {
+    marginBottom: 12,
+  },
 
 
 });
@@ -95,6 +113,7 @@ class SearchPatient extends Component {
 
     this.state = {
 
+      MRNo_Rec: '',
       MR_No: '',
       Name: '',
       LName: '',
@@ -105,7 +124,9 @@ class SearchPatient extends Component {
       patientid: '',
       rows: [],
       receivenote: [],
-      DoctorName:''
+      DoctorName: '',
+      Diagnosisinput:'',
+      DiagnosisReceived:'',
     }
 
 
@@ -138,6 +159,8 @@ class SearchPatient extends Component {
     };
     this.setState({
       rows: []
+      // Age:row-
+
     })
 
 
@@ -178,6 +201,8 @@ class SearchPatient extends Component {
       })
       .then((result) => {
         this.setState({
+          MR_No: result[0].mr_no,
+          MRNo_Rec: result[0].mr_no,
           Name: result[0].patientname,
           Fathername: result[0].fathername,
           Age: result[0].age,
@@ -217,7 +242,8 @@ class SearchPatient extends Component {
     var Search = {
       patientid: this.state.patientid,
       note: this.state.note,
-      date: dateString
+      date: dateString,
+      diagnosis:this.state.Diagnosisinput,
     };
 
 
@@ -322,10 +348,11 @@ class SearchPatient extends Component {
       .then((result) => {
 
         this.setState({
+          
           receivenote: result,
-          DoctorName:result[0].doctorname,
+          DoctorName: result[0].doctorname,
         })
-console.log('res',result)
+        console.log('res', result)
       })
       .catch((error) => {
         toastr.options = {
@@ -359,7 +386,8 @@ console.log('res',result)
 
 
   render() {
-
+    const { classes } = this.props;
+    const bull = <span className={classes.bullet}>•</span>;
     return (
 
 
@@ -367,6 +395,7 @@ console.log('res',result)
       <div style={{ overflowX: "hidden" }}>
         <DoctorAppBar />
         <h2 style={{ color: '#2699FB', position: 'absolute' }}>Search patient</h2>
+
         <form onSubmit={this.handleSearch}>
           <br></br>
           <br></br>
@@ -385,19 +414,40 @@ console.log('res',result)
           <Button variant="outlined" style={{ backgroundColor: '#2699FB', }} type="submit"><b style={{ color: '#fff' }}>Search</b></Button>
         </form>
         {/* </div> */}
+        <Card style={{ height: '45', width: '23', }}
+          className={classes.card}>
+
+          <CardContent>
+            {/* {this.state.rows.map(row => ( */}
+
+            <Typography >
+              <b>MR NO.:  </b>{this.state.MRNo_Rec}
+              <br></br>
+              <b>Name:  </b>{this.state.Name}
+              <br></br>
+              <b>Age: </b>{this.state.Age}
+              {/* MR No:  {row.mr_no}
+                <br></br>
+                Age:  {row.age} */}
+            </Typography>
+            {/* ))} */}
+          </CardContent>
+
+        </Card>
 
         <Table className='Patient Information'>
           <TableHead>
             <TableRow>
-              <TableCell >MR Number</TableCell>
+              {/* <TableCell >MR Number</TableCell>
               <TableCell> Name</TableCell>
-              <TableCell >Age</TableCell>
+              <TableCell >Age</TableCell> */}
+              <TableCell >Date</TableCell>
               <TableCell >Blood Pressure</TableCell>
               <TableCell >Height</TableCell>
-              <TableCell >PO2</TableCell>
+              <TableCell >RBS</TableCell>
               <TableCell >Pulse</TableCell>
               <TableCell >Weight</TableCell>
-              <TableCell >Date</TableCell>
+            
               <TableCell >Allergy</TableCell>
 
 
@@ -406,15 +456,16 @@ console.log('res',result)
           <TableBody>
             {this.state.rows.map(row => (
               <TableRow key={row.id}>
-                <TableCell >{row.mr_no}</TableCell>
+                {/* <TableCell >{row.mr_no}</TableCell>
                 <TableCell >{row.patientname} {row.patientlastname}</TableCell>
-                <TableCell >{row.age}</TableCell>
+                <TableCell >{row.age}</TableCell> */}
+                <TableCell >{row.datetimes}</TableCell>
                 <TableCell >{row.bloodpressure}</TableCell>
                 <TableCell >{row.height}</TableCell>
                 <TableCell >{row.po2}</TableCell>
                 <TableCell >{row.pulse}</TableCell>
                 <TableCell >{row.weight}</TableCell>
-                <TableCell >{row.datetimes}</TableCell>
+
                 <TableCell >{row.allergie}</TableCell>
 
                 <TableCell>
@@ -443,14 +494,14 @@ console.log('res',result)
               <Typography gutterBottom>
                 {this.state.receivenote.map(row => (
 
-<div>
+                  <div>
 
                     {row.notetext}
-          <br></br>        
+                    <br></br>
                     Added By: <b> {row.doctorname}</b>
-<Divider/>
+                    <Divider />
                   </div>
-           
+
 
                 ))}
 
@@ -466,7 +517,7 @@ console.log('res',result)
             id="outlined-multiline-static"
 
             multiline
-            rows="10"
+            rows="8"
             name="note"
             required={true}
             value={this.state.note}
@@ -477,6 +528,14 @@ console.log('res',result)
           />
           <br></br>
           <br></br>
+          <TextField
+          name="Diagnosisinput"
+          required={true}
+          value={this.state.Diagnosisinput}
+          onChange={this.handleChange}
+          margin="normal"
+          variant="outlined"
+          />
           <Button variant="outlined" style={{ backgroundColor: '#2699FB', }} type="submit"><b style={{ color: '#fff' }}>Add Notes</b></Button>
         </form>
         {/* </div> */}

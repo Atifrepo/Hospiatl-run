@@ -139,7 +139,7 @@ class EditVitals extends Component {
     console.log('hei', this.state.height)
     event.preventDefault();
     var EditVitalForm = {
-      vitalsid: this.state.vitals_id,
+      vitalsid: this.state.id,
       patientid: this.state.patientid,
       heights: this.state.height,
       weight: this.state.weight,
