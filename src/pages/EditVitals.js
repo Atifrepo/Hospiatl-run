@@ -349,7 +349,7 @@ class EditVitals extends Component {
             <TableRow>
               <TableCell >Height</TableCell>
               <TableCell >Blood Pressure</TableCell>
-              <TableCell >PO2</TableCell>
+              <TableCell >RBS</TableCell>
               <TableCell >Pulse</TableCell>
               <TableCell >Weight</TableCell>
               <TableCell >Date</TableCell>
@@ -454,7 +454,7 @@ label="MR_No"
             />
     
             <TextField
-              label="PO2"
+              label="RBS"
               name="PO2"
               onChange={this.handleChange}
               value={this.state.PO2}
