@@ -125,8 +125,8 @@ class SearchPatient extends Component {
       rows: [],
       receivenote: [],
       DoctorName: '',
-      Diagnosisinput:'',
-      DiagnosisReceived:'',
+      Diagnosisinput: '',
+      DiagnosisReceived: '',
     }
 
 
@@ -240,13 +240,13 @@ class SearchPatient extends Component {
     var month = currentDate.getMonth();
     var year = currentDate.getFullYear();
     var dateString = date + "-" + (month + 1) + "-" + year;
-    console.log("Diagnosis input ",this.state.Diagnosisinput);
-    console.log("Notes Added",this.state.note);
+    console.log("Diagnosis input ", this.state.Diagnosisinput);
+    console.log("Notes Added", this.state.note);
     var Search = {
       patientid: this.state.patientid,
       note: this.state.note,
       date: dateString,
-      diagnosis:this.state.Diagnosisinput,
+      diagnosis: this.state.Diagnosisinput,
     };
 
 
@@ -351,7 +351,7 @@ class SearchPatient extends Component {
       .then((result) => {
 
         this.setState({
-          
+
           receivenote: result,
           DoctorName: result[0].doctorname,
         })
@@ -450,26 +450,30 @@ class SearchPatient extends Component {
               <TableCell >RBS</TableCell>
               <TableCell >Pulse</TableCell>
               <TableCell >Weight</TableCell>
-            
-              <TableCell >Allergy</TableCell>
 
+              <TableCell >Allergy</TableCell>
+              <TableCell>Diagnosis</TableCell>
 
             </TableRow>
           </TableHead>
           <TableBody>
             {this.state.rows.map(row => (
               <TableRow key={row.id}>
-                {/* <TableCell >{row.mr_no}</TableCell>
-                <TableCell >{row.patientname} {row.patientlastname}</TableCell>
-                <TableCell >{row.age}</TableCell> */}
+
                 <TableCell >{row.datetimes}</TableCell>
                 <TableCell >{row.bloodpressure}</TableCell>
                 <TableCell >{row.height}</TableCell>
                 <TableCell >{row.po2}</TableCell>
                 <TableCell >{row.pulse}</TableCell>
                 <TableCell >{row.weight}</TableCell>
-
                 <TableCell >{row.allergie}</TableCell>
+                <TableCell >
+                  {this.state.receivenote.map(row => (
+                    <div>
+                      {row.diagnosis}
+                    </div>
+                  ))}
+                </TableCell>
 
                 <TableCell>
                   <Button variant="outlined" color="secondary" onClick={() => { this.handleClickOpen(row) }}>
@@ -530,15 +534,17 @@ class SearchPatient extends Component {
             variant="outlined"
           />
           <br></br>
-          <br></br>
+
           <TextField
-          name="Diagnosisinput"
-          required={true}
-          value={this.state.Diagnosisinput}
-          onChange={this.handleChange}
-          margin="normal"
-          variant="outlined"
+            label="Add Diagnosis"
+            name="Diagnosisinput"
+            required={true}
+            value={this.state.Diagnosisinput}
+            onChange={this.handleChange}
+            margin="normal"
+            variant="outlined"
           />
+          <br></br>
           <Button variant="outlined" style={{ backgroundColor: '#2699FB', }} type="submit"><b style={{ color: '#fff' }}>Add Notes</b></Button>
         </form>
         {/* </div> */}
