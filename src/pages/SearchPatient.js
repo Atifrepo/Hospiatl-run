@@ -467,13 +467,7 @@ class SearchPatient extends Component {
                 <TableCell >{row.pulse}</TableCell>
                 <TableCell >{row.weight}</TableCell>
                 <TableCell >{row.allergie}</TableCell>
-                <TableCell >
-                  {this.state.receivenote.map(row => (
-                    <div>
-                      {row.diagnosis}
-                    </div>
-                  ))}
-                </TableCell>
+                <TableCell > {row.diagnosis}</TableCell>
 
                 <TableCell>
                   <Button variant="outlined" color="secondary" onClick={() => { this.handleClickOpen(row) }}>
@@ -557,3 +551,9 @@ SearchPatient.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 export default withStyles(styles)(SearchPatient)
+
+
+
+
+
+
