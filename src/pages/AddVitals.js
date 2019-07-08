@@ -11,6 +11,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import  MultiSelectReact  from 'multi-select-react';
 const cookies = new Cookies();
 
 const styles = theme => ({
@@ -68,7 +69,8 @@ class AddVitals extends Component {
       patientid: '',
       labelWidth: 0,
       AllergyArray: [],
-      rows: []
+      rows: [],
+      multiSelect: []
 
     }
 
@@ -85,7 +87,12 @@ class AddVitals extends Component {
    
   }
 
-
+  optionClicked(optionsList) {
+    this.setState({ multiSelect: optionsList });
+}
+selectedBadgeClicked(optionsList) {
+  this.setState({ multiSelect: optionsList });
+}
 
   Search = (event) => {
 
@@ -235,7 +242,14 @@ this.setState({
 
   render() {
     const { classes } = this.props;
-
+    const selectedOptionsStyles = {
+      color: "#3c763d",
+      backgroundColor: "#dff0d8"
+  };
+  const optionsListStyles = {
+      backgroundColor: "#dff0d8",
+      color: "#3c763d"
+  };
     return (
 
       <div >
@@ -371,7 +385,7 @@ this.setState({
           />
 
           <br></br>
-<TextField
+{/* <TextField
  label="Add Allergy"
  name="Allergy"
  required={true}
@@ -381,7 +395,14 @@ this.setState({
  className={classes.textField}
  margin="normal"
 
-/>
+/> */}
+{/* <MultiSelectReact
+options={this.state.Allergy}
+optionClicked={this.optionClicked.bind(this)}
+selectedBadgeClicked={this.selectedBadgeClicked.bind(this)}
+selectedOptionsStyles={selectedOptionsStyles}
+optionsListStyles={optionsListStyles} />
+/> */}
           <br></br>
           <Button type="submit" variant="outlined" style={{ backgroundColor: '#2699FB', position: 'relative' }} ><b style={{ color: '#fff' }}>Add Vitals</b></Button>
 </form>

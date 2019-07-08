@@ -108,6 +108,7 @@ class SearchPatient extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.AddNotes = this.AddNotes.bind(this);
     this.handleClickOpen = this.handleClickOpen.bind(this);
+    this.ViewDiagnosis=this.ViewDiagnosis.bind(this);
 
 
 
@@ -126,6 +127,8 @@ class SearchPatient extends Component {
       receivenote: [],
       DoctorName: '',
       Diagnosisinput: '',
+      Diagnosis:[],
+      diaDate:'',
       DiagnosisReceived: '',
     }
 
@@ -384,9 +387,75 @@ class SearchPatient extends Component {
   handleClose = () => {
     this.setState({ open: false });
   };
+  handleCloses = () => {
+    this.setState({ opens: false });
+  };
 
 
+  ViewDiagnosis= () => {
+    var Search = {
+      
+      patientid: this.state.patientid
+    };
+console.log('id',this.state.patientid)
 
+    var formBody = [];
+    for (var property in Search) {
+      var encodedKey = encodeURIComponent(property);
+      var encodedValue = encodeURIComponent(Search[property]);
+      formBody.push(encodedKey + "=" + encodedValue);
+    }
+
+    formBody = formBody.join("&");
+
+
+    var Authtoken = cookies.get('token')
+    var finalAuthtoken = 'Bearer ' + Authtoken
+
+    fetch('http://ec2-54-198-188-131.compute-1.amazonaws.com:3000/viewdiagnosis', {
+      method: 'POST',
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+        'Authorization': finalAuthtoken
+
+      },
+      body: formBody
+
+    }) 
+    .then((resp) => {
+
+      if (resp.status !== 200) {
+        throw new Error("Not 200 response")
+      }
+
+      if (resp.ok) {
+        var data = resp.json();
+        return data;
+      }
+    })
+    .then((result) => {
+
+      console.log('res', result)
+      this.setState(
+      {
+        Diagnosis:result
+      }
+      )
+    })  
+    .catch((error) => {
+      toastr.options = {
+        positionClass: 'toast-bottom-left',
+        hideDuration: 300000,
+        timeOut: 100
+      }
+      toastr.clear()
+      setTimeout(() => toastr.error(`No Notes`), 300)
+    })
+    this.setState({
+      opens: true,
+    });
+  }
 
   render() {
     const { classes } = this.props;
@@ -429,6 +498,7 @@ class SearchPatient extends Component {
               <b>Name:  </b>{this.state.Name}
               <br></br>
               <b>Age: </b>{this.state.Age}
+              
               {/* MR No:  {row.mr_no}
                 <br></br>
                 Age:  {row.age} */}
@@ -452,8 +522,7 @@ class SearchPatient extends Component {
               <TableCell >Weight</TableCell>
 
               <TableCell >Allergy</TableCell>
-              <TableCell>Diagnosis</TableCell>
-
+            
             </TableRow>
           </TableHead>
           <TableBody>
@@ -467,13 +536,7 @@ class SearchPatient extends Component {
                 <TableCell >{row.pulse}</TableCell>
                 <TableCell >{row.weight}</TableCell>
                 <TableCell >{row.allergie}</TableCell>
-                <TableCell >
-                  {this.state.receivenote.map(row => (
-                    <div>
-                      {row.diagnosis}
-                    </div>
-                  ))}
-                </TableCell>
+              
 
                 <TableCell>
                   <Button variant="outlined" color="secondary" onClick={() => { this.handleClickOpen(row) }}>
@@ -482,11 +545,60 @@ class SearchPatient extends Component {
         </b>
                   </Button>
                 </TableCell>
+                <TableCell>
+                
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
+        <br></br>
+        <div>
+        {/* {this.state.rows.map(row => ( */}
+        <Button variant="outlined" color="secondary" onClick={() => { this.ViewDiagnosis() }}>
+                    <b>
+                      View Diagnosis History
+        </b>
+                  </Button>
+                   {/* ))} */}
+                  </div>
+                  <div >
+
+<Dialog
+  fullWidth='true'
+  maxWidth='lg'
+  onClose={this.handleClose}
+  aria-labelledby="customized-dialog-title"
+  open={this.state.opens}
+>
+  <DialogTitle id="customized-dialog-title" onClose={this.handleCloses}>
+  Diagnosis
+</DialogTitle>
+  <DialogContent>
+    <Typography gutterBottom>
+      {this.state.Diagnosis.map(row => (
+
+        <div>
+
+        
+          <br></br>
+         {row.diagnosis}
+         <br></br>
+                    Date: <b> {row.notedate}</b>
+      
+          <Divider />
+        </div>
+
+
+      ))}
+
+    </Typography>
+  </DialogContent>
+  <DialogActions></DialogActions>
+</Dialog>
+</div>
         <div >
+
           <Dialog
             fullWidth='true'
             maxWidth='lg'
@@ -517,8 +629,10 @@ class SearchPatient extends Component {
             <DialogActions></DialogActions>
           </Dialog>
         </div>
+      
+      
         {/* <div style={{ paddingLeft: 500, paddingTop: 100,position:'fixed' }}> */}
-        <h3 style={{ color: '#2699FB' }}>Notes/Diagnostics Results/Prescription</h3>
+        <h3 style={{ color: '#2699FB' }}>Add Notes/Prescription</h3>
         <form onSubmit={this.AddNotes}>
           <TextField style={{ width: '80%' }}
             id="outlined-multiline-static"
