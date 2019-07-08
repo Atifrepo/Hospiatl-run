@@ -536,9 +536,9 @@ console.log('id',this.state.patientid)
                 <TableCell >{row.pulse}</TableCell>
                 <TableCell >{row.weight}</TableCell>
                 <TableCell >{row.allergie}</TableCell>
-              
 
-                <TableCell>
+                <TableCell > {row.diagnosis}</TableCell>
+               <TableCell>
                   <Button variant="outlined" color="secondary" onClick={() => { this.handleClickOpen(row) }}>
                     <b>
                       View Notes
@@ -671,3 +671,9 @@ SearchPatient.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 export default withStyles(styles)(SearchPatient)
+
+
+
+
+
+
