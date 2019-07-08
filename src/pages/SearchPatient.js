@@ -130,6 +130,7 @@ class SearchPatient extends Component {
       Diagnosis:[],
       diaDate:'',
       DiagnosisReceived: '',
+      showdaignosis:false,
     }
 
 
@@ -214,9 +215,11 @@ class SearchPatient extends Component {
 
 
         this.setState({
-          rows: result
+          rows: result,
+          showdaignosis:true
         })
 
+        
 
 
       })
@@ -486,7 +489,9 @@ console.log('id',this.state.patientid)
           <Button variant="outlined" style={{ backgroundColor: '#2699FB', }} type="submit"><b style={{ color: '#fff' }}>Search</b></Button>
         </form>
         {/* </div> */}
-        <Card style={{ height: '45', width: '23', }}
+        <br></br>
+        <div style={{ height: '45', width: '23',paddingLeft:'40%' }}>
+        <Card
           className={classes.card}>
 
           <CardContent>
@@ -507,7 +512,7 @@ console.log('id',this.state.patientid)
           </CardContent>
 
         </Card>
-
+        </div>
         <Table className='Patient Information'>
           <TableHead>
             <TableRow>
@@ -554,12 +559,13 @@ console.log('id',this.state.patientid)
         </Table>
         <br></br>
         <div>
-        {/* {this.state.rows.map(row => ( */}
-        <Button variant="outlined" color="secondary" onClick={() => { this.ViewDiagnosis() }}>
+          { this.state.showdaignosis?
+        (<Button variant="outlined" color="secondary" onClick={() => { this.ViewDiagnosis() }}>
                     <b>
                       View Diagnosis History
         </b>
-                  </Button>
+                  </Button>)
+           : null }
                    {/* ))} */}
                   </div>
                   <div >

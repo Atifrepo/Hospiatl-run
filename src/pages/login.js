@@ -61,6 +61,26 @@ export default class Login extends Component {
     this.setState({
       labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
     });
+
+    var tokencookis=cookies.get('roles')
+    console.log('token',tokencookis)
+      if (tokencookis == 'Receptionist') {
+        window.location.href = '/register';
+      
+      }
+    
+      if (tokencookis == 'Nurse') {
+        console.log(this.state.cookierolevalue);
+        window.location.href = '/addvitals';
+            }
+    
+      if (tokencookis == 'Doctor') {
+        window.location.href = '/SearchPatient';
+      
+      
+    
+    
+    }
   }
   handleChange({ target }) {
 

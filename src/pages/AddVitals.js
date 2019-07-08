@@ -236,7 +236,15 @@ this.setState({
 
  
 
-
+componentDidMount(){
+  var tokencookis=cookies.get('token')
+  console.log('token',tokencookis)
+  if(!tokencookis){
+    window.location.href ='/'
+  
+    console.log('not cookie')
+    }
+}
 
 
 

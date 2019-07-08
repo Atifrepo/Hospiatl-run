@@ -29,7 +29,7 @@ import {
 
 
 
-
+var jwtDecode = require('jwt-decode');
 const cookies = new Cookies();
 
 
@@ -102,23 +102,17 @@ class App extends Component {
   };
 
 
+componentDidMount(){
 
+}
 
-  select() {
-    var rolecookis = cookies.get('roles')
-
-    if (rolecookis == "nurse") {
-
-    }
-  }
-
+ 
 
 
   render() {
 
 
     return (
-
       <div className="App">
 
         <AppBar position="static" style={{ backgroundColor: '#2699FB', justifyContent: 'center' }}>
