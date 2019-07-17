@@ -11,7 +11,11 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import  MultiSelectReact  from 'multi-select-react';
+import Multiselect from 'multiselect-dropdown-react';
+import { DropDownMenu, MenuItem } from "material-ui";
+import { MuiThemeProvider, getMuiTheme } from 'material-ui/styles'
+import {deepOrange500} from 'material-ui/styles/colors'
+
 const cookies = new Cookies();
 
 const styles = theme => ({
@@ -37,14 +41,19 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit * 9,
 
+  },
+  TableCell:{
+    fontSize:15,
+    fontWeight:'bold'
   }
+
 
 });
 
 class AddVitals extends Component {
 
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.handleChange = this.handleChange.bind(this);
     this.patientvital = this.patientvital.bind(this);
   
@@ -73,10 +82,21 @@ class AddVitals extends Component {
       multiSelect: []
 
     }
-
+    this.muiTheme = getMuiTheme({
+      palette: {
+          accent1Color: deepOrange500
+      }
+      , userAgent: props.userAgent
+  })
   }
-
-
+  result(params) {
+    console.log(params);
+  }
+  handleSelect (event, index, value)
+    {
+        debugger
+        this.setState({ value })
+};
  
   handleChange({ target }) {
 
@@ -250,14 +270,30 @@ componentDidMount(){
 
   render() {
     const { classes } = this.props;
-    const selectedOptionsStyles = {
-      color: "#3c763d",
-      backgroundColor: "#dff0d8"
-  };
-  const optionsListStyles = {
-      backgroundColor: "#dff0d8",
-      color: "#3c763d"
-  };
+    const data = [{
+      name: 'one',
+      value: 'one'
+    },
+    {
+        name: 'two',
+        value: 'two'
+      },
+      {
+        name: 'three',
+        value: 'three'
+      },
+      {
+        name: 'four',
+        value: 'four'
+      },
+      {
+        name: 'five',
+        value: 'five'
+      },
+      {
+        name: 'six',
+        value: 'six'
+      }];
     return (
 
       <div >
@@ -306,13 +342,13 @@ componentDidMount(){
                   {/* <TableCell component="th" scope="row">
                 {row.name}
               </TableCell> */}
-                  <TableCell >{row.patientname} {row. patientlastname} </TableCell>
-                  <TableCell>{row.fathername}</TableCell>
-                  <TableCell>{row.age}</TableCell>
-                  <TableCell>{row.gender}</TableCell>
-                  <TableCell>{row.telephone1}</TableCell>
-                  <TableCell>{row.telephone2}</TableCell>
-                  <TableCell>{row.mr_no}</TableCell>
+                  <TableCell className={classes.TableCell} >{row.patientname} {row. patientlastname} </TableCell>
+                  <TableCell className={classes.TableCell}>{row.fathername}</TableCell>
+                  <TableCell className={classes.TableCell}>{row.age}</TableCell>
+                  <TableCell className={classes.TableCell}>{row.gender}</TableCell>
+                  <TableCell className={classes.TableCell}>{row.telephone1}</TableCell>
+                  <TableCell className={classes.TableCell}>{row.telephone2}</TableCell>
+                  <TableCell className={classes.TableCell}>{row.mr_no}</TableCell>
 
                   <TableCell>
 
@@ -391,26 +427,25 @@ componentDidMount(){
             className={classes.textField}
             margin="normal"
           />
+  {/* <MuiThemeProvider muiTheme={this.muiTheme}>
+                <div>
+                    <DropDownMenu primaryText="select" value={this.state.value} multiple={true} onChange={this.handleSelect.bind(this)} >
+                      
+                        <MenuItem value={1} primaryText="Never" />
+                        <MenuItem value={2} primaryText="Every Night" />
+                        <MenuItem value={3} primaryText="Weeknights" />
+                        <MenuItem value={4} primaryText="Weekends" />
+                        <MenuItem value={5} primaryText="Weekly" />
+                    </DropDownMenu>
+                    <br />
 
+                </div>
+            </MuiThemeProvider> */}
+ <div className="App">
+        <Multiselect options={data} onSelectOptions={this.result} />
+      </div>
           <br></br>
-{/* <TextField
- label="Add Allergy"
- name="Allergy"
- required={true}
- value={this.state.Allergy}
- onChange={this.handleChange}
- variant="outlined"
- className={classes.textField}
- margin="normal"
 
-/> */}
-{/* <MultiSelectReact
-options={this.state.Allergy}
-optionClicked={this.optionClicked.bind(this)}
-selectedBadgeClicked={this.selectedBadgeClicked.bind(this)}
-selectedOptionsStyles={selectedOptionsStyles}
-optionsListStyles={optionsListStyles} />
-/> */}
           <br></br>
           <Button type="submit" variant="outlined" style={{ backgroundColor: '#2699FB', position: 'relative' }} ><b style={{ color: '#fff' }}>Add Vitals</b></Button>
 </form>

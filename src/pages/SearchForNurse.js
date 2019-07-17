@@ -49,6 +49,11 @@ const styles = theme => ({
   selectEmpty: {
     marginTop: theme.spacing.unit * 2,
   },
+  TableCell:{
+    fontSize:15,
+    fontWeight:'bold'
+  }
+
 });
 
 
@@ -195,16 +200,16 @@ class SearchForNurse extends Component {
             <TableBody>
               {this.state.rows.map(row => (
                 <TableRow >
-                  <TableCell component="th" scope="row">
+                  <TableCell className={classes.TableCell} component="th" scope="row">
                     {row.patientname} {row.patientlastname}
                   </TableCell>
                 
-                  <TableCell >{row.fathername}</TableCell>
-                  <TableCell>{row.age}</TableCell>
-                  <TableCell>{row.gender}</TableCell>
-                  <TableCell>{row.telephone1}</TableCell>
-                  <TableCell>{row.telephone2}</TableCell>
-                  <TableCell>{row.mr_no}</TableCell>
+                  <TableCell className={classes.TableCell} >{row.fathername}</TableCell>
+                  <TableCell className={classes.TableCell}>{row.age}</TableCell>
+                  <TableCell className={classes.TableCell}>{row.gender}</TableCell>
+                  <TableCell className={classes.TableCell}>{row.telephone1}</TableCell>
+                  <TableCell className={classes.TableCell}>{row.telephone2}</TableCell>
+                  <TableCell className={classes.TableCell}>{row.mr_no}</TableCell>
 
                   <TableCell>
 

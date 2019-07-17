@@ -92,6 +92,10 @@ const styles = theme => ({
   pos: {
     marginBottom: 12,
   },
+  TableCell:{
+    fontSize:15,
+    fontWeight:'bold'
+  }
 
 
 });
@@ -534,13 +538,13 @@ console.log('id',this.state.patientid)
             {this.state.rows.map(row => (
               <TableRow key={row.id}>
 
-                <TableCell >{row.datetimes}</TableCell>
-                <TableCell >{row.bloodpressure}</TableCell>
-                <TableCell >{row.height}</TableCell>
-                <TableCell >{row.po2}</TableCell>
-                <TableCell >{row.pulse}</TableCell>
-                <TableCell >{row.weight}</TableCell>
-                <TableCell >{row.allergie}</TableCell>
+                <TableCell className={classes.TableCell} >{row.datetimes}</TableCell>
+                <TableCell className={classes.TableCell} >{row.bloodpressure}</TableCell>
+                <TableCell className={classes.TableCell}>{row.height}</TableCell>
+                <TableCell className={classes.TableCell}>{row.po2}</TableCell>
+                <TableCell className={classes.TableCell}>{row.pulse}</TableCell>
+                <TableCell className={classes.TableCell}>{row.weight}</TableCell>
+                <TableCell className={classes.TableCell}>{row.allergie}</TableCell>
 
                 <TableCell > {row.diagnosis}</TableCell>
                <TableCell>

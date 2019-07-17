@@ -80,6 +80,10 @@ root: {
   marginRight: theme.spacing.unit*13,
 
 },
+TableCell:{
+  fontSize:15,
+  fontWeight:'bold'
+}
   
 
 
@@ -363,30 +367,30 @@ class EditVitals extends Component {
           <TableBody>
             {this.state.rows.map((row, index) => (
               <TableRow key={row.id} onClick={this.editVitals.bind(this, row)}>
-                <TableCell>
+                <TableCell className={classes.TableCell}>
 
 
                   {row.height}</TableCell>
-                <TableCell>
+                <TableCell className={classes.TableCell}>
                   {row.bloodpressure}
                 </TableCell>
 
-                <TableCell >
+                <TableCell className={classes.TableCell} >
                   {row.po2}
                 </TableCell>
-                <TableCell >
+                <TableCell className={classes.TableCell} >
                   {row.pulse}
                 </TableCell>
 
-                <TableCell>
+                <TableCell className={classes.TableCell}>
                   {row.weight}
                 </TableCell>
-                <TableCell>
+                <TableCell className={classes.TableCell}>
                   {row.datetimes}
                 </TableCell>
-                <TableCell >{row.allergie}</TableCell>
+                <TableCell className={classes.TableCell} >{row.allergie}</TableCell>
 
-                <TableCell >
+                <TableCell className={classes.TableCell} >
                   <Button variant="outlined" style={{ backgroundColor: '#2699FB', }} onClick={() => { this.handleClickOpen(row) }} ><b style={{ color: '#fff' }}>Edit Vitals</b></Button>
                 </TableCell>
 
